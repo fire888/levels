@@ -1,7 +1,9 @@
 import './assets/start-img.png'
 import './assets/progress-img.png'
 
-import map from './assets/map-walls.jpg'
+import mapDiff from './assets/map-walls-diff.png'
+import mapBump from './assets/map-walls-bump.png'
+
 import pxjpg from './assets/skybox/px.jpg'
 import nxjpg from './assets/skybox/nx.jpg'
 import pyjpg from './assets/skybox/py.jpg'
@@ -12,6 +14,8 @@ import nzjpg from './assets/skybox/nz.jpg'
 import levelSrc from './assets/level.obj'
 import levelRoomsSrc from './assets/level-rooms.obj'
 //import terminalSrc from './assets/terminal.glb'
+
+import botSrc from './assets/bot.obj'
 
 
 
@@ -24,6 +28,10 @@ export const ASSETS_TO_LOAD = [{
         filename: levelRoomsSrc,
         key: 'level-rooms'
     }, {
+        type: 'obj',
+        filename: botSrc,
+        key: 'bot'
+    }, {
     //    type: 'glb',
     //    filename: terminalSrc,
     //    key: 'terminal'
@@ -33,8 +41,12 @@ export const ASSETS_TO_LOAD = [{
         key: 'skyBox'
     }, {
         type: 'img',
-        filename: map,
-        key: 'mapWalls'
+        filename: mapDiff,
+        key: 'mapWalls',
+    }, {
+        type: 'img',
+        filename: mapBump,
+        key: 'bumpWalls',
 },]
 
 
@@ -43,19 +55,21 @@ const PI = Math.PI
 const R = 100
 
 
+const BACK_COLOR = 0x8805a8
+
 export const studioConfig = {
     canId: 'webgl-canvas',
     rendererCon: {
         antialias: true
     },
-    clearColor: 0x0e2535,
-    backgroundColor: 0x222024,
+    clearColor: BACK_COLOR,
+    backgroundColor: BACK_COLOR,
     fogData: {
-        color: 0x0e2535,
+        color: BACK_COLOR,
         strength: 0.01,
     },
     amb: {
-        color: 0xffffff,
+        color: BACK_COLOR,
         strength: 0.8,
     },
 }
@@ -71,18 +85,17 @@ export const playerConfig = {
     offsetWallCollision: 3.5,
     level: -13,
     startRot: [0, 0, 0],
-    startPos: [40, 8, -30],
+    startPos: [40, 23, 30],
     cameraData: {
         fov: 90,
         ratio: window.innerWidth / window.innerHeight,
         near: 0.1,
         far: 1000,
         pos: [0, 2, -0.5],
-        // pos: [0, 40, -0.5],
     },
     frontObjPos: [0, 0, -1],
     lightDataOne: {
-        color: 0x00FF00,
+        color: 0xc2d4f3,
         strength: 0.5,
         pos: [0, 100, 0],
     },

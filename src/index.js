@@ -18,6 +18,7 @@ import { addItemToNearChecker } from './component_checkNearItem'
 import { showStartButton } from './systemHtml_intro'
 import { createInfo } from './systemHtml_info'
 import { createLevel } from './system_level'
+import { createSystemBots } from './system_bots'
 
 
 
@@ -31,29 +32,23 @@ const init = assets => {
 
     const studio = createStudio(emitter, assets)
 
-    //console.log(rooms)
-    //studio.addToScene(levelGroup)
-    //arrMeshes.forEach(item => {
-    //    setItemToWallCollision(item)
-    //    setItemToFloorsCollision(item)
-    //})
-
-
     /** player */
     new KeyBoard(emitter)
     const player = createPlayer(emitter)
     studio.setCamera(player.getCamera())
     studio.addToScene(player.getObj())
 
+    /** bots */
+    const systemBots = createSystemBots(assets.bot, emitter)
+    studio.addToScene(systemBots.groupBots)
+
     /** level */
     const { arrMeshes, levelGroup, rooms } = prepareMeshesFromAssets(assets)
     const { arrRooms, group } = createLevel(emitter, rooms, player.getObj().position)
-    //arrRooms.forEach(item => {
-        //setItemToWallCollision(item)
-        //setItemToFloorsCollision(item)
-    //})
     studio.addToScene(group)
 
+
+    /** UI */
     createInfo(emitter)
     showStartButton(emitter)
 }

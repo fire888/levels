@@ -15,7 +15,7 @@ export function createStudio (emitter, assets) {
     renderer.setSize(window.innerWidth, window.innerHeight)
 
     const scene = new THREE.Scene()
-    scene.background = assets.skyBox
+    //scene.background = assets.skyBox
 
     {
         const { color, strength } = fogData

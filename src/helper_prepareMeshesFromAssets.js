@@ -14,6 +14,7 @@ export function prepareMeshesFromAssets (assets) {
         if (child.name.includes("room_")) {
             const mesh = new THREE.Mesh(child.geometry, materials.matWall)
             rooms[child.name] = mesh
+            mesh.name = child.name
         }
     })
 
@@ -45,8 +46,11 @@ const createMaterials = assets => {
     }
 
     mats.matWall = new THREE.MeshPhongMaterial({
-        map: assets.mapWalls,
-    })    
+        //wireframe: true,
+        //map: assets.mapWalls,
+        //bumpScale: assets.bumpWalls,
+        //bumpScale: 0.2,
+    })
     return mats
 }
 
