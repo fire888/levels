@@ -94,10 +94,10 @@ export function createLevel (emitter, rooms, playerPos) {
 
     const kv = checkerKvadrant.currentKvadrant
     createRoom(kv, 'room_01')
-    createRoom([kv[0]-1, kv[1], kv[2]])
-    createRoom([kv[0]+1, kv[1], kv[2]])
-    createRoom([kv[0], kv[1], kv[2]-1])
-    createRoom([kv[0], kv[1], kv[2]+1])
+    createRoom([kv[0]-1, kv[1], kv[2]], 'room_01')
+    createRoom([kv[0]+1, kv[1], kv[2]], 'room_01')
+    createRoom([kv[0], kv[1], kv[2]-1], 'room_01')
+    createRoom([kv[0], kv[1], kv[2]+1], 'room_01') 
 
 
     emitter.subscribe('playerMove')(pos => {
@@ -109,7 +109,7 @@ export function createLevel (emitter, rooms, playerPos) {
 
         // move west 
         if (curKv[0] < oldKv[0]) {
-            console.log('----------- west')
+            //console.log('----------- west')
             // remove east
             removeRoom([oldKv[0] + 1, oldKv[1], oldKv[2]])
 
@@ -132,7 +132,7 @@ export function createLevel (emitter, rooms, playerPos) {
 
         // move east
         if (curKv[0] > oldKv[0]) {
-            console.log('----------- east')
+            //console.log('----------- east')
             // remove west
             removeRoom([oldKv[0] - 1, oldKv[1], oldKv[2]])
 
@@ -156,7 +156,7 @@ export function createLevel (emitter, rooms, playerPos) {
 
         // move north
         if (curKv[2] < oldKv[2]) {
-            console.log('-----------north')
+            //console.log('-----------north')
             // remove south
             removeRoom([oldKv[0], oldKv[1], oldKv[2] + 1])
 
@@ -180,7 +180,7 @@ export function createLevel (emitter, rooms, playerPos) {
 
         // move south
         if (curKv[2] > oldKv[2]) {
-            console.log('-----------south')
+            //console.log('-----------south')
             // remove north
             removeRoom([oldKv[0], oldKv[1], oldKv[2] - 1])
 
@@ -203,7 +203,7 @@ export function createLevel (emitter, rooms, playerPos) {
 
         // move top
         if (curKv[1] > oldKv[1] || curKv[1] < oldKv[1]) {
-            console.log('-----------top')
+            // console.log('-----------top')
             // remove north
             removeRoom([oldKv[0], oldKv[1], oldKv[2] - 1])
             // create north
@@ -222,12 +222,12 @@ export function createLevel (emitter, rooms, playerPos) {
             createRoom([curKv[0] + 1, curKv[1], curKv[2]])
         }
 
-        let count = 0
-        for (let key in objRooms) {
-            console.log(key)
-            count ++
-        }
-        console.log('-------------------', count)
+        //let count = 0
+        //for (let key in objRooms) {
+        //    console.log(key)
+        //    count ++
+        //}
+        //console.log('-------------------', count)
     })
 
     return {

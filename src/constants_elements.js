@@ -11,11 +11,22 @@ import nyjpg from './assets/skybox/ny.jpg'
 import pzjpg from './assets/skybox/pz.jpg'
 import nzjpg from './assets/skybox/nz.jpg'
 
+import pxjpg2 from './assets/matIronBox/posx.jpg'
+import nxjpg2 from './assets/matIronBox/negx.jpg'
+import pyjpg2 from './assets/matIronBox/posy.jpg'
+import nyjpg2 from './assets/matIronBox/negy.jpg'
+import pzjpg2 from './assets/matIronBox/posz.jpg'
+import nzjpg2 from './assets/matIronBox/negz.jpg'
+
+import botMapBump from './assets/botMapBump.png'
+import botMap from './assets/botMap.png'
+
 import levelSrc from './assets/level.obj'
 import levelRoomsSrc from './assets/level-rooms.obj'
 //import terminalSrc from './assets/terminal.glb'
 
-import botSrc from './assets/bot.obj'
+//import botSrc from './assets/bot.obj'
+import botSrc from './assets/botAnim.glb'
 
 
 
@@ -28,7 +39,11 @@ export const ASSETS_TO_LOAD = [{
         filename: levelRoomsSrc,
         key: 'level-rooms'
     }, {
-        type: 'obj',
+    //    type: 'obj',
+    //    filename: botSrc,
+    //    key: 'bot'
+    //}, {
+        type: 'glb',
         filename: botSrc,
         key: 'bot'
     }, {
@@ -39,6 +54,18 @@ export const ASSETS_TO_LOAD = [{
         type: 'cubeTextures',
         filename: { px: pxjpg, nx: nxjpg, py: pyjpg, ny: nyjpg, pz: pzjpg, nz: nzjpg, },
         key: 'skyBox'
+    }, {
+        type: 'cubeTextures',
+        filename: { px: pxjpg2, nx: nxjpg2, py: pyjpg2, ny: nyjpg2, pz: pzjpg2, nz: nzjpg2, },
+        key: 'ironEnv',
+    }, {
+        type: 'img',
+        filename: botMapBump,
+        key: 'botMapBump',
+    }, {
+        type: 'img',
+        filename: botMap,
+        key: 'botMap',
     }, {
         type: 'img',
         filename: mapDiff,
@@ -85,7 +112,7 @@ export const playerConfig = {
     offsetWallCollision: 3.5,
     level: -13,
     startRot: [0, 0, 0],
-    startPos: [40, 23, 30],
+    startPos: [40, 23, 100],
     cameraData: {
         fov: 90,
         ratio: window.innerWidth / window.innerHeight,

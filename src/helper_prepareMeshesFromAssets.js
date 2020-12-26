@@ -46,7 +46,7 @@ const createMaterials = assets => {
     }
 
     mats.matWall = new THREE.MeshPhongMaterial({
-        //wireframe: true,
+        // wireframe: true,
         //map: assets.mapWalls,
         //bumpScale: assets.bumpWalls,
         //bumpScale: 0.2,

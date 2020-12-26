@@ -39,7 +39,7 @@ const init = assets => {
     studio.addToScene(player.getObj())
 
     /** bots */
-    const systemBots = createSystemBots(assets.bot, emitter)
+    const systemBots = createSystemBots(assets, emitter)
     studio.addToScene(systemBots.groupBots)
 
     /** level */
