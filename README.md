@@ -11,7 +11,7 @@ About
 3d Quest.  
   
   
-![pic](https://raw.githubusercontent.com/fire888/webgl2_teach/master/src/assets/start-img.png)
+![pic](https://raw.githubusercontent.com/fire888/levels/master/src/assets/start-img.png)
 
 Play
 ------------ 
