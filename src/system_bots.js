@@ -3,7 +3,7 @@ import * as THREE from 'three'
 const S = 175.335
 const H = 70
 //const H_BOT = 14.193
-const H_BOT = 13
+const H_BOT = 16
 
 export const createSystemBots = (assets, emitter) => {
 
@@ -19,36 +19,27 @@ export const createSystemBots = (assets, emitter) => {
         map: assets.botMap,
         skinning: true,
     });
-    //assets.bot.children[0].material = matIron
-
-    console.log(assets.bot)
-
 
     const obj = assets.bot.scene.children[0]
     const m  = obj.children[1] 
     m.material = matIron
-
-    console.log(obj)
     
     const animations = assets.bot.animations
     const mixer = new THREE.AnimationMixer(m)
     const walkAction = mixer.clipAction(animations[0])
-    //mixer.timeScale = 2
     walkAction.play()
 
     emitter.subscribe('frameUpdate')(data => {
-        //console.log(data.delta)
        mixer.update(data.delta)
-       obj.position.z += 0.08
+       obj.position.z += 0.05
     })
 
-    //m.material = matIron
 
 
     const objBots = {}
     const groupBots = new THREE.Group()
 
-    obj.position.set(45, H_BOT, 40)
+    obj.position.set(45, H_BOT, 0)
     groupBots.add(obj)
 
     
