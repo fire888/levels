@@ -57,3 +57,29 @@ const init = assets => {
 
 window.addEventListener('load', () => loadAssets(ASSETS_TO_LOAD).then(init))
 
+
+
+
+
+
+const memoize = (f) => {
+    const cache = {};
+  
+    return (...args) => {
+      const argStr = JSON.stringify(args);
+      cache[argStr] = cache[argStr] || f(...args);
+
+      console.log(argStr)
+      console.log(cache)
+      return cache[argStr];
+    };
+};
+
+
+const add = memoize((a, b) => () => a + b)
+
+const a = add(2, 3) 
+const b = add(3, 3) 
+const c = add(4, 3) 
+console.log('!!', a, b, c)
+

@@ -6,11 +6,11 @@ export function prepareMeshesFromAssets (assets) {
 
     const
         arrMeshes = [],
-        levelGroup = new THREE.Group(),
         materials = createMaterials(assets),
         rooms = {}
 
     assets['level-rooms'].traverse(child => {
+        console.log(child.name)
         if (child.name.includes("room_")) {
             const mesh = new THREE.Mesh(child.geometry, materials.matWall)
             rooms[child.name] = mesh
@@ -18,20 +18,8 @@ export function prepareMeshesFromAssets (assets) {
         }
     })
 
-    assets['level'].traverse(child => {
-        if (child.name.includes("room_")) {
-            const mesh = new THREE.Mesh(child.geometry, materials.matWall)
-            levelGroup.add(mesh)
-            arrMeshes.push(mesh)
-        }
-    })
-
-
-
-
     return {
         arrMeshes,
-        levelGroup,
         materials,
         rooms,
     }

@@ -30,27 +30,16 @@ import botSrc from './assets/botAnim.glb'
 
 
 
-export const ASSETS_TO_LOAD = [{
-        type: 'obj',
-        filename: levelSrc,
-        key: 'level'
-    }, {
+export const ASSETS_TO_LOAD = [
+    {
         type: 'obj',
         filename: levelRoomsSrc,
         key: 'level-rooms'
     }, {
-    //    type: 'obj',
-    //    filename: botSrc,
-    //    key: 'bot'
-    //}, {
         type: 'glb',
         filename: botSrc,
         key: 'bot'
     }, {
-    //    type: 'glb',
-    //    filename: terminalSrc,
-    //    key: 'terminal'
-    //}, {
         type: 'cubeTextures',
         filename: { px: pxjpg, nx: nxjpg, py: pyjpg, ny: nyjpg, pz: pzjpg, nz: nzjpg, },
         key: 'skyBox'
