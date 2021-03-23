@@ -101,7 +101,8 @@ export const playerConfig = {
     offsetWallCollision: 3.5,
     level: -13,
     startRot: [0, 0, 0],
-    startPos: [40, 23, 100],
+    // startPos: [40, 23, 100],
+    startPos: [-500.7147858316392, 23, 63],
     cameraData: {
         fov: 90,
         ratio: window.innerWidth / window.innerHeight,

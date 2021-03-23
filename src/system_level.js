@@ -93,11 +93,22 @@ export function createLevel (emitter, rooms, playerPos) {
 
 
     const kv = checkerKvadrant.currentKvadrant
-    createRoom(kv, 'room_01')
-    createRoom([kv[0]-1, kv[1], kv[2]], 'room_01')
-    createRoom([kv[0]+1, kv[1], kv[2]], 'room_01')
-    createRoom([kv[0], kv[1], kv[2]-1], 'room_01')
-    createRoom([kv[0], kv[1], kv[2]+1], 'room_01') 
+    // createRoom(kv, 'room_01')
+    // createRoom([kv[0]-1, kv[1], kv[2]], 'room_01')
+    // createRoom([kv[0]+1, kv[1], kv[2]], 'room_01')
+    // createRoom([kv[0], kv[1], kv[2]-1], 'room_01')
+    // createRoom([kv[0], kv[1], kv[2]+1], 'room_01')
+
+
+    const mesh = rooms['mainLevel'].clone()
+    setItemToFloorsCollision(mesh)
+    setItemToWallCollision(mesh)
+    group.add(mesh)
+    mesh.position.set(0, -1 * H, 0)
+
+
+
+
 
 
     emitter.subscribe('playerMove')(pos => {

@@ -75,6 +75,7 @@ export function createPlayer (emitterLink) {
             if (checkWalls.check()) return;
 
             mainObj.translateZ(-speed * data.count)
+            console.log(mainObj.position.x, mainObj.position.z)
             checkNearItem()
             emitter.emit('playerMove')(mainObj.position)
         }

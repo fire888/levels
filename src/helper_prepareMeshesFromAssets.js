@@ -11,7 +11,12 @@ export function prepareMeshesFromAssets (assets) {
 
     assets['level-rooms'].traverse(child => {
         console.log(child.name)
-        if (child.name.includes("room_")) {
+        // if (child.name.includes("room_")) {
+        //     const mesh = new THREE.Mesh(child.geometry, materials.matWall)
+        //     rooms[child.name] = mesh
+        //     mesh.name = child.name
+        // }
+        if (child.name.includes("mainLevel")) {
             const mesh = new THREE.Mesh(child.geometry, materials.matWall)
             rooms[child.name] = mesh
             mesh.name = child.name
