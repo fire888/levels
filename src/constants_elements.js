@@ -82,7 +82,8 @@ export const studioConfig = {
     backgroundColor: BACK_COLOR,
     fogData: {
         color: BACK_COLOR,
-        strength: 0.01,
+        //strength: 0.01,
+        strength: 0.005,
     },
     amb: {
         color: BACK_COLOR,
@@ -101,7 +102,7 @@ export const playerConfig = {
     offsetWallCollision: 3.5,
     level: -13,
     startRot: [0, 0, 0],
-    startPos: [100, 23, 1000],
+    startPos: [100, -80, 1000],
     //startPos: [-500.7147858316392, 23, 63],
     cameraData: {
         fov: 90,
