@@ -30,7 +30,7 @@ export function createPlayer (emitterLink) {
     let camera
     let keys = {}
     let isButtonsDisabled = false
-  
+    let isBlocked = true
 
     const mainObj = new THREE.Object3D()
     mainObj.position.fromArray(startPos)
@@ -67,6 +67,8 @@ export function createPlayer (emitterLink) {
 
     const update = data => {
         if (isButtonsDisabled) return;
+        if (isBlocked) return;
+
         checkFloors.check(data)
 
         if (!keys) return;
@@ -75,7 +77,7 @@ export function createPlayer (emitterLink) {
             if (checkWalls.check()) return;
 
             mainObj.translateZ(-speed * data.count)
-            console.log(mainObj.position.x, mainObj.position.z,  mainObj.position.y)
+            //console.log(mainObj.position.x, mainObj.position.z,  mainObj.position.y)
             checkNearItem()
             emitter.emit('playerMove')(mainObj.position)
         }
@@ -90,6 +92,10 @@ export function createPlayer (emitterLink) {
 
 
     return {
+        start: () => { 
+            isBlocked = false
+            checkFloors.start()
+        },
         getObj: () => mainObj,
         getCamera: () => camera,
         setToPos: (x, y, z) => mainObj.position.set(x, y, z)

@@ -17,7 +17,7 @@ import { setItemToWallCollision } from './component_collisionWalls'
 import { addItemToNearChecker } from './component_checkNearItem'
 import { showStartButton } from './systemHtml_intro'
 import { createInfo } from './systemHtml_info'
-import { createLevel } from './system_level'
+import { createLevel } from './systemLevel/system_level'
 import { createSystemBots } from './system_bots'
 
 
@@ -46,6 +46,8 @@ const init = assets => {
     const { arrMeshes, levelGroup, rooms } = prepareMeshesFromAssets(assets)
     const { arrRooms, group } = createLevel(emitter, rooms, player.getObj().position)
     studio.addToScene(group)
+    
+    setTimeout(() => player.start(), 500);
 
 
     /** UI */
@@ -56,30 +58,3 @@ const init = assets => {
 
 
 window.addEventListener('load', () => loadAssets(ASSETS_TO_LOAD).then(init))
-
-
-
-
-
-
-// const memoize = (f) => {
-//     const cache = {};
-//
-//     return (...args) => {
-//       const argStr = JSON.stringify(args);
-//       cache[argStr] = cache[argStr] || f(...args);
-//
-//       console.log(argStr)
-//       console.log(cache)
-//       return cache[argStr];
-//     };
-// };
-//
-//
-// const add = memoize((a, b) => () => a + b)
-//
-// const a = add(2, 3)
-// const b = add(3, 3)
-// const c = add(4, 3)
-// console.log('!!', a, b, c)
-

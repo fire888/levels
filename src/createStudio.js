@@ -46,6 +46,12 @@ export function createStudio (emitter, assets) {
 
     const drawFrame = () => camera && renderer.render(scene, camera)
     emitter.subscribe('frameUpdate')(drawFrame)
+    emitter.subscribe('changeEnviroment')(val => {
+        if (val === 'toInner') {
+            console.log('hangeEnviroment')
+            scene.fog.density = 0.01
+        } 
+    })
 
     return {
         setCamera: cam => camera = cam,

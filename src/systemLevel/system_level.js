@@ -1,15 +1,15 @@
 import {
     setItemToFloorsCollision,
     removeItemFromFloorsCollision, 
-} from './component_collisionFloor'
+} from '../component_collisionFloor'
 import {
     setItemToWallCollision,
     removeItemFromWallCollision,
-} from './component_collisionWalls'
+} from '../component_collisionWalls'
 import * as THREE from 'three'
 
 
-
+let eventEmitter = null
 const S = 175.335
 const H = 70
 
@@ -17,11 +17,13 @@ const H = 70
 
 export function createLevel (emitter, rooms, playerPos) {
 
+    eventEmitter = emitter
+
     let countModels = 0
     for (let key in rooms) {
         countModels ++
     }
-    countModels --
+    countModels -= 2
 
     const group = new THREE.Group()
     const objRooms = {}
@@ -33,11 +35,7 @@ export function createLevel (emitter, rooms, playerPos) {
         const objKey = `r_${kv[0]}_${kv[1]}_${kv[2]}` 
 
         const mesh = rooms[instanceKey].clone()
-        mesh.position.set(
-            kv[0] * S, 
-            kv[1] * H, 
-            kv[2] * S,
-        )
+        mesh.position.set(kv[0] * S, kv[1] * H, kv[2] * S)
         setItemToFloorsCollision(mesh)
         setItemToWallCollision(mesh)
         group.add(mesh)
@@ -46,8 +44,7 @@ export function createLevel (emitter, rooms, playerPos) {
 
         const geometry = mesh.geometry
         const wireframe = new THREE.WireframeGeometry( geometry );
-        const line = new THREE.LineSegments( wireframe );
-        //line.material.depthTest = false; 
+        const line = new THREE.LineSegments( wireframe ); 
         line.material.color = { r: 0.5, g: 0.1, b: 0.9}
         line.material.linewidth = 50
         line.material.opacity = 0.5;
@@ -91,20 +88,17 @@ export function createLevel (emitter, rooms, playerPos) {
     }
 
 
-
-    const kv = checkerKvadrant.currentKvadrant
-    // createRoom(kv, 'room_01')
-    // createRoom([kv[0]-1, kv[1], kv[2]], 'room_01')
-    // createRoom([kv[0]+1, kv[1], kv[2]], 'room_01')
-    // createRoom([kv[0], kv[1], kv[2]-1], 'room_01')
-    // createRoom([kv[0], kv[1], kv[2]+1], 'room_01')
+    createRoom([0, -1, 0], 'room_02')
+    createRoom([0, -1, -1], 'room_02')
+    createRoom([-1, -1, 0], 'room_02')
+    createRoom([1, -1, 0], 'room_02')
 
 
-    const mesh = rooms['mainLevel'].clone()
-    setItemToFloorsCollision(mesh)
-    setItemToWallCollision(mesh)
-    group.add(mesh)
-    mesh.position.set(0, -1 * H, 0)
+    const startLevel = rooms['mainLevel'].clone()
+    setItemToFloorsCollision(startLevel)
+    setItemToWallCollision(startLevel)
+    group.add(startLevel)
+    startLevel.position.set(0, -1 * H, 0)
 
 
 
@@ -113,14 +107,27 @@ export function createLevel (emitter, rooms, playerPos) {
 
     emitter.subscribe('playerMove')(pos => {
         const data = checkerKvadrant.update(pos)
-        if (!data.isChanged) return;
+        const { currentKvadrant, oldKvadrant, isChanged } = data
 
-        const curKv = data.currentKvadrant
-        const oldKv = data.oldKvadrant
+        if (!isChanged) return;
 
+        console.log('playerPos', pos)
+        const levelState = getLevelStateByChangeKvadrant(oldKvadrant, currentKvadrant)
+        if (levelState === 'startLevel') return; 
+        if (levelState === 'startPlayLevel') return;
+        if (levelState === 'removeStartLevel') {
+            group.remove(startLevel)
+            removeItemFromFloorsCollision(startLevel)
+            removeItemFromWallCollision(startLevel)
+        }
+
+            
+        const oldKv = oldKvadrant, curKv = currentKvadrant
+
+        console.log('update', curKv, oldKv)
         // move west 
         if (curKv[0] < oldKv[0]) {
-            //console.log('----------- west')
+            console.log('----------- west')
             // remove east
             removeRoom([oldKv[0] + 1, oldKv[1], oldKv[2]])
 
@@ -143,7 +150,7 @@ export function createLevel (emitter, rooms, playerPos) {
 
         // move east
         if (curKv[0] > oldKv[0]) {
-            //console.log('----------- east')
+            console.log('----------- east')
             // remove west
             removeRoom([oldKv[0] - 1, oldKv[1], oldKv[2]])
 
@@ -167,7 +174,7 @@ export function createLevel (emitter, rooms, playerPos) {
 
         // move north
         if (curKv[2] < oldKv[2]) {
-            //console.log('-----------north')
+            console.log('-----------north')
             // remove south
             removeRoom([oldKv[0], oldKv[1], oldKv[2] + 1])
 
@@ -191,7 +198,7 @@ export function createLevel (emitter, rooms, playerPos) {
 
         // move south
         if (curKv[2] > oldKv[2]) {
-            //console.log('-----------south')
+            console.log('-----------south')
             // remove north
             removeRoom([oldKv[0], oldKv[1], oldKv[2] - 1])
 
@@ -214,7 +221,7 @@ export function createLevel (emitter, rooms, playerPos) {
 
         // move top
         if (curKv[1] > oldKv[1] || curKv[1] < oldKv[1]) {
-            // console.log('-----------top')
+            console.log('-----------top')
             // remove north
             removeRoom([oldKv[0], oldKv[1], oldKv[2] - 1])
             // create north
@@ -232,13 +239,6 @@ export function createLevel (emitter, rooms, playerPos) {
             // create right
             createRoom([curKv[0] + 1, curKv[1], curKv[2]])
         }
-
-        //let count = 0
-        //for (let key in objRooms) {
-        //    console.log(key)
-        //    count ++
-        //}
-        //console.log('-------------------', count)
     })
 
     return {
@@ -249,8 +249,8 @@ export function createLevel (emitter, rooms, playerPos) {
 
 
 const createCheckerKvadrant = function (pos) {
-    const oldKvadrant = [Math.floor(pos.x / S), Math.floor(pos.y / S), Math.floor(pos.z / S)]
-    const currentKvadrant = [Math.floor(pos.x / S), Math.floor(pos.y / S), Math.floor(pos.z / S)]
+    let oldKvadrant = [Math.floor(pos.x / S), Math.floor(pos.y / S), Math.floor(pos.z / S)]
+    const currentKvadrant = [...oldKvadrant]
 
     return {
         update (pos) {
@@ -264,18 +264,41 @@ const createCheckerKvadrant = function (pos) {
                 currentKvadrant[1] !== oldKvadrant[1] ||
                 currentKvadrant[2] !== oldKvadrant[2]
             ) {
+                console.log('!!-change', oldKvadrant, currentKvadrant)
                 returnData.currentKvadrant = [currentKvadrant[0], currentKvadrant[1], currentKvadrant[2]]
                 returnData.oldKvadrant = [oldKvadrant[0], oldKvadrant[1], oldKvadrant[2]]
                 returnData.isChanged = true
 
-
-                oldKvadrant[0] = currentKvadrant[0]
-                oldKvadrant[1] = currentKvadrant[1] 
-                oldKvadrant[2] = currentKvadrant[2]
+                oldKvadrant = [...currentKvadrant]
             }
 
             return returnData
         },
         currentKvadrant, 
     }
+}
+
+
+
+let currentLevelState = 'startLevel' // || 'startPlayLevel' || 'playLevel'
+const getLevelStateByChangeKvadrant = (oldKv, newKv) => {
+    if (currentLevelState === 'startLevel') {
+        if (
+            oldKv[0] === 0 && oldKv[1] === -1 && oldKv[2] === 2 &&
+            newKv[0] === 0 && newKv[1] === -1 && newKv[2] === 1
+        ) { 
+            currentLevelState = 'startPlayLevel'
+            eventEmitter.emit('changeEnviroment')('toInner')
+        }
+    } else if (currentLevelState === 'startPlayLevel') {
+        if (
+            oldKv[0] === 0 && oldKv[1] === -1 && oldKv[2] === 0 &&
+            newKv[2] !== -1      
+        ) {
+            currentLevelState = 'removeStartLevel'
+        }
+    } else if (currentLevelState === 'removeStartLevel') {
+        currentLevelState = 'playLevel'
+    }
+    return currentLevelState
 }

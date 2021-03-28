@@ -15,8 +15,12 @@ export const createComponentCollisionFloors = (objFromLink, offset, delta, speed
     const vec3Src = new THREE.Vector3()
     const vec3Ray = new THREE.Vector3(0, -1, 0)
 
+    let isDisable = true
+
     return {
         check: updateData => {
+            if (isDisable) return;
+
             vec3Src.copy(objFrom.position)
             const raycasterDown = new THREE.Raycaster(vec3Src, vec3Ray)
             const intersectsFloor = raycasterDown.intersectObjects(FLOORS_ARRAY)
@@ -29,6 +33,9 @@ export const createComponentCollisionFloors = (objFromLink, offset, delta, speed
                 return;
             } 
             objFrom.position.y = intersectsFloor[0].point.y + offsetFromFloor
+        },
+        start: () => {
+            isDisable = false
         }
     }
 
