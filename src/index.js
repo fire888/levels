@@ -28,9 +28,6 @@ import { FRAME_UPDATE } from './constants_elements'
 createDeviceResizer()
 
 
-console.log(TWEEN)
-
-
 const init = assets => {
     const emitter = createEmitter()
     createFrameUpdater(emitter)
@@ -53,7 +50,7 @@ const init = assets => {
     const { arrRooms, group } = createLevel(emitter, rooms, player.getObj().position)
     studio.addToScene(group)
     
-    setTimeout(() => player.start(), 500);
+    setTimeout(() => player.start(), 500)
 
 
     /** UI */

@@ -278,7 +278,7 @@ const createCheckerKvadrant = function (pos) {
 }
 
 
-
+let oldFloor = 1
 let currentLevelState = 'startLevel' // || 'startPlayLevel' || 'playLevel'
 const getLevelStateByChangeKvadrant = (oldKv, newKv) => {
     if (currentLevelState === 'startLevel') {
@@ -290,7 +290,6 @@ const getLevelStateByChangeKvadrant = (oldKv, newKv) => {
             eventEmitter.emit('changeEnviroment')('toInner')
         }
     } else if (currentLevelState === 'startPlayLevel') {
-        console.log('!!!!!!!!!!!!!!!!!!!!!')
         if (
             oldKv[0] === 0 && oldKv[1] === -1 && oldKv[2] === 1 &&
             newKv[0] === 0 && newKv[1] === -1 && newKv[2] === 2
@@ -302,12 +301,15 @@ const getLevelStateByChangeKvadrant = (oldKv, newKv) => {
 
         if (
             oldKv[0] === 0 && oldKv[1] === -1 && oldKv[2] === 0 &&
-            newKv[2] !== -1      
+            newKv[2] !== 1      
         ) {
             currentLevelState = 'removeStartLevel'
         }
     } else if (currentLevelState === 'removeStartLevel') {
         currentLevelState = 'playLevel'
+    } else if (oldFloor !== newKv[1]) {
+        eventEmitter.emit('changeEnviroment')('toOuter', newKv[1])
+        oldFloor = newKv[1] 
     }
     return currentLevelState
 }
