@@ -6,6 +6,8 @@ import { createComponentCollisionFloors } from './component_collisionFloor'
 import { createComponentCollisionWalls } from './component_collisionWalls'
 import { createCheckerNearItem } from './component_checkNearItem'
 
+import { FRAME_UPDATE } from './constants_elements'
+
 
 
 export function createPlayer (emitterLink) {
@@ -87,7 +89,7 @@ export function createPlayer (emitterLink) {
 
 
     emitter.subscribe('keyEvent')(data => keys = data)
-    emitter.subscribe('frameUpdate')(update)
+    emitter.subscribe(FRAME_UPDATE)(update)
     emitter.subscribe('toggleDialog')(val => isButtonsDisabled = val.isOpen)
 
 

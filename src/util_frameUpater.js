@@ -1,10 +1,11 @@
 import * as R from 'ramda'
+import { FRAME_UPDATE } from './constants_elements'
 
 
 
 export function createFrameUpdater (eventEmitter) {
 
-    const emitFrameUpdate = eventEmitter.emit('frameUpdate') 
+    const emitFrameUpdate = eventEmitter.emit(FRAME_UPDATE)
 
     let data = {
         time: 0,

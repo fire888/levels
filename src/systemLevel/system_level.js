@@ -264,7 +264,6 @@ const createCheckerKvadrant = function (pos) {
                 currentKvadrant[1] !== oldKvadrant[1] ||
                 currentKvadrant[2] !== oldKvadrant[2]
             ) {
-                console.log('!!-change', oldKvadrant, currentKvadrant)
                 returnData.currentKvadrant = [currentKvadrant[0], currentKvadrant[1], currentKvadrant[2]]
                 returnData.oldKvadrant = [oldKvadrant[0], oldKvadrant[1], oldKvadrant[2]]
                 returnData.isChanged = true
@@ -291,6 +290,16 @@ const getLevelStateByChangeKvadrant = (oldKv, newKv) => {
             eventEmitter.emit('changeEnviroment')('toInner')
         }
     } else if (currentLevelState === 'startPlayLevel') {
+        console.log('!!!!!!!!!!!!!!!!!!!!!')
+        if (
+            oldKv[0] === 0 && oldKv[1] === -1 && oldKv[2] === 1 &&
+            newKv[0] === 0 && newKv[1] === -1 && newKv[2] === 2
+        ) {
+            currentLevelState = 'startLevel'
+            eventEmitter.emit('changeEnviroment')('toOuter')
+        }
+
+
         if (
             oldKv[0] === 0 && oldKv[1] === -1 && oldKv[2] === 0 &&
             newKv[2] !== -1      

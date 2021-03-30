@@ -1,4 +1,6 @@
 import * as THREE from 'three'
+import { FRAME_UPDATE } from './constants_elements'
+
 
 const S = 175.335
 const H = 70
@@ -29,7 +31,7 @@ export const createSystemBots = (assets, emitter) => {
     const walkAction = mixer.clipAction(animations[0])
     walkAction.play()
 
-    emitter.subscribe('frameUpdate')(data => {
+    emitter.subscribe(FRAME_UPDATE)(data => {
        mixer.update(data.delta)
        obj.position.z += 0.05
     })

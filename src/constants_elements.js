@@ -21,13 +21,14 @@ import nzjpg2 from './assets/matIronBox/negz.jpg'
 import botMapBump from './assets/botMapBump.png'
 import botMap from './assets/botMap.png'
 
-import levelSrc from './assets/level.obj'
 import levelRoomsSrc from './assets/level-rooms.obj'
-//import terminalSrc from './assets/terminal.glb'
 
-//import botSrc from './assets/bot.obj'
 import botSrc from './assets/botAnim.glb'
 
+
+
+/** emitter constants */
+export const FRAME_UPDATE = 'FRAME_UPDATE'
 
 
 export const ASSETS_TO_LOAD = [
@@ -70,23 +71,24 @@ export const ASSETS_TO_LOAD = [
 const PI = Math.PI
 const R = 100
 
-
-const BACK_COLOR = 0x8805a8
+export const BACK_COLOR_START = 0x07627c
+export const BACK_COLOR = 0x8805a8
 
 export const studioConfig = {
     canId: 'webgl-canvas',
     rendererCon: {
         antialias: true
     },
-    clearColor: BACK_COLOR,
-    backgroundColor: BACK_COLOR,
+    clearColor: BACK_COLOR_START,
+    backgroundColor: BACK_COLOR_START,
     fogData: {
-        color: BACK_COLOR,
+        color: BACK_COLOR_START,
         //strength: 0.01,
         strength: 0.005,
+        strengthInner: 0.01,
     },
     amb: {
-        color: BACK_COLOR,
+        color: BACK_COLOR_START,
         strength: 0.8,
     },
 }
@@ -102,8 +104,8 @@ export const playerConfig = {
     offsetWallCollision: 3.5,
     level: -13,
     startRot: [0, 0, 0],
-    startPos: [100, -60, 1000],  
-    //startPos: [90, -10, 360.7140705920112], // beginPlay 
+    //startPos: [100, -60, 1000],
+    startPos: [90, -10, 360.7140705920112], // beginPlay
     //startPos: [-500.7147858316392, 23, 63],
     cameraData: {
         fov: 90,

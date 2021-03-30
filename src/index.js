@@ -20,15 +20,21 @@ import { createInfo } from './systemHtml_info'
 import { createLevel } from './systemLevel/system_level'
 import { createSystemBots } from './system_bots'
 
+import * as TWEEN from '@tweenjs/tween.js'
+import { FRAME_UPDATE } from './constants_elements'
+
 
 
 createDeviceResizer()
 
 
+console.log(TWEEN)
+
 
 const init = assets => {
     const emitter = createEmitter()
     createFrameUpdater(emitter)
+    emitter.subscribe(FRAME_UPDATE)(() => TWEEN.update())
 
     const studio = createStudio(emitter, assets)
 

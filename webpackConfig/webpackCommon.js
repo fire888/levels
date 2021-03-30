@@ -36,7 +36,7 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({template: './templates/index.html'}),
 		new webpack.ProvidePlugin({
-			THREE: 'three'
+			THREE: 'three',
 		})
 	]
 };

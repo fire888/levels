@@ -1,5 +1,11 @@
 import * as THREE from 'three'
-import { studioConfig } from './constants_elements'
+import * as TWEEN from '@tweenjs/tween.js'
+import {
+    studioConfig,
+    BACK_COLOR_START,
+    BACK_COLOR,
+} from './constants_elements'
+import { FRAME_UPDATE } from './constants_elements'
 
 
 
@@ -22,9 +28,10 @@ export function createStudio (emitter, assets) {
         scene.fog = new THREE.FogExp2(color, strength)
     }
 
+    let lightA
     {
         const { color, strength } = amb
-        let lightA = new THREE.AmbientLight( color, strength )
+        lightA = new THREE.AmbientLight( color, strength )
         scene.add( lightA )
     }
 
@@ -45,13 +52,44 @@ export function createStudio (emitter, assets) {
     const addToScene = scene.add.bind(scene)
 
     const drawFrame = () => camera && renderer.render(scene, camera)
-    emitter.subscribe('frameUpdate')(drawFrame)
+    emitter.subscribe(FRAME_UPDATE)(drawFrame)
     emitter.subscribe('changeEnviroment')(val => {
+
+        const dataOuter = {
+            color: new THREE.Color(BACK_COLOR_START),
+            str: fogData.strength,
+        }
+        const dataInner = {
+            color: new THREE.Color(BACK_COLOR),
+            str: fogData.strengthInner,
+        }
+
+
+        let startData, endData
+
+
         if (val === 'toInner') {
-            console.log('hangeEnviroment')
-            scene.fog.density = 0.01
-        } 
+            startData = dataOuter
+            endData = dataInner
+        }
+        if (val === 'toOuter') {
+            startData = dataInner
+            endData = dataOuter
+        }
+
+        new TWEEN.Tween(startData)
+            .to(endData, 3000)
+            .onUpdate(() => {
+                scene.fog.color = startData.color
+                scene.fog.density = startData.str
+                lightA.color = startData.color
+                renderer.setClearColor(startData.color)
+
+            })
+            .start()
     })
+
+
 
     return {
         setCamera: cam => camera = cam,
