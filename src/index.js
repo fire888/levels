@@ -1,6 +1,6 @@
 import { createDeviceResizer } from './util_deviceResizer'
 import { KeyBoard } from './util_keyBoard'
-import { createEmitter } from './util_emitter'
+import { emitter } from './util_emitter'
 import { createFrameUpdater } from './util_frameUpater'
 
 import { ASSETS_TO_LOAD } from './constants_elements'
@@ -29,7 +29,6 @@ createDeviceResizer()
 
 
 const init = assets => {
-    const emitter = createEmitter()
     createFrameUpdater(emitter)
     emitter.subscribe(FRAME_UPDATE)(() => TWEEN.update())
 

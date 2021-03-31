@@ -2,8 +2,8 @@ import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
 import {
     studioConfig,
-    BACK_COLOR_START,
-    BACK_COLOR,
+    //FLOORS_COLORS,
+    FLOORS_CONF,
 } from './constants_elements'
 import { FRAME_UPDATE } from './constants_elements'
 
@@ -24,8 +24,8 @@ export function createStudio (emitter, assets) {
     //scene.background = assets.skyBox
 
     {
-        const { color, strength } = fogData
-        scene.fog = new THREE.FogExp2(color, strength)
+        const { color, fogNear, fogFar } = FLOORS_CONF['-1']['custom']
+        scene.fog = new THREE.Fog(color, fogNear, fogFar)
     }
 
     let lightA
@@ -53,35 +53,48 @@ export function createStudio (emitter, assets) {
 
     const drawFrame = () => camera && renderer.render(scene, camera)
     emitter.subscribe(FRAME_UPDATE)(drawFrame)
-    emitter.subscribe('changeEnviroment')(val => {
+    emitter.subscribe('changeEnvironment')(({ mode, floor }) => {
+        console.log('changeEnvironment !!!!!!!', mode, floor)
 
-        const dataOuter = {
-            color: new THREE.Color(BACK_COLOR_START),
-            str: fogData.strength,
+        const { fogNear, fogFar, color } = FLOORS_CONF[floor][mode]
+
+
+        let startData = {
+            color: scene.fog.color,
+            //str: fogData.strength,
         }
-        const dataInner = {
-            color: new THREE.Color(BACK_COLOR),
-            str: fogData.strengthInner,
+        let endData = {
+            color: new THREE.Color(color),
         }
 
+        //
+        // if (mode === 'toInner') {
+        //     startData = dataOuter
+        //     endData = dataInner
+        // }
+        // if (mode === 'toOuter') {
+        //     startData = dataInner
+        //     endData = dataOuter
+        // }
+        // if (mode === 'toUp') {
+        //     startData = {
+        //         ...dataInner,
+        //         color: new THREE.Color(FLOORS_COLORS[level - 1]),
+        //     }
+        //     endData = {
+        //         ...dataInner,
+        //         color: new THREE.Color(FLOORS_COLORS[level]),
+        //     }
+        // }
 
-        let startData, endData
 
-
-        if (val === 'toInner') {
-            startData = dataOuter
-            endData = dataInner
-        }
-        if (val === 'toOuter') {
-            startData = dataInner
-            endData = dataOuter
-        }
+        console.log('floor', startData, endData)
 
         new TWEEN.Tween(startData)
             .to(endData, 3000)
             .onUpdate(() => {
                 scene.fog.color = startData.color
-                scene.fog.density = startData.str
+                //scene.fog.density = startData.str
                 lightA.color = startData.color
                 renderer.setClearColor(startData.color)
 

@@ -67,28 +67,86 @@ export const ASSETS_TO_LOAD = [
 },]
 
 
+/** size element */
+export const S = 175.335
+export const H = 70
 
-const PI = Math.PI
-const R = 100
 
-export const BACK_COLOR_START = 0x07627c
-export const BACK_COLOR = 0x8805a8
+
+
+
+
+export const FLOORS_CONF = {
+    '-1': {
+        'custom': { fogNear: 20, fogFar: 500, color: 0x07627c },
+        'default': { fogNear: 0, fogFar: 80, color: 0x8805a8 },
+    },
+    '0': {
+        'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
+        'default': { fogNear: 0, fogFar: 80, color: 0x312943 },
+    },
+    '1': {
+        'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
+        'default': { fogNear: 0, fogFar: 80, color: 0x1e1a05 },
+    },
+    '2': {
+        'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
+        'default': { fogNear: 0, fogFar: 80, color: 0x0a1763 },
+    },
+    '3': {
+        'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
+        'default': { fogNear: 0, fogFar: 80, color: 0x0a6340 },
+    },
+    '4': {
+        'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
+        'default': { fogNear: 0, fogFar: 80, color: 0xac0000 },
+    },
+}
+
+
+export const START_FLOOR = -1
+export const START_LAYER_STATE = 'startGame'
+export const CHANGE_LAYER_STATE = [
+    {
+        oldState: 'startGame', newState: 'enterCorridor',
+        oldQuadrant: [0, -1, 2], newQuadrant: [0, -1, 1],
+        emitData: { type: 'changeEnvironment' }
+    }, {
+        oldState: 'enterCorridor', newState: 'startGame',
+        oldQuadrant: [0, -1, 1], newQuadrant: [0, -1, 2],
+        emitData: { type: 'changeEnvironment' }
+    }, {
+        oldState: 'enterCorridor', newState: 'playLevel',
+        oldQuadrant: [0, -1, 1], newQuadrant: [0, -1, 0],
+        emitData: { type: 'destroyStartCorridor' }
+    }, {
+        oldState: 'enterCorridor', newState: 'playLevel',
+        oldQuadrant: [0, -1, 1], newQuadrant: [-1, -1, 1],
+        emitData: { type: 'destroyStartCorridor' }
+    }, {
+        oldState: 'enterCorridor', newState: 'playLevel',
+        oldQuadrant: [0, -1, 1], newQuadrant: [1, -1, 1],
+        emitData: { type: 'destroyStartCorridor' }
+    },
+]
+
+
+
 
 export const studioConfig = {
     canId: 'webgl-canvas',
     rendererCon: {
         antialias: true
     },
-    clearColor: BACK_COLOR_START,
-    backgroundColor: BACK_COLOR_START,
+    clearColor: FLOORS_CONF[-1]['custom'].color,
+    backgroundColor: FLOORS_CONF[-1]['custom'].color,
     fogData: {
-        color: BACK_COLOR_START,
-        //strength: 0.01,
+        color: FLOORS_CONF[-1]['custom'].color,
         strength: 0.005,
         strengthInner: 0.01,
     },
     amb: {
-        color: BACK_COLOR_START,
+        color: FLOORS_CONF[-1]['custom'].color,
         strength: 0.8,
     },
 }
@@ -106,7 +164,6 @@ export const playerConfig = {
     startRot: [0, 0, 0],
     //startPos: [100, -60, 1000],
     startPos: [90, -10, 360.7140705920112], // beginPlay
-    //startPos: [-500.7147858316392, 23, 63],
     cameraData: {
         fov: 90,
         ratio: window.innerWidth / window.innerHeight,

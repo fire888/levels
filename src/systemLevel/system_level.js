@@ -6,29 +6,29 @@ import {
     setItemToWallCollision,
     removeItemFromWallCollision,
 } from '../component_collisionWalls'
+import { createCheckerKvadrant } from './createCheckerKvadrant'
 import * as THREE from 'three'
+import { S, H } from '../constants_elements'
+import { getLevelStateByChangeQuadrant } from  './createGetterLevelState'
+
 
 
 let eventEmitter = null
-const S = 175.335
-const H = 70
+
 
 
 
 export function createLevel (emitter, rooms, playerPos) {
-
     eventEmitter = emitter
 
     let countModels = 0
-    for (let key in rooms) {
-        countModels ++
-    }
+    for (let key in rooms) countModels ++
     countModels -= 2
 
     const group = new THREE.Group()
     const objRooms = {}
-    const checkerKvadrant = createCheckerKvadrant(playerPos)
-
+    const checkerKvadrant = createCheckerKvadrant()
+    checkerKvadrant.update(playerPos)
 
     const createRoom = (kv, key) => {
         const instanceKey = key || `room_0${ Math.ceil(Math.random() * countModels) }`
@@ -45,7 +45,8 @@ export function createLevel (emitter, rooms, playerPos) {
         const geometry = mesh.geometry
         const wireframe = new THREE.WireframeGeometry( geometry );
         const line = new THREE.LineSegments( wireframe ); 
-        line.material.color = { r: 0.5, g: 0.1, b: 0.9}
+        //line.material.color = { r: 0.5, g: 0.1, b: 0.9}
+        line.material.color = { r: 0.5, g: 0.5, b: 0.5}
         line.material.linewidth = 50
         line.material.opacity = 0.5;
         line.material.transparent = true;
@@ -111,11 +112,17 @@ export function createLevel (emitter, rooms, playerPos) {
 
         if (!isChanged) return;
 
-        console.log('playerPos', pos)
-        const levelState = getLevelStateByChangeKvadrant(oldKvadrant, currentKvadrant)
-        if (levelState === 'startLevel') return; 
+        const { levelState, emitData } = getLevelStateByChangeQuadrant(oldKvadrant, currentKvadrant)
+
+        console.log('emitdata', emitData)
+
+        emitData && emitData.type && emitData.type === 'changeEnvironment' &&
+            emitter.emit('changeEnvironment')({ floor: currentKvadrant[1], mode: 'default' })
+
+
+        if (levelState === 'startGame') return;
         if (levelState === 'startPlayLevel') return;
-        if (levelState === 'removeStartLevel') {
+        if (levelState === 'destroyStartCorridor') {
             group.remove(startLevel)
             removeItemFromFloorsCollision(startLevel)
             removeItemFromWallCollision(startLevel)
@@ -244,72 +251,4 @@ export function createLevel (emitter, rooms, playerPos) {
     return {
         group,
     }
-}
-
-
-
-const createCheckerKvadrant = function (pos) {
-    let oldKvadrant = [Math.floor(pos.x / S), Math.floor(pos.y / S), Math.floor(pos.z / S)]
-    const currentKvadrant = [...oldKvadrant]
-
-    return {
-        update (pos) {
-            currentKvadrant[0] = Math.floor(pos.x / S)
-            currentKvadrant[1] = Math.floor(pos.y / H)
-            currentKvadrant[2] = Math.floor(pos.z / S)
-
-            const returnData = { isChanged: false }
-            if (
-                currentKvadrant[0] !== oldKvadrant[0] ||
-                currentKvadrant[1] !== oldKvadrant[1] ||
-                currentKvadrant[2] !== oldKvadrant[2]
-            ) {
-                returnData.currentKvadrant = [currentKvadrant[0], currentKvadrant[1], currentKvadrant[2]]
-                returnData.oldKvadrant = [oldKvadrant[0], oldKvadrant[1], oldKvadrant[2]]
-                returnData.isChanged = true
-
-                oldKvadrant = [...currentKvadrant]
-            }
-
-            return returnData
-        },
-        currentKvadrant, 
-    }
-}
-
-
-let oldFloor = 1
-let currentLevelState = 'startLevel' // || 'startPlayLevel' || 'playLevel'
-const getLevelStateByChangeKvadrant = (oldKv, newKv) => {
-    if (currentLevelState === 'startLevel') {
-        if (
-            oldKv[0] === 0 && oldKv[1] === -1 && oldKv[2] === 2 &&
-            newKv[0] === 0 && newKv[1] === -1 && newKv[2] === 1
-        ) { 
-            currentLevelState = 'startPlayLevel'
-            eventEmitter.emit('changeEnviroment')('toInner')
-        }
-    } else if (currentLevelState === 'startPlayLevel') {
-        if (
-            oldKv[0] === 0 && oldKv[1] === -1 && oldKv[2] === 1 &&
-            newKv[0] === 0 && newKv[1] === -1 && newKv[2] === 2
-        ) {
-            currentLevelState = 'startLevel'
-            eventEmitter.emit('changeEnviroment')('toOuter')
-        }
-
-
-        if (
-            oldKv[0] === 0 && oldKv[1] === -1 && oldKv[2] === 0 &&
-            newKv[2] !== 1      
-        ) {
-            currentLevelState = 'removeStartLevel'
-        }
-    } else if (currentLevelState === 'removeStartLevel') {
-        currentLevelState = 'playLevel'
-    } else if (oldFloor !== newKv[1]) {
-        eventEmitter.emit('changeEnviroment')('toOuter', newKv[1])
-        oldFloor = newKv[1] 
-    }
-    return currentLevelState
 }
