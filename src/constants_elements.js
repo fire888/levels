@@ -27,10 +27,6 @@ import botSrc from './assets/botAnim.glb'
 
 
 
-/** emitter constants */
-export const FRAME_UPDATE = 'FRAME_UPDATE'
-
-
 export const ASSETS_TO_LOAD = [
     {
         type: 'obj',
@@ -73,7 +69,8 @@ export const H = 70
 
 
 
-
+/** emitter constants */
+export const FRAME_UPDATE = 'FRAME_UPDATE'
 
 
 export const FLOORS_CONF = {
@@ -198,3 +195,4 @@ export const MATERIALS_CONFIG = {
         },
     } 
 }
+
