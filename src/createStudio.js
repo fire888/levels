@@ -24,7 +24,7 @@ export function createStudio (emitter, assets) {
     //scene.background = assets.skyBox
 
     {
-        const { color, fogNear, fogFar } = FLOORS_CONF['-1']['custom']
+        const { color, fogNear, fogFar } = FLOORS_CONF['-1']['outer']
         scene.fog = new THREE.Fog(color, fogNear, fogFar)
     }
 
@@ -61,31 +61,14 @@ export function createStudio (emitter, assets) {
 
         let startData = {
             color: scene.fog.color,
-            //str: fogData.strength,
+            near: scene.fog.near,
+            far: scene.fog.far,
         }
         let endData = {
             color: new THREE.Color(color),
+            near: fogNear,
+            far: fogFar,
         }
-
-        //
-        // if (mode === 'toInner') {
-        //     startData = dataOuter
-        //     endData = dataInner
-        // }
-        // if (mode === 'toOuter') {
-        //     startData = dataInner
-        //     endData = dataOuter
-        // }
-        // if (mode === 'toUp') {
-        //     startData = {
-        //         ...dataInner,
-        //         color: new THREE.Color(FLOORS_COLORS[level - 1]),
-        //     }
-        //     endData = {
-        //         ...dataInner,
-        //         color: new THREE.Color(FLOORS_COLORS[level]),
-        //     }
-        // }
 
 
         console.log('floor', startData, endData)
@@ -94,7 +77,8 @@ export function createStudio (emitter, assets) {
             .to(endData, 3000)
             .onUpdate(() => {
                 scene.fog.color = startData.color
-                //scene.fog.density = startData.str
+                scene.fog.near = startData.near
+                scene.fog.far = startData.far
                 lightA.color = startData.color
                 renderer.setClearColor(startData.color)
 

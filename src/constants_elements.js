@@ -74,17 +74,24 @@ export const FRAME_UPDATE = 'FRAME_UPDATE'
 
 
 export const FLOORS_CONF = {
-    '-1': {
+    '-2': {
+        'outer': { fogNear: 20, fogFar: 500, color: 0x07627c },
         'custom': { fogNear: 20, fogFar: 500, color: 0x07627c },
-        'default': { fogNear: 0, fogFar: 80, color: 0x8805a8 },
+        'default': { fogNear: -40, fogFar: 150, color: 0x8805a8 },
+    },
+    '-1': {
+        'outer': { fogNear: 20, fogFar: 500, color: 0x07627c },
+        'custom': { fogNear: 20, fogFar: 150, color: 0x201824 },
+        'custom2': { fogNear: 20, fogFar: 150, color: 0x583313 },
+        'default': { fogNear: -40, fogFar: 150, color: 0x8805a8 },
     },
     '0': {
         'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
-        'default': { fogNear: 0, fogFar: 80, color: 0x312943 },
+        'default': { fogNear: -40, fogFar: 150, color: 0x312943 },
     },
     '1': {
         'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
-        'default': { fogNear: 0, fogFar: 80, color: 0x1e1a05 },
+        'default': { fogNear: 0, fogFar: 50, color: 0x1e1a05 },
     },
     '2': {
         'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
@@ -101,29 +108,84 @@ export const FLOORS_CONF = {
 }
 
 
-export const START_FLOOR = -1
-export const START_LAYER_STATE = 'startGame'
+
+
+//export const START_LAYER_STATE = 'outer'
+export const START_LAYER_STATE = 'corridor'
+
 export const CHANGE_LAYER_STATE = [
+    /** ********************************************************/
     {
-        oldState: 'startGame', newState: 'enterCorridor',
+        oldState: 'outer', newState: 'corridor',
+        oldQuadrant: [0, -2, 4], newQuadrant: [0, -2, 3],
+        emitData: {
+            type: 'changeEnvironment',
+            params: { mode: 'default' }
+        },
+    },
+    {
+        oldState: 'corridor', newState: 'outer',
+        oldQuadrant: [0, -2, 3], newQuadrant: [0, -2, 4],
+        emitData: {
+            type: 'changeEnvironment',
+            params: { mode: 'outer' }
+        },
+    },
+
+    /** ********************************************************/
+    {
+        oldState: 'corridor', newState: 'firstRoom',
         oldQuadrant: [0, -1, 2], newQuadrant: [0, -1, 1],
-        emitData: { type: 'changeEnvironment' }
-    }, {
-        oldState: 'enterCorridor', newState: 'startGame',
+        emitData: {
+            type: 'changeEnvironment',
+            params: { mode: 'custom2' }
+        },
+    },
+    {
+        oldState: 'firstRoom', newState: 'corridor',
         oldQuadrant: [0, -1, 1], newQuadrant: [0, -1, 2],
-        emitData: { type: 'changeEnvironment' }
-    }, {
-        oldState: 'enterCorridor', newState: 'playLevel',
-        oldQuadrant: [0, -1, 1], newQuadrant: [0, -1, 0],
-        emitData: { type: 'destroyStartCorridor' }
-    }, {
-        oldState: 'enterCorridor', newState: 'playLevel',
-        oldQuadrant: [0, -1, 1], newQuadrant: [-1, -1, 1],
-        emitData: { type: 'destroyStartCorridor' }
-    }, {
-        oldState: 'enterCorridor', newState: 'playLevel',
-        oldQuadrant: [0, -1, 1], newQuadrant: [1, -1, 1],
-        emitData: { type: 'destroyStartCorridor' }
+        emitData: {
+            type: 'changeEnvironment',
+            params: { mode: 'custom' }
+        },
+    },
+
+    /** ********************************************************/
+
+    {
+        oldState: 'firstRoom', newState: 'playLevel',
+        oldQuadrant: [0, -1, 0], newQuadrant: [0, -1, -1],
+        emitData: {
+            type: 'destroyStartCorridor',
+            params: { mode: 'default' }
+        },
+    },
+    {
+        oldState: 'firstRoom', newState: 'playLevel',
+        oldQuadrant: [0, -1, 0], newQuadrant: [-1, -1, 0],
+        emitData: {
+            type: 'destroyStartCorridor',
+            params: { mode: 'default' }
+        },
+    },
+    {
+        oldState: 'firstRoom', newState: 'playLevel',
+        oldQuadrant: [0, -1, 0], newQuadrant: [1, -1, 0],
+        emitData: {
+            type: 'destroyStartCorridor',
+            params: { mode: 'default' }
+        },
+    },
+
+    /** ********************************************************/
+
+    {
+        oldState: 'playLevel', newState: 'playLevel',
+        oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY_PLUS_ONE', 'ANY'],
+        emitData: {
+            type: 'changeEnvironment',
+            params: { mode: 'default' }
+        },
     },
 ]
 
@@ -135,19 +197,13 @@ export const studioConfig = {
     rendererCon: {
         antialias: true
     },
-    clearColor: FLOORS_CONF[-1]['custom'].color,
-    backgroundColor: FLOORS_CONF[-1]['custom'].color,
-    fogData: {
-        color: FLOORS_CONF[-1]['custom'].color,
-        strength: 0.005,
-        strengthInner: 0.01,
-    },
+    clearColor: FLOORS_CONF[-1]['outer'].color,
+    backgroundColor: FLOORS_CONF[-1]['outer'].color,
     amb: {
-        color: FLOORS_CONF[-1]['custom'].color,
+        color: FLOORS_CONF[-1]['outer'].color,
         strength: 0.8,
     },
 }
-
 
 
 export const playerConfig = {

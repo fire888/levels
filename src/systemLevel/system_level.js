@@ -6,7 +6,7 @@ import {
     setItemToWallCollision,
     removeItemFromWallCollision,
 } from '../component_collisionWalls'
-import { createCheckerKvadrant } from './createCheckerKvadrant'
+import { createCheckerKvadrant } from './createCheckerQuadrant'
 import * as THREE from 'three'
 import { S, H } from '../constants_elements'
 import { getLevelStateByChangeQuadrant } from  './createGetterLevelState'
@@ -108,30 +108,29 @@ export function createLevel (emitter, rooms, playerPos) {
 
     emitter.subscribe('playerMove')(pos => {
         const data = checkerKvadrant.update(pos)
-        const { currentKvadrant, oldKvadrant, isChanged } = data
+        const { currentQuadrant, oldQuadrant, isChanged } = data
 
         if (!isChanged) return;
 
-        const { levelState, emitData } = getLevelStateByChangeQuadrant(oldKvadrant, currentKvadrant)
+        const { levelState, emitData } = getLevelStateByChangeQuadrant(oldQuadrant, currentQuadrant)
 
-        console.log('emitdata', emitData)
+        console.log('LEVEL_STATE', levelState, 'Quadrants: ', oldQuadrant, currentQuadrant, emitData)
 
-        emitData && emitData.type && emitData.type === 'changeEnvironment' &&
-            emitter.emit('changeEnvironment')({ floor: currentKvadrant[1], mode: 'default' })
+        if (emitData) {
+            const { type, params } = emitData
+            emitter.emit(type)({ floor: currentQuadrant[1], mode: params.mode })
+        }
 
+        if (levelState !== 'playLevel') return;
 
-        if (levelState === 'startGame') return;
-        if (levelState === 'startPlayLevel') return;
-        if (levelState === 'destroyStartCorridor') {
+        if (emitData && emitData.type === 'destroyStartCorridor') {
             group.remove(startLevel)
             removeItemFromFloorsCollision(startLevel)
             removeItemFromWallCollision(startLevel)
         }
 
             
-        const oldKv = oldKvadrant, curKv = currentKvadrant
-
-        console.log('update', curKv, oldKv)
+        const oldKv = oldQuadrant, curKv = currentQuadrant
         // move west 
         if (curKv[0] < oldKv[0]) {
             console.log('----------- west')
