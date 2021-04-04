@@ -4,8 +4,8 @@ import {
     studioConfig,
     //FLOORS_COLORS,
     FLOORS_CONF,
-} from './constants_elements'
-import { FRAME_UPDATE } from './constants_elements'
+} from '../constants/constants_elements'
+import { FRAME_UPDATE } from '../constants/constants_elements'
 
 
 

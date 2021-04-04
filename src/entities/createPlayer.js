@@ -1,12 +1,12 @@
 import * as THREE from 'three'
 
-import { playerConfig } from './constants_elements'
+import { playerConfig } from '../constants/constants_elements'
 
-import { createComponentCollisionFloors } from './component_collisionFloor'
-import { createComponentCollisionWalls } from './component_collisionWalls'
-import { createCheckerNearItem } from './component_checkNearItem'
+import { createComponentCollisionFloors } from '../components/component_collisionFloor'
+import { createComponentCollisionWalls } from '../components/component_collisionWalls'
+import { createCheckerNearItem } from '../components/component_checkNearItem'
 
-import { FRAME_UPDATE } from './constants_elements'
+import { FRAME_UPDATE } from '../constants/constants_elements'
 
 
 

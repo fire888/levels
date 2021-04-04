@@ -1,4 +1,4 @@
-import { TRANSLATE_WORLDS } from './constants_replicies'
+import { TRANSLATE_WORLDS } from '../constants/constants_replicies'
 
 
 

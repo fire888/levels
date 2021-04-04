@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { FRAME_UPDATE } from './constants_elements'
+import { FRAME_UPDATE } from '../constants/constants_elements'
 
 
 

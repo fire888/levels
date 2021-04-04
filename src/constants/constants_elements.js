@@ -1,29 +1,28 @@
-import './assets/start-img.png'
-import './assets/progress-img.png'
+import { DoubleSide } from 'three'
 
-import mapDiff from './assets/map-walls-diff.png'
-import mapBump from './assets/map-walls-bump.png'
+import '../assets/start-img.png'
+import '../assets/progress-img.png'
 
-import pxjpg from './assets/skybox/px.jpg'
-import nxjpg from './assets/skybox/nx.jpg'
-import pyjpg from './assets/skybox/py.jpg'
-import nyjpg from './assets/skybox/ny.jpg'
-import pzjpg from './assets/skybox/pz.jpg'
-import nzjpg from './assets/skybox/nz.jpg'
+import pxjpg from '../assets/skybox/px.jpg'
+import nxjpg from '../assets/skybox/nx.jpg'
+import pyjpg from '../assets/skybox/py.jpg'
+import nyjpg from '../assets/skybox/ny.jpg'
+import pzjpg from '../assets/skybox/pz.jpg'
+import nzjpg from '../assets/skybox/nz.jpg'
 
-import pxjpg2 from './assets/matIronBox/posx.jpg'
-import nxjpg2 from './assets/matIronBox/negx.jpg'
-import pyjpg2 from './assets/matIronBox/posy.jpg'
-import nyjpg2 from './assets/matIronBox/negy.jpg'
-import pzjpg2 from './assets/matIronBox/posz.jpg'
-import nzjpg2 from './assets/matIronBox/negz.jpg'
+import pxjpg2 from '../assets/matIronBox/posx.jpg'
+import nxjpg2 from '../assets/matIronBox/negx.jpg'
+import pyjpg2 from '../assets/matIronBox/posy.jpg'
+import nyjpg2 from '../assets/matIronBox/negy.jpg'
+import pzjpg2 from '../assets/matIronBox/posz.jpg'
+import nzjpg2 from '../assets/matIronBox/negz.jpg'
 
-import botMapBump from './assets/botMapBump.png'
-import botMap from './assets/botMap.png'
+import mapBump from '../assets/map-walls-bump.png'
+import levelRoomsSrc from '../assets/level-rooms.obj'
 
-import levelRoomsSrc from './assets/level-rooms.obj'
+import botMap from '../assets/botMap.png'
+import botSrc from '../assets/botAnim.glb'
 
-import botSrc from './assets/botAnim.glb'
 
 
 
@@ -46,21 +45,50 @@ export const ASSETS_TO_LOAD = [
         key: 'ironEnv',
     }, {
         type: 'img',
-        filename: botMapBump,
-        key: 'botMapBump',
-    }, {
-        type: 'img',
         filename: botMap,
         key: 'botMap',
-    }, {
-        type: 'img',
-        filename: mapDiff,
-        key: 'mapWalls',
     }, {
         type: 'img',
         filename: mapBump,
         key: 'bumpWalls',
 },]
+
+
+
+
+export const MATERIALS_CONFIG = {
+    'wall': {
+        mat: 'MeshPhongMaterial',
+        props: {
+            color: 0xffffff,
+            emissive: 0x003388,
+            specular: 0xffffff,
+            shininess: 60,
+            bumpMap: 'bumpWalls',
+            bumpScale: 0.1,
+            envMap: 'skyBox',
+            reflectivity: 0.5,
+            map: 'bumpWalls',
+        },
+    },
+    'iron': {
+        mat: 'MeshPhongMaterial',
+        props: {
+            color: 0xffffff,
+            emissive: 0x003388,
+            specular: 0xffffff,
+            shininess: 60,
+            bumpMap: 'botMap',
+            bumpScale: 0.1,
+            envMap: 'ironEnv',
+            reflectivity: 0.5,
+            map: 'botMap',
+            skinning: true,
+        },
+    }
+}
+
+
 
 
 /** size element */
@@ -73,6 +101,8 @@ export const H = 70
 export const FRAME_UPDATE = 'FRAME_UPDATE'
 
 
+
+
 export const FLOORS_CONF = {
     '-2': {
         'outer': { fogNear: 20, fogFar: 500, color: 0x07627c },
@@ -82,16 +112,16 @@ export const FLOORS_CONF = {
     '-1': {
         'outer': { fogNear: 20, fogFar: 500, color: 0x07627c },
         'custom': { fogNear: 20, fogFar: 150, color: 0x201824 },
-        'custom2': { fogNear: 20, fogFar: 150, color: 0x583313 },
-        'default': { fogNear: -40, fogFar: 150, color: 0x8805a8 },
+        'custom2': { fogNear: 20, fogFar: 150, color: 0x78118b },
+        'default': { fogNear: -40, fogFar: 150, color: 0x78118b },
     },
     '0': {
         'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
-        'default': { fogNear: -40, fogFar: 150, color: 0x312943 },
+        'default': { fogNear: -40, fogFar: 150, color: 0x2e118b },
     },
     '1': {
         'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
-        'default': { fogNear: 0, fogFar: 50, color: 0x1e1a05 },
+        'default': { fogNear: 0, fogFar: 50, color: 0x11678b },
     },
     '2': {
         'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
@@ -106,6 +136,7 @@ export const FLOORS_CONF = {
         'default': { fogNear: 0, fogFar: 80, color: 0xac0000 },
     },
 }
+
 
 
 
@@ -278,6 +309,7 @@ export const CHANGE_LAYER_STATE = [
 
 
 
+
 export const studioConfig = {
     canId: 'webgl-canvas',
     rendererCon: {
@@ -322,19 +354,3 @@ export const playerConfig = {
         pos: [0, -30, 40],
     },
 }
-
-
-
-export const MATERIALS_CONFIG = {
-    'wall': {
-        mat: 'MeshPhongMaterial',
-        props: {
-            side: THREE.DoubleSide,
-            color: '#00c7ea',
-            emissive: '#6205b0',
-            bumpScale: 0.2,
-            shininess: 100,
-        },
-    } 
-}
-

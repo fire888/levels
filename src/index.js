@@ -1,28 +1,25 @@
-import { createDeviceResizer } from './util_deviceResizer'
-import { KeyBoard } from './util_keyBoard'
-import { emitter } from './util_emitter'
-import { createFrameUpdater } from './util_frameUpater'
+import { createDeviceResizer } from './helpers/util_deviceResizer'
+import { KeyBoard } from './helpers/util_keyBoard'
+import { emitter } from './helpers/util_emitter'
+import { createFrameUpdater } from './helpers/util_frameUpater'
 import { createActionByChangedQuadrant } from './helpers/createActionByChangedQuadrant'
 
-import { ASSETS_TO_LOAD } from './constants_elements'
+import { ASSETS_TO_LOAD } from './constants/constants_elements'
 
-import { loadAssets } from './utils_loadAssets'
-import { prepareMeshesFromAssets } from './helper_prepareMeshesFromAssets'
+import { loadAssets } from './helpers/utils_loadAssets'
+import { prepareMeshesFromAssets } from './helpers/helper_prepareMeshesFromAssets'
 
-import { createStudio } from './createStudio'
-import { createPlayer } from './createPlayer'
+import { createStudio } from './entities/createStudio'
+import { createPlayer } from './entities/createPlayer'
 
 
-import { setItemToFloorsCollision } from './component_collisionFloor'
-import { setItemToWallCollision } from './component_collisionWalls'
-import { addItemToNearChecker } from './component_checkNearItem'
-import { showStartButton } from './systemHtml_intro'
-import { createInfo } from './systemHtml_info'
-import { createLevel } from './systemLevel/system_level'
-import { createSystemBots } from './system_bots'
+import { showStartButton } from './systems/systemHtml_intro'
+import { createInfo } from './systems/systemHtml_info'
+import { createLevel } from './systems/system_level'
+import { createSystemBots } from './systems/system_bots'
 
 import * as TWEEN from '@tweenjs/tween.js'
-import { FRAME_UPDATE } from './constants_elements'
+import { FRAME_UPDATE } from './constants/constants_elements'
 
 
 
@@ -41,14 +38,16 @@ const init = assets => {
     studio.setCamera(player.getCamera())
     studio.addToScene(player.getObj())
 
-    /** bots */
-    const systemBots = createSystemBots(assets, emitter)
-    studio.addToScene(systemBots.groupBots)
+    /** prepare assets */
+    const { arrMeshes, levelGroup, rooms, materials } = prepareMeshesFromAssets(assets)
 
     /** level */
-    const { arrMeshes, levelGroup, rooms } = prepareMeshesFromAssets(assets)
     const { arrRooms, group } = createLevel(emitter, rooms, player.getObj().position)
     studio.addToScene(group)
+
+    /** bots */
+    const systemBots = createSystemBots(assets, materials, emitter)
+    studio.addToScene(systemBots.groupBots)
 
     createActionByChangedQuadrant()
     
