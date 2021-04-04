@@ -105,36 +105,40 @@ export const FRAME_UPDATE = 'FRAME_UPDATE'
 
 export const FLOORS_CONF = {
     '-2': {
-        'outer': { fogNear: 20, fogFar: 500, color: 0x07627c },
-        'custom': { fogNear: 20, fogFar: 500, color: 0x07627c },
+        'outer': { fogNear: -200, fogFar: 500, color: 0x07627c },
+        'corridorLight': { fogNear: -40, fogFar: 150, color: 0x6b006c },
         'default': { fogNear: -40, fogFar: 150, color: 0x8805a8 },
     },
+
+   
+
     '-1': {
         'outer': { fogNear: 20, fogFar: 500, color: 0x07627c },
-        'custom': { fogNear: 20, fogFar: 150, color: 0x201824 },
-        'custom2': { fogNear: 20, fogFar: 150, color: 0x78118b },
-        'default': { fogNear: -40, fogFar: 150, color: 0x78118b },
-    },
-    '0': {
-        'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
+        //'firstRoomLight': { fogNear: -40, fogFar: 150, color: 0x2e118b },
+        //'firstRoomLight': { fogNear: -40, fogFar: 150, color: 0x4b2100},
+        'firstRoomLight': { fogNear: -40, fogFar: 150, color: 0x00235e},
+
+
+        
+        'corridorLight': { fogNear: -40, fogFar: 150, color: 0x6b006c },
         'default': { fogNear: -40, fogFar: 150, color: 0x2e118b },
     },
-    '1': {
-        'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
-        'default': { fogNear: 0, fogFar: 50, color: 0x11678b },
-    },
-    '2': {
-        'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
-        'default': { fogNear: 0, fogFar: 80, color: 0x0a1763 },
-    },
-    '3': {
-        'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
-        'default': { fogNear: 0, fogFar: 80, color: 0x0a6340 },
-    },
-    '4': {
-        'custom': { fogNear: 20, fogFar: 500, color: 0xffffff },
-        'default': { fogNear: 0, fogFar: 80, color: 0xac0000 },
-    },
+
+
+    '0': { 'default': { fogNear: -40, fogFar: 150, color: 0x3c4900 }, },
+    //'0': { 'default': { fogNear: -40, fogFar: 150, color: 0x3d0308 }, }, ///////////
+
+
+    '1': { 'default': { fogNear: -40, fogFar: 150, color: 0x0e3e52 }, },
+
+
+    '2': { 'default': { fogNear: 0, fogFar: 80, color: 0x0a1763 }, },
+
+
+    '3': { 'default': { fogNear: 0, fogFar: 80, color: 0x0a6340 }, },
+
+
+    '4': { 'default': { fogNear: 0, fogFar: 80, color: 0xac0000 }, },
 }
 
 
@@ -152,7 +156,7 @@ export const CHANGE_LAYER_STATE = [
         emitData: [
             {
                 emitKey: 'changeEnvironment',
-                environmentMode: 'default',
+                environmentMode: 'corridorLight',
             }
         ],
     },
@@ -174,7 +178,7 @@ export const CHANGE_LAYER_STATE = [
         emitData: [
             {
                 emitKey: 'changeEnvironment',
-                environmentMode: 'custom2',
+                environmentMode: 'firstRoomLight',
             }
         ],
     },
@@ -184,7 +188,7 @@ export const CHANGE_LAYER_STATE = [
         emitData: [
             {
                 emitKey: 'changeEnvironment',
-                environmentMode: 'custom',
+                environmentMode: 'corridorLight',
             },
         ],
     },
