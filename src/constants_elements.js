@@ -187,6 +187,56 @@ export const CHANGE_LAYER_STATE = [
             params: { mode: 'default' }
         },
     },
+
+
+    {
+        oldState: 'playLevel', newState: 'playLevel',
+        oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY_MINUS_ONE', 'ANY'],
+        emitData: {
+            type: 'changeEnvironment',
+            params: { mode: 'default' }
+        },
+    },
+
+
+    /** ********************************************************/
+
+    {
+        oldState: 'playLevel', newState: 'playLevel',
+        oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY_MINUS_ONE', 'ANY', 'ANY'],
+        emitData: {
+            type: 'changeLevel',
+            params: { mode: 'goWest' }
+        },
+    },
+
+    {
+        oldState: 'playLevel', newState: 'playLevel',
+        oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY_PLUS_ONE', 'ANY', 'ANY'],
+        emitData: {
+            type: 'changeLevel',
+            params: { mode: 'goEast' }
+        },
+    },
+
+    {
+        oldState: 'playLevel', newState: 'playLevel',
+        oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY', 'ANY_MINUS_ONE'],
+        emitData: {
+            type: 'changeLevel',
+            params: { mode: 'goNorth' }
+        },
+    },
+
+    {
+        oldState: 'playLevel', newState: 'playLevel',
+        oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY', 'ANY_PLUS_ONE'],
+        emitData: {
+            type: 'changeLevel',
+            params: { mode: 'goSouth' }
+        },
+    },
+
 ]
 
 

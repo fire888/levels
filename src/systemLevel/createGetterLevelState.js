@@ -47,6 +47,9 @@ const getData = (playerOldQ, playerNewQ, conf) => {
     if (newQuadrant[1] === 'ANY_PLUS_ONE') newQuadrant[1] = playerOldQ[1] + 1
     if (newQuadrant[2] === 'ANY_PLUS_ONE') newQuadrant[2] = playerOldQ[2] + 1
 
+    if (newQuadrant[0] === 'ANY_MINUS_ONE') newQuadrant[0] = playerOldQ[0] - 1
+    if (newQuadrant[1] === 'ANY_MINUS_ONE') newQuadrant[1] = playerOldQ[1] - 1
+    if (newQuadrant[2] === 'ANY_MINUS_ONE') newQuadrant[2] = playerOldQ[2] - 1
 
 
     if (
