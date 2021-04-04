@@ -1,15 +1,43 @@
+import { emitter } from '../util_emitter'
 import {
     START_LAYER_STATE,
     CHANGE_LAYER_STATE,
 } from '../constants_elements'
+import { S, H } from '../constants_elements'
+
+
+
+
+
+
+export const createActionByChangedQuadrant = () => {
+    const checkerNewQuadrant = createCheckerNewQuadrant()
+
+
+    emitter.subscribe('playerMove')(pos => {
+        const data = checkerNewQuadrant.update(pos)
+        const { currentQuadrant, oldQuadrant, isChanged } = data
+
+        if (!isChanged) return;
+
+        const arrEmitData = getEmitsByChangeQuadrant(oldQuadrant, currentQuadrant)
+
+        console.log('arrEmitData', arrEmitData)
+
+        arrEmitData.length &&
+            arrEmitData.forEach(item => emitter.emit(item.emitKey)(item))
+    })
+}
+
+
+
 
 
 
 let levelState = START_LAYER_STATE
 
 
-
-export const getLevelStateByChangeQuadrant = (playerOldQ, playerNewQ) => {
+export const getEmitsByChangeQuadrant = (playerOldQ, playerNewQ) => {
     for (let i = 0; i < CHANGE_LAYER_STATE.length; ++i) {
         const data = getData(
             [...playerOldQ],
@@ -64,6 +92,45 @@ const getData = (playerOldQ, playerNewQ, conf) => {
 
     levelState = newState
 
-    return { levelState, emitData }
+    return emitData.map(item => ({
+        ...item,
+        levelState,
+        oldQuadrant: [...oldQuadrant],
+        newQuadrant: [...newQuadrant],
+    }))
 }
+
+
+
+
+
+const createCheckerNewQuadrant = function () {
+    let oldQuadrant = []
+
+    return {
+        update ({ x, y, z}) {
+            const currentQuadrant = [Math.floor(x / S), Math.floor(y / H), Math.floor(z / S)]
+
+            if (
+                currentQuadrant[0] !== oldQuadrant[0] ||
+                currentQuadrant[1] !== oldQuadrant[1] ||
+                currentQuadrant[2] !== oldQuadrant[2]
+            ) {
+                const data = {
+                    isChanged: true,
+                    currentQuadrant,
+                    oldQuadrant,
+                }
+                oldQuadrant = [...currentQuadrant]
+
+                return data
+            } else {
+                return { isChanged: false }
+            }
+        },
+    }
+}
+
+
+
 

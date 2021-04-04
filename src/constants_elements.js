@@ -118,63 +118,84 @@ export const CHANGE_LAYER_STATE = [
     {
         oldState: 'outer', newState: 'corridor',
         oldQuadrant: [0, -2, 4], newQuadrant: [0, -2, 3],
-        emitData: {
-            type: 'changeEnvironment',
-            params: { mode: 'default' }
-        },
+        emitData: [
+            {
+                emitKey: 'changeEnvironment',
+                environmentMode: 'default',
+            }
+        ],
     },
     {
         oldState: 'corridor', newState: 'outer',
         oldQuadrant: [0, -2, 3], newQuadrant: [0, -2, 4],
-        emitData: {
-            type: 'changeEnvironment',
-            params: { mode: 'outer' }
-        },
+        emitData: [
+            {
+                emitKey: 'changeEnvironment',
+                environmentMode: 'outer',
+            },
+        ]
     },
 
     /** ********************************************************/
     {
         oldState: 'corridor', newState: 'firstRoom',
         oldQuadrant: [0, -1, 2], newQuadrant: [0, -1, 1],
-        emitData: {
-            type: 'changeEnvironment',
-            params: { mode: 'custom2' }
-        },
+        emitData: [
+            {
+                emitKey: 'changeEnvironment',
+                environmentMode: 'custom2',
+            }
+        ],
     },
     {
         oldState: 'firstRoom', newState: 'corridor',
         oldQuadrant: [0, -1, 1], newQuadrant: [0, -1, 2],
-        emitData: {
-            type: 'changeEnvironment',
-            params: { mode: 'custom' }
-        },
+        emitData: [
+            {
+                emitKey: 'changeEnvironment',
+                environmentMode: 'custom',
+            },
+        ],
     },
 
     /** ********************************************************/
 
     {
         oldState: 'firstRoom', newState: 'playLevel',
-        oldQuadrant: [0, -1, 0], newQuadrant: [0, -1, -1],
-        emitData: {
-            type: 'destroyStartCorridor',
-            params: { mode: 'default' }
-        },
+        oldQuadrant: [0, -1, 0], newQuadrant: [0, -1, 'ANY_MINUS_ONE'],
+        emitData: [
+            {
+                emitKey: 'destroyStartCorridor'
+            },
+            {
+                 emitKey: 'changeLevel'
+            },
+
+        ],
     },
     {
         oldState: 'firstRoom', newState: 'playLevel',
-        oldQuadrant: [0, -1, 0], newQuadrant: [-1, -1, 0],
-        emitData: {
-            type: 'destroyStartCorridor',
-            params: { mode: 'default' }
-        },
+        oldQuadrant: [0, -1, 0], newQuadrant: ['ANY_MINUS_ONE', -1, 0],
+        emitData: [
+            {
+                emitKey: 'destroyStartCorridor'
+            },
+            {
+                 emitKey: 'changeLevel'
+            },
+        ],
     },
     {
         oldState: 'firstRoom', newState: 'playLevel',
-        oldQuadrant: [0, -1, 0], newQuadrant: [1, -1, 0],
-        emitData: {
-            type: 'destroyStartCorridor',
-            params: { mode: 'default' }
-        },
+        oldQuadrant: [0, -1, 0], newQuadrant: ['ANY_PLUS_ONE', -1, 0],
+        emitData: [
+            {
+                emitKey: 'destroyStartCorridor'
+            },
+            {
+                emitKey: 'changeLevel'
+            },
+        ],
     },
 
     /** ********************************************************/
@@ -182,20 +203,30 @@ export const CHANGE_LAYER_STATE = [
     {
         oldState: 'playLevel', newState: 'playLevel',
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY_PLUS_ONE', 'ANY'],
-        emitData: {
-            type: 'changeEnvironment',
-            params: { mode: 'default' }
-        },
+        emitData: [
+            {
+                emitKey: 'changeEnvironment',
+                environmentMode: 'default',
+            },
+            {
+                emitKey: 'changeLevel',
+            }
+        ],
     },
 
 
     {
         oldState: 'playLevel', newState: 'playLevel',
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY_MINUS_ONE', 'ANY'],
-        emitData: {
-            type: 'changeEnvironment',
-            params: { mode: 'default' }
-        },
+        emitData: [
+            {
+                emitKey: 'changeEnvironment',
+                environmentMode: 'default',
+            },
+            {
+                emitKey: 'changeLevel',
+            }
+        ],
     },
 
 
@@ -203,39 +234,44 @@ export const CHANGE_LAYER_STATE = [
 
     {
         oldState: 'playLevel', newState: 'playLevel',
+        oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY', 'ANY_MINUS_ONE'],
+        emitData: [
+            {
+                emitKey: 'changeLevel',
+            },
+        ],
+    },
+
+    {
+        oldState: 'playLevel', newState: 'playLevel',
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY_MINUS_ONE', 'ANY', 'ANY'],
-        emitData: {
-            type: 'changeLevel',
-            params: { mode: 'goWest' }
-        },
+        emitData: [
+            {
+                emitKey: 'changeLevel',
+            },
+        ],
     },
 
     {
         oldState: 'playLevel', newState: 'playLevel',
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY_PLUS_ONE', 'ANY', 'ANY'],
-        emitData: {
-            type: 'changeLevel',
-            params: { mode: 'goEast' }
-        },
-    },
-
-    {
-        oldState: 'playLevel', newState: 'playLevel',
-        oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY', 'ANY_MINUS_ONE'],
-        emitData: {
-            type: 'changeLevel',
-            params: { mode: 'goNorth' }
-        },
+        emitData: [
+            {
+                emitKey: 'changeLevel',
+            },
+        ],
     },
 
     {
         oldState: 'playLevel', newState: 'playLevel',
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY', 'ANY_PLUS_ONE'],
-        emitData: {
-            type: 'changeLevel',
-            params: { mode: 'goSouth' }
-        },
+        emitData: [
+            {
+                emitKey: 'changeLevel',
+            },
+        ],
     },
+
 
 ]
 

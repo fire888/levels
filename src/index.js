@@ -2,6 +2,7 @@ import { createDeviceResizer } from './util_deviceResizer'
 import { KeyBoard } from './util_keyBoard'
 import { emitter } from './util_emitter'
 import { createFrameUpdater } from './util_frameUpater'
+import { createActionByChangedQuadrant } from './helpers/createActionByChangedQuadrant'
 
 import { ASSETS_TO_LOAD } from './constants_elements'
 
@@ -48,6 +49,8 @@ const init = assets => {
     const { arrMeshes, levelGroup, rooms } = prepareMeshesFromAssets(assets)
     const { arrRooms, group } = createLevel(emitter, rooms, player.getObj().position)
     studio.addToScene(group)
+
+    createActionByChangedQuadrant()
     
     setTimeout(() => player.start(), 500)
 

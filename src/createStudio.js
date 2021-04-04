@@ -53,10 +53,11 @@ export function createStudio (emitter, assets) {
 
     const drawFrame = () => camera && renderer.render(scene, camera)
     emitter.subscribe(FRAME_UPDATE)(drawFrame)
-    emitter.subscribe('changeEnvironment')(({ mode, floor }) => {
-        console.log('changeEnvironment !!!!!!!', mode, floor)
+    emitter.subscribe('changeEnvironment')(data => {
 
-        const { fogNear, fogFar, color } = FLOORS_CONF[floor][mode]
+        const { newQuadrant, environmentMode } = data
+
+        const { fogNear, fogFar, color } = FLOORS_CONF[newQuadrant[1]][environmentMode]
 
 
         let startData = {

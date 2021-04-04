@@ -6,10 +6,8 @@ import {
     setItemToWallCollision,
     removeItemFromWallCollision,
 } from '../component_collisionWalls'
-import { createCheckerKvadrant } from './createCheckerQuadrant'
 import * as THREE from 'three'
 import { S, H } from '../constants_elements'
-import { getLevelStateByChangeQuadrant } from  './createGetterLevelState'
 
 
 
@@ -18,7 +16,7 @@ let eventEmitter = null
 
 
 
-export function createLevel (emitter, rooms, playerPos) {
+export function createLevel (emitter, rooms ) {
     eventEmitter = emitter
 
     let countModels = 0
@@ -27,8 +25,7 @@ export function createLevel (emitter, rooms, playerPos) {
 
     const group = new THREE.Group()
     const objRooms = {}
-    const checkerKvadrant = createCheckerKvadrant()
-    checkerKvadrant.update(playerPos)
+
 
     const createRoom = (kv, key) => {
         const instanceKey = key || `room_0${ Math.ceil(Math.random() * countModels) }`
@@ -44,13 +41,12 @@ export function createLevel (emitter, rooms, playerPos) {
 
         const geometry = mesh.geometry
         const wireframe = new THREE.WireframeGeometry( geometry );
-        const line = new THREE.LineSegments( wireframe ); 
-        //line.material.color = { r: 0.5, g: 0.1, b: 0.9}
+        const line = new THREE.LineSegments( wireframe );
         line.material.color = { r: 0.5, g: 0.5, b: 0.5}
         line.material.linewidth = 50
         line.material.opacity = 0.5;
         line.material.transparent = true;
-        mesh.add( line );     
+        mesh.add( line );
 
         emitter.emit('levelChanged')({
             typeLevelChange: 'createRoom',
@@ -102,36 +98,18 @@ export function createLevel (emitter, rooms, playerPos) {
     startLevel.position.set(0, -1 * H, 0)
 
 
+    emitter.subscribe('destroyStartCorridor')(() => {
+        console.log('!!!!!!!!', 'destroyStartCorridor')
+        removeItemFromFloorsCollision(startLevel)
+        removeItemFromWallCollision(startLevel)
+        group.remove(startLevel)
+    })
 
 
+    emitter.subscribe('changeLevel')(({ direction, oldQuadrant, newQuadrant }) => {
 
-
-    emitter.subscribe('playerMove')(pos => {
-        const data = checkerKvadrant.update(pos)
-        const { currentQuadrant, oldQuadrant, isChanged } = data
-
-        if (!isChanged) return;
-
-        const { levelState, emitData } = getLevelStateByChangeQuadrant(oldQuadrant, currentQuadrant)
-
-        console.log('LEVEL_STATE', levelState, 'Quadrants: ', oldQuadrant, currentQuadrant, emitData)
-
-        if (emitData) {
-            const { type, params } = emitData
-            emitter.emit(type)({ floor: currentQuadrant[1], mode: params.mode })
-        }
-
-        if (levelState !== 'playLevel') return;
-
-        if (emitData && emitData.type === 'destroyStartCorridor') {
-            group.remove(startLevel)
-            removeItemFromFloorsCollision(startLevel)
-            removeItemFromWallCollision(startLevel)
-        }
-
-            
-        const oldKv = oldQuadrant, curKv = currentQuadrant
-        // move west 
+        const oldKv = oldQuadrant, curKv = newQuadrant
+        // move west
         if (curKv[0] < oldKv[0]) {
             console.log('----------- west')
             // remove east
@@ -184,7 +162,7 @@ export function createLevel (emitter, rooms, playerPos) {
             // remove south
             removeRoom([oldKv[0], oldKv[1], oldKv[2] + 1])
 
-            // set center to south 
+            // set center to south
             objRooms[`r_${ curKv[0] }_${ curKv[1] }_${ curKv[2] + 1 }`] = objRooms[`r_${ oldKv[0] }_${ oldKv[1] }_${ oldKv[2] }`]
 
             // create north
@@ -243,11 +221,10 @@ export function createLevel (emitter, rooms, playerPos) {
             // remove right
             removeRoom([oldKv[0] + 1, oldKv[1], oldKv[2]])
             // create right
-            createRoom([curKv[0] + 1, curKv[1], curKv[2]])
         }
+
     })
 
-    return {
-        group,
-    }
+
+    return { group }
 }
