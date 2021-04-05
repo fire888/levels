@@ -33,15 +33,16 @@ export function prepareMeshesFromAssets (assets) {
 
 
 const createMaterials = assets => {
-    const mats = {}
+    const mapsKeys = ['bumpMap', 'envMap', 'map']
+    const materials = {}
     for (let key in MATERIALS_CONFIG) {
-        mats[key] = new THREE[MATERIALS_CONFIG[key].mat]({
+        materials[key] = new THREE[MATERIALS_CONFIG[key].mat]({
             ...MATERIALS_CONFIG[key].props
         })
-        MATERIALS_CONFIG[key].props.bumpMap && (mats[key].bumpMap = assets[MATERIALS_CONFIG[key].props.bumpMap])
-        MATERIALS_CONFIG[key].props.envMap && (mats[key].envMap = assets[MATERIALS_CONFIG[key].props.envMap])
-        MATERIALS_CONFIG[key].props.map && (mats[key].map = assets[MATERIALS_CONFIG[key].props.map])
+        mapsKeys.map(keyMap =>
+            MATERIALS_CONFIG[key].props[keyMap] &&
+            (materials[key][keyMap] = assets[MATERIALS_CONFIG[key].props[keyMap]])
+        )
     }
-    return mats
+    return materials
 }
-

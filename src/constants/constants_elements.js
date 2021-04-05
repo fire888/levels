@@ -117,9 +117,6 @@ export const FLOORS_CONF = {
         //'firstRoomLight': { fogNear: -40, fogFar: 150, color: 0x2e118b },
         //'firstRoomLight': { fogNear: -40, fogFar: 150, color: 0x4b2100},
         'firstRoomLight': { fogNear: -40, fogFar: 150, color: 0x00235e},
-
-
-        
         'corridorLight': { fogNear: -40, fogFar: 150, color: 0x6b006c },
         'default': { fogNear: -40, fogFar: 150, color: 0x2e118b },
     },
@@ -145,8 +142,8 @@ export const FLOORS_CONF = {
 
 
 
-//export const START_LAYER_STATE = 'outer'
-export const START_LAYER_STATE = 'corridor'
+export const START_LAYER_STATE = 'outer'
+//export const START_LAYER_STATE = 'corridor'
 
 export const CHANGE_LAYER_STATE = [
     /** ********************************************************/
@@ -157,7 +154,11 @@ export const CHANGE_LAYER_STATE = [
             {
                 emitKey: 'changeEnvironment',
                 environmentMode: 'corridorLight',
-            }
+            },
+            {
+                emitKey: 'toggleImgSceneBack',
+                backgroundImg: false,
+            },
         ],
     },
     {
@@ -329,7 +330,8 @@ export const studioConfig = {
 
 
 export const playerConfig = {
-    speed: 0.35,
+    //speed: 0.35,
+    speed: 0.8,
     speedRot: 0.02,
     speedDown: -0.25,
     offsetFromFloor: 10.0,
@@ -337,8 +339,8 @@ export const playerConfig = {
     offsetWallCollision: 3.5,
     level: -13,
     startRot: [0, 0, 0],
-    //startPos: [100, -60, 1000],
-    startPos: [90, -10, 360.7140705920112], // beginPlay
+    startPos: [100, -60, 1000],
+    //startPos: [90, -10, 360.7140705920112], // beginPlay
     cameraData: {
         fov: 90,
         ratio: window.innerWidth / window.innerHeight,

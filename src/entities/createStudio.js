@@ -21,7 +21,7 @@ export function createStudio (emitter, assets) {
     renderer.setSize(window.innerWidth, window.innerHeight)
 
     const scene = new THREE.Scene()
-    //scene.background = assets.skyBox
+    scene.background = assets.skyBox
 
     {
         const { color, fogNear, fogFar } = FLOORS_CONF['-1']['outer']
@@ -53,6 +53,10 @@ export function createStudio (emitter, assets) {
 
     const drawFrame = () => camera && renderer.render(scene, camera)
     emitter.subscribe(FRAME_UPDATE)(drawFrame)
+    emitter.subscribe('toggleImgSceneBack')(({ backgroundImg }) => {
+        console.log('backgroundImg', backgroundImg)
+        scene.background = backgroundImg ? assets.skyBox : null
+    })
     emitter.subscribe('changeEnvironment')(data => {
 
         const { newQuadrant, environmentMode } = data
@@ -71,8 +75,6 @@ export function createStudio (emitter, assets) {
             far: fogFar,
         }
 
-
-        console.log('floor', startData, endData)
 
         new TWEEN.Tween(startData)
             .to(endData, 3000)
