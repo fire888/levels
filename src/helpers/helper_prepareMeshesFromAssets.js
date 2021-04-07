@@ -5,28 +5,38 @@ import { MATERIALS_CONFIG } from '../constants/constants_elements'
 export function prepareMeshesFromAssets (assets) {
 
     const
-        arrMeshes = [],
         materials = createMaterials(assets),
-        rooms = {}
+        rooms = {},
+        allMeshes = {}
 
     assets['level-rooms'].traverse(child => {
         if (child.name.includes("room_")) {
-            //const mesh = new THREE.Mesh(child.geometry, materials.wall)
             const mesh = new THREE.Mesh(child.geometry)
             rooms[child.name] = mesh
             mesh.name = child.name
+            allMeshes[child.name] = mesh
         }
         if (child.name.includes("mainLevel")) {
             const mesh = new THREE.Mesh(child.geometry)
-            rooms[child.name] = mesh
             mesh.name = child.name
+            allMeshes[child.name] = mesh
         }
+        if (child.name.includes("outer_road")) {
+            const mesh = new THREE.Mesh(child.geometry)
+            mesh.name = child.name
+            allMeshes[child.name] = mesh
+        }
+        if (child.name.includes("outer_floor")) {
+            const mesh = new THREE.Mesh(child.geometry, materials.green)
+            mesh.name = child.name
+            allMeshes[child.name] = mesh
+        }  
     })
 
     return {
-        arrMeshes,
-        materials,
         rooms,
+        allMeshes,
+        materials,
     }
 }
 

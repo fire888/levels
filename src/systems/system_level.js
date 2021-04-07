@@ -16,12 +16,12 @@ let eventEmitter = null
 
 
 
-export function createLevel (emitter, rooms ) {
+export function createLevel (emitter, rooms, allMeshes) {
     eventEmitter = emitter
 
     let countModels = 0
     for (let key in rooms) countModels ++
-    countModels -= 2
+    countModels -= 1
 
     const group = new THREE.Group()
     const objRooms = {}
@@ -120,17 +120,25 @@ export function createLevel (emitter, rooms ) {
     createRoom([1, -1, 0], 'room_02')
 
 
-    const startLevel = rooms['mainLevel'].clone()
-    setItemToFloorsCollision(startLevel)
-    setItemToWallCollision(startLevel)
-    group.add(startLevel)
-    startLevel.position.set(0, -1 * H, 0)
 
+    const startL = {}
+    const keys = ['mainLevel', 'outer_floor', 'outer_road']
+
+    for (let i = 0; i < keys.length; ++i) {
+        const l = allMeshes[keys[i]].clone()
+        setItemToFloorsCollision(l)
+        setItemToWallCollision(l)
+        group.add(l)
+        l.position.set(0, -1 * H, 0)
+        startL[keys[i]] = l
+    }
 
     emitter.subscribe('destroyStartCorridor')(() => {
-        removeItemFromFloorsCollision(startLevel)
-        removeItemFromWallCollision(startLevel)
-        group.remove(startLevel)
+        for (let i = 0; i < keys.length; ++i) {
+            removeItemFromFloorsCollision(startL[keys[i]])
+            removeItemFromWallCollision(startL[keys[i]])
+            group.remove(startL[keys[i]])
+        }
     })
 
 

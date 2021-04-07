@@ -39,10 +39,10 @@ const init = assets => {
     studio.addToScene(player.getObj())
 
     /** prepare assets */
-    const { rooms, materials } = prepareMeshesFromAssets(assets)
+    const { allMeshes,  rooms, materials } = prepareMeshesFromAssets(assets)
 
     /** level */
-    const { group } = createLevel(emitter, rooms, player.getObj().position)
+    const { group } = createLevel(emitter, rooms, allMeshes)
     studio.addToScene(group)
 
     /** bots */

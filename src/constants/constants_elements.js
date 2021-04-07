@@ -85,7 +85,15 @@ export const MATERIALS_CONFIG = {
             map: 'botMap',
             skinning: true,
         },
-    }
+    },
+    'green': {
+        mat: 'MeshPhongMaterial',
+        props: {
+            color: 0x004466,
+            emissive: 0x003388,
+            specular: 0x004466,
+        },        
+    } 
 }
 
 
