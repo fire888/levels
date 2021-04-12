@@ -3,7 +3,6 @@ import { MATERIALS_CONFIG } from '../constants/constants_elements'
 
 
 export function prepareMeshesFromAssets (assets) {
-
     const
         materials = createMaterials(assets),
         rooms = {},
@@ -43,6 +42,9 @@ export function prepareMeshesFromAssets (assets) {
 
 
 const createMaterials = assets => {
+    for (let key in assets) 
+        assets[key].wrapS && (assets[key].wrapS = assets[key].wrapT = THREE.RepeatWrapping)
+
     const mapsKeys = ['bumpMap', 'envMap', 'map']
     const materials = {}
     for (let key in MATERIALS_CONFIG) {

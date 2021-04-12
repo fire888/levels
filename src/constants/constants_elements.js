@@ -19,6 +19,7 @@ import nzjpg2 from '../assets/matIronBox/negz.jpg'
 
 import mapBump from '../assets/map-walls-bump.png'
 import levelRoomsSrc from '../assets/level-rooms.obj'
+import mapFloorOuter from '../assets/floor_outer_map.jpg'
 
 import botMap from '../assets/botMap.png'
 import botSrc from '../assets/botAnim.glb'
@@ -51,6 +52,11 @@ export const ASSETS_TO_LOAD = [
         type: 'img',
         filename: mapBump,
         key: 'bumpWalls',
+    }, {
+        type: 'img',
+        filename: mapFloorOuter,
+        key: 'mapFloorOuter',
+        wrap: true,
 },]
 
 
@@ -91,7 +97,11 @@ export const MATERIALS_CONFIG = {
         props: {
             color: 0x004466,
             emissive: 0x003388,
-            specular: 0x004466,
+            map: 'mapFloorOuter',
+            bumpMap: 'mapFloorOuter',
+            bumpScale: 1,
+            envMap: 'skyBox',
+            reflectivity: 0.5,
         },        
     } 
 }
@@ -113,7 +123,7 @@ export const FRAME_UPDATE = 'FRAME_UPDATE'
 
 export const FLOORS_CONF = {
     '-2': {
-        'outer': { fogNear: -200, fogFar: 500, color: 0x07627c },
+        'outer': { fogNear: -200, fogFar: 500, color: 0x0e2535},
         'corridorLight': { fogNear: -40, fogFar: 150, color: 0x6b006c },
         'default': { fogNear: -40, fogFar: 150, color: 0x8805a8 },
     },
@@ -121,9 +131,7 @@ export const FLOORS_CONF = {
    
 
     '-1': {
-        'outer': { fogNear: 20, fogFar: 500, color: 0x07627c },
-        //'firstRoomLight': { fogNear: -40, fogFar: 150, color: 0x2e118b },
-        //'firstRoomLight': { fogNear: -40, fogFar: 150, color: 0x4b2100},
+        'outer': { fogNear: 20, fogFar: 500, color: 0x0e2535 },
         'firstRoomLight': { fogNear: -40, fogFar: 150, color: 0x00235e},
         'corridorLight': { fogNear: -40, fogFar: 150, color: 0x6b006c },
         'default': { fogNear: -40, fogFar: 150, color: 0x2e118b },
@@ -131,9 +139,8 @@ export const FLOORS_CONF = {
 
 
     '0': { 'default': { fogNear: -40, fogFar: 150, color: 0x3c4900 }, },
-    //'0': { 'default': { fogNear: -40, fogFar: 150, color: 0x3d0308 }, }, ///////////
 
-
+    
     '1': { 'default': { fogNear: -40, fogFar: 150, color: 0x0e3e52 }, },
 
 
