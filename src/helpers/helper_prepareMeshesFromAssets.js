@@ -21,12 +21,12 @@ export function prepareMeshesFromAssets (assets) {
             allMeshes[child.name] = mesh
         }
         if (child.name.includes("outer_road")) {
-            const mesh = new THREE.Mesh(child.geometry)
+            const mesh = new THREE.Mesh(child.geometry, materials.green)
             mesh.name = child.name
             allMeshes[child.name] = mesh
         }
         if (child.name.includes("outer_floor")) {
-            const mesh = new THREE.Mesh(child.geometry, materials.green)
+            const mesh = new THREE.Mesh(child.geometry, materials.road)
             mesh.name = child.name
             allMeshes[child.name] = mesh
         }  

@@ -96,7 +96,19 @@ export const MATERIALS_CONFIG = {
         mat: 'MeshPhongMaterial',
         props: {
             color: 0x004466,
-            emissive: 0x003388,
+            emissive: 0xffffff,
+            map: 'mapFloorOuter',
+            bumpMap: 'mapFloorOuter',
+            bumpScale: 1,
+            envMap: 'skyBox',
+            reflectivity: 0.5,
+        },        
+    },
+    'road': {
+        mat: 'MeshPhongMaterial',
+        props: {
+            color: 0xa1129f,
+            emissive: 0xa1129f,
             map: 'mapFloorOuter',
             bumpMap: 'mapFloorOuter',
             bumpScale: 1,
@@ -123,7 +135,7 @@ export const FRAME_UPDATE = 'FRAME_UPDATE'
 
 export const FLOORS_CONF = {
     '-2': {
-        'outer': { fogNear: -200, fogFar: 500, color: 0x0e2535},
+        'outer': { fogNear: -200, fogFar: 500, color: 0x18257d },
         'corridorLight': { fogNear: -40, fogFar: 150, color: 0x6b006c },
         'default': { fogNear: -40, fogFar: 150, color: 0x8805a8 },
     },
@@ -131,7 +143,7 @@ export const FLOORS_CONF = {
    
 
     '-1': {
-        'outer': { fogNear: 20, fogFar: 500, color: 0x0e2535 },
+        'outer': { fogNear: 20, fogFar: 500, color: 0x18257d },
         'firstRoomLight': { fogNear: -40, fogFar: 150, color: 0x00235e},
         'corridorLight': { fogNear: -40, fogFar: 150, color: 0x6b006c },
         'default': { fogNear: -40, fogFar: 150, color: 0x2e118b },

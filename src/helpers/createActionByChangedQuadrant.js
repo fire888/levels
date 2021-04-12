@@ -33,7 +33,7 @@ export const createActionByChangedQuadrant = () => {
 
 
 
-
+let wentRooms = 0
 let levelState = START_LAYER_STATE
 
 
