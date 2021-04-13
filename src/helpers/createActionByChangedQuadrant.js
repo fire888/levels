@@ -9,7 +9,6 @@ import { S, H } from '../constants/constants_elements'
 
 
 
-
 export const createActionByChangedQuadrant = () => {
     const checkerNewQuadrant = createCheckerNewQuadrant()
 
@@ -22,8 +21,6 @@ export const createActionByChangedQuadrant = () => {
 
         const arrEmitData = getEmitsByChangeQuadrant(oldQuadrant, currentQuadrant)
 
-        console.log('arrEmitData', arrEmitData)
-
         arrEmitData.length &&
             arrEmitData.forEach(item => emitter.emit(item.emitKey)(item))
     })
@@ -33,7 +30,7 @@ export const createActionByChangedQuadrant = () => {
 
 
 
-let wentRooms = 0
+
 let levelState = START_LAYER_STATE
 
 

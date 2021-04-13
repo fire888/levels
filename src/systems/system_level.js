@@ -142,7 +142,23 @@ export function createLevel (emitter, rooms, allMeshes) {
     })
 
 
-    emitter.subscribe('changeLevel')(({ direction, oldQuadrant, newQuadrant }) => {
+    let wentLevels = 0
+
+    emitter.subscribe('changeLevel')(({ direction, oldQuadrant, newQuadrant, counter }) => {
+
+        let keyCreateRoom
+        if (counter) {
+            wentLevels = counter(wentLevels)
+            console.log('wentLevels', wentLevels)
+            if (wentLevels < 5) { 
+                keyCreateRoom = false 
+            } else if (wentLevels < 10) {
+                keyCreateRoom = 'room_01'
+            } else {
+                keyCreateRoom = 'room_06'
+            }
+        }
+
 
         const oldKv = oldQuadrant, curKv = newQuadrant
         // move west
@@ -155,17 +171,17 @@ export function createLevel (emitter, rooms, allMeshes) {
             objRooms[`r_${curKv[0] + 1}_${curKv[1]}_${curKv[2]}`] = objRooms[`r_${oldKv[0]}_${oldKv[1]}_${oldKv[2]}`]
 
             // create west
-            createRoom([oldKv[0] - 2, oldKv[1], oldKv[2]])
+            createRoom([oldKv[0] - 2, oldKv[1], oldKv[2]], keyCreateRoom)
 
             // remove north
             removeRoom([oldKv[0], oldKv[1], oldKv[2] - 1])
             // create north
-            createRoom([curKv[0], curKv[1], curKv[2] - 1])
+            createRoom([curKv[0], curKv[1], curKv[2] - 1], keyCreateRoom)
 
             // remove south
             removeRoom([oldKv[0], oldKv[1], oldKv[2] + 1])
             // create soush
-            createRoom([curKv[0], curKv[1], curKv[2] + 1])
+            createRoom([curKv[0], curKv[1], curKv[2] + 1], keyCreateRoom)
         }
 
         // move east
@@ -178,17 +194,17 @@ export function createLevel (emitter, rooms, allMeshes) {
             objRooms[`r_${curKv[0] - 1}_${curKv[1]}_${curKv[2]}`] = objRooms[`r_${oldKv[0]}_${oldKv[1]}_${oldKv[2]}`]
 
             // create east
-            createRoom([oldKv[0] + 2, oldKv[1], oldKv[2]])
+            createRoom([oldKv[0] + 2, oldKv[1], oldKv[2]], keyCreateRoom)
 
             // remove north
             removeRoom([oldKv[0], oldKv[1], oldKv[2] - 1])
             // create north
-            createRoom([curKv[0], curKv[1], curKv[2] - 1])
+            createRoom([curKv[0], curKv[1], curKv[2] - 1], keyCreateRoom)
 
             // remove south
             removeRoom([oldKv[0], oldKv[1], oldKv[2] + 1])
             // create south
-            createRoom([curKv[0], curKv[1], curKv[2] + 1])
+            createRoom([curKv[0], curKv[1], curKv[2] + 1], keyCreateRoom)
         }
 
 
@@ -202,17 +218,17 @@ export function createLevel (emitter, rooms, allMeshes) {
             objRooms[`r_${ curKv[0] }_${ curKv[1] }_${ curKv[2] + 1 }`] = objRooms[`r_${ oldKv[0] }_${ oldKv[1] }_${ oldKv[2] }`]
 
             // create north
-            createRoom([oldKv[0], oldKv[1], oldKv[2] - 2])
+            createRoom([oldKv[0], oldKv[1], oldKv[2] - 2], keyCreateRoom)
 
             // remove west
             removeRoom([oldKv[0] - 1, oldKv[1], oldKv[2]])
             // create west
-            createRoom([curKv[0] - 1, curKv[1], curKv[2]])
+            createRoom([curKv[0] - 1, curKv[1], curKv[2]], keyCreateRoom)
 
             // remove east
             removeRoom([oldKv[0] + 1, oldKv[1], oldKv[2]])
             // create east
-            createRoom([curKv[0] + 1, curKv[1], curKv[2]])
+            createRoom([curKv[0] + 1, curKv[1], curKv[2]], keyCreateRoom)
         }
 
 
@@ -226,17 +242,17 @@ export function createLevel (emitter, rooms, allMeshes) {
             objRooms[`r_${ curKv[0] }_${ curKv[1] }_${ curKv[2] - 1 }`] = objRooms[`r_${ oldKv[0] }_${ oldKv[1] }_${ oldKv[2] }`]
 
             // create south
-            createRoom([oldKv[0], oldKv[1], oldKv[2] + 2])
+            createRoom([oldKv[0], oldKv[1], oldKv[2] + 2], keyCreateRoom)
 
             // remove west
             removeRoom([oldKv[0] - 1, oldKv[1], oldKv[2]])
             // create west
-            createRoom([curKv[0] - 1, curKv[1], curKv[2]])
+            createRoom([curKv[0] - 1, curKv[1], curKv[2]], keyCreateRoom)
 
             // remove east
             removeRoom([oldKv[0] + 1, oldKv[1], oldKv[2]])
             // create east
-            createRoom([curKv[0] + 1, curKv[1], curKv[2]])
+            createRoom([curKv[0] + 1, curKv[1], curKv[2]], keyCreateRoom)
         }
 
         // move top

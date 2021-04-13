@@ -273,6 +273,7 @@ export const CHANGE_LAYER_STATE = [
             },
             {
                 emitKey: 'changeLevel',
+                counter: () => 0,
             }
         ],
     },
@@ -301,6 +302,7 @@ export const CHANGE_LAYER_STATE = [
         emitData: [
             {
                 emitKey: 'changeLevel',
+                counter: val => ++val,
             },
         ],
     },
@@ -311,6 +313,7 @@ export const CHANGE_LAYER_STATE = [
         emitData: [
             {
                 emitKey: 'changeLevel',
+                counter: val => ++val,
             },
         ],
     },
@@ -321,6 +324,7 @@ export const CHANGE_LAYER_STATE = [
         emitData: [
             {
                 emitKey: 'changeLevel',
+                counter: val => ++val,
             },
         ],
     },
@@ -331,11 +335,10 @@ export const CHANGE_LAYER_STATE = [
         emitData: [
             {
                 emitKey: 'changeLevel',
+                counter: val => ++val,
             },
         ],
     },
-
-
 ]
 
 
