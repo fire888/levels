@@ -167,7 +167,7 @@ export const FLOORS_CONF = {
 
 
 
-
+const MAX_CHANGED_LEVELS = 5
 
 export const START_LAYER_STATE = 'outer'
 //export const START_LAYER_STATE = 'corridor'
@@ -233,7 +233,6 @@ export const CHANGE_LAYER_STATE = [
             {
                  emitKey: 'changeLevel'
             },
-
         ],
     },
     {
