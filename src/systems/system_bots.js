@@ -31,10 +31,10 @@ export const createSystemBots = (assets, materials, emitter) => {
     groupBots.add(obj)
 
     
-    emitter.subscribe('levelChanged')(({ typeLevelChange, instanceKey, objKey, kv }) => {
-        if (instanceKey === 'room_01' && typeLevelChange === 'createRoom') {
+    emitter.subscribe('levelChanged')(({ typeLevelChange, instanceKey, objKey, kv, isAddBot }) => {
+        //if (instanceKey === 'room_01' && typeLevelChange === 'createRoom') {
              //objBots[objKey] = assets.bot.clone()
-             obj.position.set(kv[0] * S + 30, kv[1] * H + H_BOT, kv[2] * S + 40)
+        isAddBot && obj.position.set(kv[0] * S + 30, kv[1] * H + H_BOT, kv[2] * S + 40)
              //groupBots.add(objBots[objKey])
 
 
@@ -42,7 +42,7 @@ export const createSystemBots = (assets, materials, emitter) => {
       //      objBots[objKey] = assets.bot.clone()
       //      objBots[objKey].position.set(kv[0] * S + 30, kv[1] * H + H_BOT, kv[2] * S + 40)
       //      groupBots.add(objBots[objKey])
-        }
+        //}
         if (instanceKey === 'room_01' && typeLevelChange === 'destroyRoom') {
       //      groupBots.remove(objBots[objKey])
       //      objBots[objKey].children[0].geometry.dispose()

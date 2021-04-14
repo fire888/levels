@@ -11,49 +11,28 @@ import { S, H } from '../constants/constants_elements'
 
 
 
-let eventEmitter = null
+
+
+
+const STANDART_ROOMS = ['room_02', 'room_03', 'room_04', 'room_05']
+const START_ROOMS = ['mainLevel', 'outer_floor', 'outer_road']
+
 
 
 
 
 export function createLevel (emitter, rooms, allMeshes) {
-    eventEmitter = emitter
-
-    let countModels = 0
-    for (let key in rooms) countModels ++
-    countModels -= 1
-
     const group = new THREE.Group()
     const objRooms = {}
+
 
     let isBotLevel = false
 
 
-    const createRanKeyNotOne = () => {
-        const r = Math.ceil(Math.random() * countModels)
-        if (r !== 1) {
-            return r
-        } else {
-            return createRanKeyNotOne()
-        }
-    }
-
 
     const createRoom = (kv, key) => {
-        let instanceKey
-        if (key) {
-            instanceKey = key
-        } else if (isBotLevel) {
-            const r = createRanKeyNotOne()
-            instanceKey = `room_0${ r }`
-        } else {
-            instanceKey = `room_0${ Math.ceil(Math.random() * countModels) }`
-            if (instanceKey === 'room_01') {
-                isBotLevel = true
-            }
-        }
-
-
+        const instanceKey = key || STANDART_ROOMS[Math.floor(Math.random() * STANDART_ROOMS.length)]
+        
         const objKey = `r_${kv[0]}_${kv[1]}_${kv[2]}` 
 
         const mesh = rooms[instanceKey].clone()
@@ -64,20 +43,12 @@ export function createLevel (emitter, rooms, allMeshes) {
         objRooms[objKey] = mesh
 
 
-        // const geometry = mesh.geometry
-        // const wireframe = new THREE.WireframeGeometry( geometry );
-        // const line = new THREE.LineSegments( wireframe );
-        // line.material.color = { r: 0.5, g: 0.5, b: 0.5}
-        // line.material.linewidth = 50
-        // line.material.opacity = 0.5;
-        // line.material.transparent = true;
-        // mesh.add( line );
-
         emitter.emit('levelChanged')({
             typeLevelChange: 'createRoom',
             instanceKey,
             objKey,
             kv,
+            isAddBot: instanceKey === 'room_06'
         })    
 
         instanceKey === 'room_06' && createRoom([kv[0], kv[1] + 1, kv[2]], 'room_dummy')
@@ -114,6 +85,12 @@ export function createLevel (emitter, rooms, allMeshes) {
     }
 
 
+
+
+
+
+
+
     createRoom([0, -1, 0], 'room_02')
     createRoom([0, -1, -1], 'room_02')
     createRoom([-1, -1, 0], 'room_02')
@@ -121,25 +98,24 @@ export function createLevel (emitter, rooms, allMeshes) {
 
 
 
+    /** add remove start corridors */
     const startL = {}
-    const keys = ['mainLevel', 'outer_floor', 'outer_road']
-
-    for (let i = 0; i < keys.length; ++i) {
-        const l = allMeshes[keys[i]].clone()
+    for (let i = 0; i < START_ROOMS.length; ++i) {
+        const l = allMeshes[START_ROOMS[i]].clone()
         setItemToFloorsCollision(l)
         setItemToWallCollision(l)
         group.add(l)
         l.position.set(0, -1 * H, 0)
-        startL[keys[i]] = l
+        startL[START_ROOMS[i]] = l
     }
-
     emitter.subscribe('destroyStartCorridor')(() => {
-        for (let i = 0; i < keys.length; ++i) {
-            removeItemFromFloorsCollision(startL[keys[i]])
-            removeItemFromWallCollision(startL[keys[i]])
-            group.remove(startL[keys[i]])
+        for (let key in startL) {
+            removeItemFromFloorsCollision(startL[key])
+            removeItemFromWallCollision(startL[key])
+            group.remove(startL[key])
         }
     })
+
 
 
     let wentLevels = 0
@@ -281,3 +257,14 @@ export function createLevel (emitter, rooms, allMeshes) {
 
     return { group }
 }
+
+
+
+// const geometry = mesh.geometry
+// const wireframe = new THREE.WireframeGeometry( geometry );
+// const line = new THREE.LineSegments( wireframe );
+// line.material.color = { r: 0.5, g: 0.5, b: 0.5}
+// line.material.linewidth = 50
+// line.material.opacity = 0.5;
+// line.material.transparent = true;
+// mesh.add( line );
