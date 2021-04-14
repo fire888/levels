@@ -53,7 +53,7 @@ const createMaterials = assets => {
         })
         mapsKeys.map(keyMap =>
             MATERIALS_CONFIG[key].props[keyMap] &&
-            (materials[key][keyMap] = assets[MATERIALS_CONFIG[key].props[keyMap]])
+                (materials[key][keyMap] = assets[MATERIALS_CONFIG[key].props[keyMap]])
         )
     }
     return materials

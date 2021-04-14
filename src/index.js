@@ -49,6 +49,7 @@ const init = assets => {
     const systemBots = createSystemBots(assets, materials, emitter)
     studio.addToScene(systemBots.groupBots)
 
+
     createActionByChangedQuadrant()
     
     setTimeout(() => player.start(), 500)
