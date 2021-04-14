@@ -48,7 +48,7 @@ export function createLevel (emitter, rooms, allMeshes) {
             instanceKey,
             objKey,
             kv,
-            isAddBot: instanceKey === 'room_06'
+            isAddBot: instanceKey === 'room_01'
         })    
 
         instanceKey === 'room_06' && createRoom([kv[0], kv[1] + 1, kv[2]], 'room_dummy')
@@ -78,6 +78,7 @@ export function createLevel (emitter, rooms, allMeshes) {
             instanceKey,
             objKey,
             kv,
+            isRemoveBot: instanceKey === 'room_01'
         })    
 
         instanceKey === 'room_dummy' && removeRoom([kv[0], kv[1] - 1, kv[2]])
@@ -126,7 +127,7 @@ export function createLevel (emitter, rooms, allMeshes) {
         if (counter) {
             wentLevels = counter(wentLevels)
             console.log('wentLevels', wentLevels)
-            if (wentLevels < 5) { 
+            if (wentLevels < 1) { 
                 keyCreateRoom = false 
             } else if (wentLevels < 10) {
                 keyCreateRoom = 'room_01'

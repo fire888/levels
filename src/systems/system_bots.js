@@ -13,8 +13,12 @@ export const createSystemBots = (assets, materials, emitter) => {
     Bot.botMaterial = materials.iron
     Bot.botScene = assets.bot
 
+
+
     const groupBots = new THREE.Group()
     const arrBots = []
+
+
 
     for (let i = 0; i < 5; ++i) {
         const bot = new Bot()
@@ -23,53 +27,43 @@ export const createSystemBots = (assets, materials, emitter) => {
         arrBots.push(bot)
     }
 
+
+
+
     emitter.subscribe(FRAME_UPDATE)(data => {
-        for (let i = 0; i < arrBots.length; ++i) {
-            arrBots[i].update(data)
-            //arrBots[i].inScene && arrBots[i].update(data)
-        }
+        for (let i = 0; i < arrBots.length; ++i) arrBots[i].inScene && arrBots[i].update(data)
     })
 
-    emitter.subscribe('levelChanged')(({ typeLevelChange, instanceKey, objKey, kv, isAddBot }) => {
-        // if (isAddBot) {
-        //     for (let i = 0; i < arrBots.length; ++i) {
-        //         if (!arrBots[i].inScene) {
-        //             arrBots[i].inScene = true
-        //             arrBots[i].model.position.set(kv[0] * S + 30, kv[1] * H + H_BOT, kv[2] * S + 40)
-        //             break;
-        //         }
-        //     }
-        // }
-
-        //if (instanceKey === 'room_01' && typeLevelChange === 'createRoom') {
-             //objBots[objKey] = assets.bot.clone()
-        //isAddBot && obj.position.set(kv[0] * S + 30, kv[1] * H + H_BOT, kv[2] * S + 40)
-             //groupBots.add(objBots[objKey])
 
 
-
-      //      objBots[objKey] = assets.bot.clone()
-      //      objBots[objKey].position.set(kv[0] * S + 30, kv[1] * H + H_BOT, kv[2] * S + 40)
-      //      groupBots.add(objBots[objKey])
-        //}
-      //  if (instanceKey === 'room_01' && typeLevelChange === 'destroyRoom') {
-      //      groupBots.remove(objBots[objKey])
-      //      objBots[objKey].children[0].geometry.dispose()
-      //      objBots[objKey].children[0].material.dispose()
-      //      delete objBots[objKey]
-      //  }
-
-        //let count = 0
-        //for (let key in objBots) {
-        //    count ++
-        //}
-        //console.log('bots: ', count)
+    emitter.subscribe('levelChanged')(({ typeLevelChange, instanceKey, objKey, kv, isAddBot, isRemoveBot }) => {        
+        if (isAddBot) {
+            for (let i = 0; i < arrBots.length; ++i) {
+                if (!arrBots[i].inScene) {
+                    arrBots[i].inScene = objKey
+                    arrBots[i].model.position.set(kv[0] * S + 55, kv[1] * H + H_BOT, kv[2] * S + 75)
+                    break;
+                }
+            }
+        }
+        if (isRemoveBot) {
+            for (let i = 0; i < arrBots.length; ++i) {
+                if (arrBots[i].inScene === objKey) {
+                    arrBots[i].inScene = null
+                    arrBots[i].model.position.y = -10000
+                    break;
+                }
+            } 
+        }
     })
 
     return {
         groupBots,
     } 
 }
+
+
+
 
 
 class Bot {
