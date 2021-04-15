@@ -15,7 +15,7 @@ import { S, H } from '../constants/constants_elements'
 
 
 const STANDART_ROOMS = ['room_02', 'room_03', 'room_04', 'room_05']
-const START_ROOMS = ['mainLevel', 'outer_floor', 'outer_road']
+const START_ROOMS = ['outer_walls', 'outer_floor', 'outer_road']
 
 
 
@@ -120,19 +120,26 @@ export function createLevel (emitter, rooms, allMeshes) {
 
 
     let wentLevels = 0
+    let flagIsSpecial = false
 
     emitter.subscribe('changeLevel')(({ direction, oldQuadrant, newQuadrant, counter }) => {
 
-        let keyCreateRoom
+        let keyCreateRoom = false
         if (counter) {
             wentLevels = counter(wentLevels)
             console.log('wentLevels', wentLevels)
-            if (wentLevels < 1) { 
-                keyCreateRoom = false 
-            } else if (wentLevels < 10) {
-                keyCreateRoom = 'room_01'
+
+            if (flagIsSpecial) {
+                flagIsSpecial = false
             } else {
-                keyCreateRoom = 'room_06'
+                if (wentLevels < 1) {
+                } else if (wentLevels < 10) {
+                    keyCreateRoom = 'room_01'
+                    flagIsSpecial = true
+                } else {
+                    keyCreateRoom = 'room_06'
+                    flagIsSpecial = true
+                }
             }
         }
 

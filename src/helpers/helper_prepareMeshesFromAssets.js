@@ -8,6 +8,8 @@ export function prepareMeshesFromAssets (assets) {
         rooms = {},
         allMeshes = {}
 
+    assets.collisionsBotsRooms = {}
+
     assets['level-rooms'].traverse(child => {
         if (child.name.includes("room_")) {
             const mesh = new THREE.Mesh(child.geometry)
@@ -15,7 +17,13 @@ export function prepareMeshesFromAssets (assets) {
             mesh.name = child.name
             allMeshes[child.name] = mesh
         }
-        if (child.name.includes("mainLevel")) {
+        if (child.name.includes("collision_")) {
+            const mesh = new THREE.Mesh(child.geometry)
+            assets.collisionsBotsRooms[child.name] = mesh
+            mesh.name = child.name
+            allMeshes[child.name] = mesh
+        }
+        if (child.name.includes("outer_walls")) {
             const mesh = new THREE.Mesh(child.geometry)
             mesh.name = child.name
             allMeshes[child.name] = mesh
