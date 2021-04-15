@@ -36,7 +36,8 @@ export const createSystemBots = (assets, materials, emitter) => {
 
 
     emitter.subscribe(FRAME_UPDATE)(data => {
-        for (let i = 0; i < arrBots.length; ++i) arrBots[i].inScene && arrBots[i].update(data)
+        //for (let i = 0; i < arrBots.length; ++i) arrBots[i].inScene && arrBots[i].update(data)
+        arrBots[0].inScene && arrBots[0].update(data)
     })
 
 
