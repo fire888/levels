@@ -18,7 +18,6 @@ export const createSystemBots = (assets, materials, emitter) => {
     Bot.botScene = assets.bot
 
 
-    console.log('---', assets)
 
     const groupBots = new THREE.Group()
     const arrBots = []
@@ -27,17 +26,27 @@ export const createSystemBots = (assets, materials, emitter) => {
 
     for (let i = 0; i < 5; ++i) {
         const bot = new Bot()
-        groupBots.add(bot.model)
-        bot.model.position.set(70 + i * 20, -88, -900)
+        groupBots.add(bot.container)
+        bot.container.position.set(70 + i * 20, -88, 900)
+        bot.setCollisionMesh(assets.collisionsBotsRooms['collision_r_01'].clone())
         arrBots.push(bot)
     }
+
+
+    // for (let i = 0; i < 1; ++i) {
+    //     const bot = new Bot()
+    //     groupBots.add(bot.container)
+    //     bot.container.position.set(0, -100, -900)
+    //     arrBots.push(bot)
+    // }
 
 
 
 
     emitter.subscribe(FRAME_UPDATE)(data => {
         //for (let i = 0; i < arrBots.length; ++i) arrBots[i].inScene && arrBots[i].update(data)
-        arrBots[0].inScene && arrBots[0].update(data)
+        for (let i = 0; i < arrBots.length; ++i) arrBots[i].inScene && arrBots[i].update(data)
+        //arrBots[0].inScene && arrBots[0].update(data)
     })
 
 
@@ -47,9 +56,8 @@ export const createSystemBots = (assets, materials, emitter) => {
             for (let i = 0; i < arrBots.length; ++i) {
                 if (!arrBots[i].inScene) {
                     arrBots[i].inScene = objKey
-                    arrBots[i].model.position.set(kv[0] * S + 55, kv[1] * H + H_BOT, kv[2] * S + 75)
+                    arrBots[i].container.position.set(kv[0] * S, kv[1] * H + H_BOT, kv[2] * S)
                     arrBots[i].setCollisionMesh(assets.collisionsBotsRooms['collision_r_01'].clone())
-                    //arrBots[i].walls = assets.collisionsBotsRooms['collision_r_01'].clone()
                     break;
                 }
             }
@@ -58,7 +66,7 @@ export const createSystemBots = (assets, materials, emitter) => {
             for (let i = 0; i < arrBots.length; ++i) {
                 if (arrBots[i].inScene === objKey) {
                     arrBots[i].inScene = null
-                    arrBots[i].model.position.y = -10000
+                    arrBots[i].container.position.y = -10000
                     arrBots[i].removeCollisionMesh()
                 }
             } 

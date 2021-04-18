@@ -1,21 +1,35 @@
 import * as THREE from 'three'
 import { GLTFCopy } from '../helpers/util_glTFcopy'
 
+
+const OFFSETS = {
+    'room_01': { x: 55, z: 75}
+}
+
 export class Bot {
     constructor () {
         this.inScene = false
 
+        this._state = 'go' // || 'rotate' || 'say'
+
+        this._targetAngle = null
+
 
         this.container = new THREE.Group()
-        
+
+        this._modelGroup = new THREE.Group()
+        this._modelGroup.position.x = OFFSETS['room_01'].x
+        this._modelGroup.position.z = OFFSETS['room_01'].z
+        this._modelGroup.rotation.y = Math.random() * (2 * Math.PI)
+        this.container.add(this._modelGroup)
 
         this._objFrom = new THREE.Object3D()
-        this.container.add(this._objFrom)
+        this._modelGroup.add(this._objFrom)
 
 
         this._objTo = new THREE.Object3D()
-        this._objTo.position.set(0, 0, 5)
-        this.container.add(this._objTo)
+        this._objTo.position.set(0, 0, 1)
+        this._modelGroup.add(this._objTo)
 
 
         const copy = GLTFCopy(Bot.botScene)
@@ -26,8 +40,7 @@ export class Bot {
         this._walkAction = this._mixer.clipAction(this._animations[0])
         this._walkAction.play()
 
-
-        this.container.add(this.model)
+        this._modelGroup.add(this.model)
     }
 
 
@@ -36,21 +49,47 @@ export class Bot {
 
         if (!this._componentCollision) return;
 
-        const isNear = this._componentCollision.check()
-        this.container.translateZ(0.1) 
+        this._updateState()
     }
 
 
     setCollisionMesh (mesh) {
         this._collisionMeshes = [mesh]
         this.container.add(mesh)
+        mesh.material.visible = false
+
 
         this._componentCollision = createComponentCollisionWalls(this._objFrom, this._objTo, 7, this._collisionMeshes)
     }
 
     removeCollisionMesh () {
-        this._collisionMesh = null
+        this._collisionMeshes = null
         this._componentCollision = null
+    }
+
+
+
+    _updateState () {
+        if (this._state === 'go') {
+            const isNear = this._componentCollision.check()
+            if (!isNear) {
+                this._modelGroup.translateZ(0.1)
+            } else {
+                this._state = 'rotate'
+                this._createAngle()
+            }
+        }
+
+        if (this._state === 'rotate') {
+            this._modelGroup.rotation.y += ((this._targetAngle - this._modelGroup.rotation.y) < 0) ? -.01 : .01
+            this._modelGroup.rotation.y %= 2 * Math.PI
+            const isComplete = Math.abs(this._modelGroup.rotation.y - this._targetAngle) < .5
+            isComplete && (this._state = 'go')
+        }
+    }
+
+    _createAngle() {
+        this._targetAngle = (this._modelGroup.rotation.y + 1.5 + Math.random() * 4) % (2 * Math.PI)
     }
 }
 
@@ -70,14 +109,13 @@ export const createComponentCollisionWalls = (objFrom, objTo, offset, arrWalls) 
     return {
         check: () => {
             objTo.getWorldPosition(vec3Ray2)
-            vec3Src2.copy(objFrom.position)
+            objFrom.getWorldPosition(vec3Src2)
             vec3Ray2.sub(vec3Src2)
 
-            const raycasterWalls = new THREE.Raycaster(vec3Src2, vec3Ray2)
-            const intersectsWalls = raycasterWalls.intersectObjects(arrWalls)
+            const raycasterWalls = new THREE.Raycaster(vec3Src2, vec3Ray2, 0, 20)
+            const intersectsWalls = raycasterWalls.intersectObject(arrWalls[0], true)
 
-            console.log(intersectsWalls)
-            return intersectsWalls[0] && intersectsWalls[0].distance < offset
+            return !!intersectsWalls[0]
         }
     }
 }
