@@ -68,6 +68,16 @@ export class Bot {
     }
 
 
+    prepareToSay (pos) {
+        this._state = 'say'
+
+
+        this._modelGroup.lookAt(pos.x, this.container.position.y, pos.z)
+        //this._modelGroup.rotateOnAxis(new THREE.Vector3(1, 0, 0), Math.PI / 2)
+    }
+
+
+    /** internal *****************************/
 
     _updateState () {
         if (this._state === 'go') {
@@ -75,8 +85,7 @@ export class Bot {
             if (!isNear) {
                 this._modelGroup.translateZ(0.1)
             } else {
-                this._state = 'rotate'
-                this._createAngle()
+                this._startRotate()
             }
         }
 
@@ -84,11 +93,19 @@ export class Bot {
             this._modelGroup.rotation.y += ((this._targetAngle - this._modelGroup.rotation.y) < 0) ? -.01 : .01
             this._modelGroup.rotation.y %= 2 * Math.PI
             const isComplete = Math.abs(this._modelGroup.rotation.y - this._targetAngle) < .5
-            isComplete && (this._state = 'go')
+            isComplete && this._startGo()
         }
     }
 
-    _createAngle() {
+
+
+    _startGo () {
+        this._state = 'go'
+    }
+
+
+    _startRotate() {
+        this._state = 'rotate'
         this._targetAngle = (this._modelGroup.rotation.y + 1.5 + Math.random() * 4) % (2 * Math.PI)
     }
 }

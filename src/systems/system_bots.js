@@ -28,6 +28,7 @@ export const createSystemBots = (assets, materials, emitter) => {
         const bot = new Bot()
         groupBots.add(bot.container)
         bot.container.position.set(70 + i * 20, -88, 900)
+        bot.inScene = 'aaa'
         bot.setCollisionMesh(assets.collisionsBotsRooms['collision_r_01'].clone())
         arrBots.push(bot)
     }
@@ -70,6 +71,30 @@ export const createSystemBots = (assets, materials, emitter) => {
                     arrBots[i].removeCollisionMesh()
                 }
             } 
+        }
+    })
+
+
+    emitter.subscribe('playerMove')(pos => {
+        for (let i = 0; i < arrBots.length; ++i) {
+            //if (!arrBots[i].inScene && arrBots[i]._state === 'say') continue;
+            if (!arrBots[i].inScene) continue;
+
+            const botWorldPos = new THREE.Vector3()
+            arrBots[i]._modelGroup.getWorldPosition(botWorldPos)
+            const distance = botWorldPos.distanceTo(pos)
+
+
+            if (arrBots[i]._state === 'say' && distance > 30) {
+                arrBots[i]._startRotate()
+                continue;
+            }
+
+
+            if (arrBots[i]._state !== 'say' && distance < 30) {
+                arrBots[i].prepareToSay(pos)
+                continue;
+            }
         }
     })
 
