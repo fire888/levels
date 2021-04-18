@@ -1,4 +1,5 @@
 import { MATERIALS_CONFIG } from '../constants/constants_elements'
+import * as THREE from 'three'
 
 
 

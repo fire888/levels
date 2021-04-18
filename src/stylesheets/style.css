@@ -189,23 +189,41 @@
 }
 
 
-/****************************************************/
-
-#bridge-params {
-    position: absolute; 
-    top: 40px; 
-    left: 10px; 
-    background: #ffffff55;
+.ui-center,
+#root,
+.App {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    flex: 1 0 auto;
 }
 
-#bridge-params span {
-    display: inline-block;
-    width: 100px;
+.ui .dialog {
+    flex: 1 0 auto;
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    align-content: stretch;
 }
 
-#bridge-params input {
-    width: 300px;
+.ui button.last-elem {
+    flex: 0 1 auto;
 }
+
+
+.dialog-inner {
+    min-width: 300px;
+    flex: 1 0 auto;
+    background:  #004ba193;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    padding: 20px;
+    font-size: 2.2em;
+    color: white;
+}
+
 
 
 /****************************************************/

@@ -2,7 +2,8 @@ import * as THREE from 'three'
 import { FRAME_UPDATE } from '../constants/constants_elements'
 import { MAT_IRON } from '../constants/constants_elements'
 import { Bot } from '../entities/Bot'
-
+import { pr } from '../componentsReact/App'
+import { toggleDialog } from '../store/actions'
 
 
 const S = 175.335
@@ -37,14 +38,19 @@ export const createSystemBots = (assets, materials, emitter) => {
 
 
     emitter.subscribe(FRAME_UPDATE)(data => {
-        //for (let i = 0; i < arrBots.length; ++i) arrBots[i].inScene && arrBots[i].update(data)
         for (let i = 0; i < arrBots.length; ++i) arrBots[i].inScene && arrBots[i].update(data)
-        //arrBots[0].inScene && arrBots[0].update(data)
     })
 
 
+    emitter.subscribe('destroyStartCorridor')(() => {
+        for (let i = 0; i < arrBots.length; ++i) {
+            arrBots[i].inScene = null
+            arrBots[i].container.position.y = -10000
+            arrBots[i].removeCollisionMesh()
+        }
+    })
 
-    emitter.subscribe('levelChanged')(({ typeLevelChange, instanceKey, objKey, kv, isAddBot, isRemoveBot }) => {        
+    emitter.subscribe('levelChanged')(({ typeLevelChange, instanceKey, objKey, kv, isAddBot, isRemoveBot }) => {
         if (isAddBot) {
             for (let i = 0; i < arrBots.length; ++i) {
                 if (!arrBots[i].inScene) {
@@ -79,12 +85,16 @@ export const createSystemBots = (assets, materials, emitter) => {
 
             if (arrBots[i]._state === 'say' && distance > 30) {
                 arrBots[i]._startRotate()
+                toggleDialog(pr.dispatch).toggleButtonDialog(false)
                 continue;
             }
 
 
             if (arrBots[i]._state !== 'say' && distance < 30) {
                 arrBots[i].prepareToSay(pos)
+                toggleDialog(pr.dispatch).toggleButtonDialog(true)
+
+
                 continue;
             }
         }

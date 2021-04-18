@@ -14,7 +14,7 @@ export function createDeviceResizer () {
         if (appWrapper.requestFullscreen) {
             appWrapper.requestFullscreen()
         } else if (appWrapper.mozRequestFullScreen) { 
-            tappWrapper.mozRequestFullScreen()
+            appWrapper.mozRequestFullScreen()
         } else if (appWrapper.webkitRequestFullscreen) { 
             appWrapper.webkitRequestFullscreen()
         } else if (appWrapper.msRequestFullscreen) { 

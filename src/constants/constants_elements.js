@@ -1,7 +1,7 @@
 import { DoubleSide } from 'three'
 
-import '../assets/start-img.png'
-import '../assets/progress-img.png'
+//import '../assets/start-img.png'
+//import '../../public/progress-img.png'
 
 import pxjpg from '../assets/skybox/px.jpg'
 import nxjpg from '../assets/skybox/nx.jpg'

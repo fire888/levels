@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { GLTFCopy } from '../helpers/util_glTFcopy'
+import { GLTFCopy } from '../helpers/util_GLTFcopy'
 
 
 const OFFSETS = {
