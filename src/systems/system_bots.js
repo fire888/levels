@@ -27,19 +27,11 @@ export const createSystemBots = (assets, materials, emitter) => {
     for (let i = 0; i < 5; ++i) {
         const bot = new Bot()
         groupBots.add(bot.container)
-        bot.container.position.set(70 + i * 20, -88, 900)
+        bot.container.position.set(-30 + i * 30, -92, 750)
         bot.inScene = 'aaa'
         bot.setCollisionMesh(assets.collisionsBotsRooms['collision_r_01'].clone())
         arrBots.push(bot)
     }
-
-
-    // for (let i = 0; i < 1; ++i) {
-    //     const bot = new Bot()
-    //     groupBots.add(bot.container)
-    //     bot.container.position.set(0, -100, -900)
-    //     arrBots.push(bot)
-    // }
 
 
 
