@@ -14,7 +14,7 @@ import { S, H } from '../constants/constants_elements'
 
 
 
-const STANDART_ROOMS = ['room_02', 'room_03', 'room_04', 'room_05']
+const STANDART_ROOMS = ['room_02', 'room_03', 'room_04', 'room_05', 'room_07']
 const START_ROOMS = ['outer_walls', 'outer_floor', 'outer_road']
 
 

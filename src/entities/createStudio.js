@@ -52,14 +52,23 @@ export function createStudio (emitter, assets) {
     const addToScene = scene.add.bind(scene)
 
     const drawFrame = () => camera && renderer.render(scene, camera)
+
+
+
     emitter.subscribe(FRAME_UPDATE)(drawFrame)
+
+
+
     emitter.subscribe('toggleImgSceneBack')(({ backgroundImg }) => {
         console.log('backgroundImg', backgroundImg)
         scene.background = backgroundImg ? assets.skyBox : null
     })
-    emitter.subscribe('changeEnvironment')(data => {
 
+
+    emitter.subscribe('changeEnvironment')(data => {
         const { newQuadrant, environmentMode } = data
+
+        if (!FLOORS_CONF[newQuadrant[1]]) return;
 
         const { fogNear, fogFar, color } = FLOORS_CONF[newQuadrant[1]][environmentMode]
 
