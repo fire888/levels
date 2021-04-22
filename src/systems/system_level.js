@@ -124,7 +124,6 @@ export function createLevel (emitter, rooms, allMeshes) {
     let flagIsSpecial = false
 
     emitter.subscribe('changeLevel')(({ direction, oldQuadrant, newQuadrant, counter }) => {
-
         console.log(oldQuadrant, newQuadrant, counter )
 
         let keyCreateRoom = false

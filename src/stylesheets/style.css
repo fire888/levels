@@ -210,11 +210,13 @@
 
 .ui button.last-elem {
     flex: 0 1 auto;
+    min-width: 30vw;
 }
 
 
 .dialog-inner {
-    min-width: 300px;
+    box-sizing: border-box;
+    min-width: 30vw;
     flex: 1 0 auto;
     background:  #004ba193;
     border-radius: 5px;
@@ -222,6 +224,20 @@
     padding: 20px;
     font-size: 2.2em;
     color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.userReplicies {
+    flex: 0 1 auto;
+}
+
+.userReplicies button {
+    font-size: 1em;
+}
+
+.botAnswers {
+    flex: 1 0 auto;
 }
 
 

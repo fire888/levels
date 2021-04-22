@@ -1,13 +1,15 @@
 import { connect } from 'react-redux'
 import { toggleDialog } from '../store/actions'
+import { UserReplicies } from './UserReplicies'
+import { BotAnswers } from './BotAnswers'
 
 
 
 const mapStateToProps = state => ({
     isButtonDialog: state.app.isButtonDialog,
     isDialog: state.app.isDialog,
-    botReplicies: state.app.botReplicies,
-    userReplicies: state.app.userReplicies,
+    //botReplicies: state.app.botReplicies,
+    //userReplicies: state.app.userReplicies,
 })
 
 
@@ -21,7 +23,10 @@ function App(props) {
     return (
         <div className="App">
             <div className="dialog">
-                {props.isDialog && props.isButtonDialog && (<div className="dialog-inner">a</div>)}
+                {props.isDialog && props.isButtonDialog && (<div className="dialog-inner">
+                    <BotAnswers />
+                    <UserReplicies />
+                </div>)}
             </div>
             {props.isButtonDialog && (<button
                 className="last-elem"

@@ -2,11 +2,13 @@ import { createStore , applyMiddleware, compose} from 'redux'
 import thunk from 'redux-thunk';
 import { combineReducers } from 'redux'
 
+import { REPLICIES } from '../constants/constants_replicies'
+
 
 
 const appData = {
-    botReplicies: ['AAA', 'BBBB', 'CCC'],
-    userReplicies: ['mmmm...', 'yyy...', 'aaa...'],
+    botAnswers: [],
+    userReplicies: [],
     isDialog: false,
     isButtonDialog: false
 }
@@ -15,9 +17,16 @@ const appData = {
 
 
 const app = function(state = appData, action) {
+
     if (action.type === 'TOGGLE_DIALOG') {
+
+        const botAnswers = [...REPLICIES]
+        const userReplicies = [...REPLICIES]
+
         return ({
             ...state,
+            botAnswers,
+            userReplicies,
             isDialog: action.isDialog,
         })
     }

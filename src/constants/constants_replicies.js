@@ -1,3 +1,33 @@
+export const REPLICIES = [
+    {
+        q: 'Привет !',
+        a: 'День добрый, кремниевая форма жизни.'
+    },
+    {
+        q: 'Что это за место.',
+        a: 'Это энтропийный гиппертоннель.'
+    }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const REPLICIES_CONFIG = {
     'START_MESS': [{
         q: { txt: 'After a long wandering in the desert...' },
