@@ -28,7 +28,8 @@ export function createLevel (emitter, rooms, allMeshes) {
 
 
     let isBotLevel = false
-
+    //let isCanAddStairs = false
+    let state = 'normal' // 'addBot' || 'addStairs' || 'addWell'
 
 
     const createRoom = (kv, key) => {
@@ -131,23 +132,52 @@ export function createLevel (emitter, rooms, allMeshes) {
             wentLevels = counter(wentLevels)
             console.log('wentLevels', wentLevels)
 
+            // if (flagIsSpecial) {
+            //     flagIsSpecial = false
+            // } else {
+            //     if (wentLevels < 1) {
+            //     } else if (wentLevels < 10) {
+            //         keyCreateRoom = 'room_01'
+            //         flagIsSpecial = true
+            //     } else {
+            //         keyCreateRoom = 'room_06'
+            //         flagIsSpecial = true
+            //     }
+            // }
+            //
+            // if (wentLevels > 3 && newQuadrant[1] === 2) {
+            //     keyCreateRoom = 'room_07'
+            // }
+
+
             if (flagIsSpecial) {
                 flagIsSpecial = false
             } else {
-                if (wentLevels < 1) {
-                } else if (wentLevels < 10) {
+                if (wentLevels < 3) {
+                    state = 'normal'
+                } else {
+                    if (state === 'normal') {
+                        state = 'addBot'
+                    }
+                }
+
+
+                if (state === 'addBot') {
                     keyCreateRoom = 'room_01'
                     flagIsSpecial = true
-                } else {
+                }
+                if (state === 'addStairs') {
                     keyCreateRoom = 'room_06'
                     flagIsSpecial = true
                 }
-            }
-
-            if (wentLevels > 3 && newQuadrant[1] === 2) {
-                keyCreateRoom = 'room_07'
+                if (state === 'addWell') {
+                    keyCreateRoom = 'room_07'
+                }
             }
         }
+
+
+        emitter.subscribe('changeLevelMode')(newMode => state = newMode)
 
 
 

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-
+import { toggleDialog } from '../store/actions'
 
 
 
@@ -15,7 +15,9 @@ export const UserReplicies = connect(mapStateToProps)(function (props) {
         <div className="userReplicies">
             {props.userReplicies.map(item => (<button
                     key={Math.floor(Math.random()* 100000)}
-                    onClick={() => console.log('saaa')}>
+                    onClick={() => {
+                        toggleDialog(props.dispatch).clickPhrase(item)
+                    }}>
                     {item.q}
                 </button>)
             )}

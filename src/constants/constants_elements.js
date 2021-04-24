@@ -362,7 +362,7 @@ export const playerConfig = {
     //speed: 0.35,
     speed: 0.8,
     speedRot: 0.02,
-    speedDown: -0.25,
+    speedDown: -0.45,
     offsetFromFloor: 10.0,
     offsetFromFloorFactor: 0.5,
     offsetWallCollision: 3.5,

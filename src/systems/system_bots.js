@@ -75,7 +75,6 @@ export const createSystemBots = (assets, materials, emitter) => {
 
     emitter.subscribe('playerMove')(pos => {
         for (let i = 0; i < arrBots.length; ++i) {
-            //if (!arrBots[i].inScene && arrBots[i]._state === 'say') continue;
             if (!arrBots[i].inScene) continue;
 
             const botWorldPos = new THREE.Vector3()
@@ -93,8 +92,6 @@ export const createSystemBots = (assets, materials, emitter) => {
             if (arrBots[i]._state !== 'say' && distance < 30) {
                 arrBots[i].prepareToSay(pos)
                 toggleDialog(pr.dispatch).toggleButtonDialog(true)
-
-
                 continue;
             }
         }

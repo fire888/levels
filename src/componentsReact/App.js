@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { toggleDialog } from '../store/actions'
 import { UserReplicies } from './UserReplicies'
 import { BotAnswers } from './BotAnswers'
+import { emitter } from '../helpers/util_emitter'
 
 
 
@@ -23,7 +24,7 @@ function App(props) {
     return (
         <div className="App">
             <div className="dialog">
-                {props.isDialog && props.isButtonDialog && (<div className="dialog-inner">
+                {props.isDialog && (<div className="dialog-inner">
                     <BotAnswers />
                     <UserReplicies />
                 </div>)}
@@ -37,6 +38,11 @@ function App(props) {
         </div>
     )
 }
+
+
+emitter.subscribe('changeLevel')(({ direction, oldQuadrant, newQuadrant, counter }) => {
+    toggleDialog(pr.dispatch).changeBot()
+})
 
 export const pr = { dispatch: null }
 

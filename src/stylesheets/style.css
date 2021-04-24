@@ -94,21 +94,6 @@
     justify-content: flex-end;
  }
 
- #messages {
-    flex: 1 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    color: #ffffff;
-    padding: 2em;
- }
-
- #messages p {
-    margin: 3px;
-    font-size: 2.2em;
- }
 
  #replicies {
     flex: 0 1 auto;
@@ -152,7 +137,6 @@
     color: #c4e2ff; 
     border: 1px solid #c1e1ff; 
     height: 2em;
-    width: 30vw;
     overflow: hidden;
     border-radius: 5px; 
     background: #004ba193;
@@ -216,9 +200,10 @@
 
 .dialog-inner {
     box-sizing: border-box;
+    max-width: 31vw;
     min-width: 30vw;
     flex: 1 0 auto;
-    background:  #004ba193;
+    background: rgba(0, 59, 119, 0.58);
     border-radius: 5px;
     margin-bottom: 30px;
     padding: 20px;
@@ -230,15 +215,34 @@
 
 .userReplicies {
     flex: 0 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .userReplicies button {
     font-size: 1em;
+    max-width: 1000px;
 }
 
 .botAnswers {
     flex: 1 0 auto;
 }
+
+.botAnswers .q {
+    display: flex;
+    font-size: .9rem;
+    color: #faffcb;
+    justify-content: flex-end;
+}
+
+.botAnswers .a {
+    font-size: 1.2rem;
+    color: #f9fffd;
+    margin-bottom: .8rem;
+}
+
+
 
 
 
