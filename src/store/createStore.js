@@ -21,6 +21,25 @@ const bot02 = {
     phrases: [{
         q: 'Что ты сдесь делаешь !',
         a: 'Собираю энергию ночи.',
+        event: 'nextReply',
+        levelEvent: null,
+    },{
+        q: 'Я уже долго иду !',
+        a: 'Твой путь еще не пройден.',
+        event: 'close',
+        levelEvent: null,
+    },]
+}
+
+const bot02_2 = {
+    phrases: [{
+        q: 'Это ты или не ты?',
+        a: 'Я это я.',
+        event: 'nextReply',
+        levelEvent: null,
+    },{
+        q: 'Я уже долго иду !',
+        a: 'Твой путь еще не пройден.',
         event: 'close',
         levelEvent: 'addStairs',
     },]
@@ -44,7 +63,7 @@ const appData = {
     isDialogAnswered: false,
     botIndex: -1,
     phraseIndex: 0,
-    phrasesData: [bot01, bot02, bot03, null],
+    phrasesData: [bot01, bot02, bot02_2, bot03, null],
     botAnswers: [],
     userReplicies: [],
     history: [],
