@@ -43,7 +43,7 @@ let isCanChangeBot = 0
 
 emitter.subscribe('changeLevel')(({ direction, oldQuadrant, newQuadrant, counter }) => {
     ++isCanChangeBot;
-    if (isCanChangeBot > 4) {
+    if (isCanChangeBot > 2) {
         toggleDialog(pr.dispatch).changeBot()
         isCanChangeBot = 0
     }
