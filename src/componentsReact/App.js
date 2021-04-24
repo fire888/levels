@@ -1,7 +1,8 @@
-import { connect } from 'react-redux'
-import { toggleDialog } from '../store/actions'
 import { UserReplicies } from './UserReplicies'
 import { BotAnswers } from './BotAnswers'
+
+import { connect } from 'react-redux'
+import { toggleDialog } from '../store/actions'
 import { emitter } from '../helpers/util_emitter'
 
 
@@ -9,8 +10,6 @@ import { emitter } from '../helpers/util_emitter'
 const mapStateToProps = state => ({
     isButtonDialog: state.app.isButtonDialog,
     isDialog: state.app.isDialog,
-    //botReplicies: state.app.botReplicies,
-    //userReplicies: state.app.userReplicies,
 })
 
 

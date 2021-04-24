@@ -71,9 +71,7 @@ export class Bot {
     prepareToSay (pos) {
         this._state = 'say'
 
-
         this._modelGroup.lookAt(pos.x, this.container.position.y, pos.z)
-        //this._modelGroup.rotateOnAxis(new THREE.Vector3(1, 0, 0), Math.PI / 2)
     }
 
 

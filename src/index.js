@@ -2,7 +2,7 @@ import { createDeviceResizer } from './helpers/util_deviceResizer'
 import { KeyBoard } from './helpers/util_keyBoard'
 import { emitter } from './helpers/util_emitter'
 import { createFrameUpdater } from './helpers/util_frameUpater'
-import { createActionByChangedQuadrant } from './helpers/createActionByChangedQuadrant'
+import { createActionByChangedQuadrant } from './store/actionByChangeQuadrant'
 
 import { ASSETS_TO_LOAD } from './constants/constants_elements'
 
@@ -29,14 +29,24 @@ import { Provider } from 'react-redux'
 import { store } from './store/createStore'
 
 
+  
+  
+//function handleChange() {
+//    console.log(store.getState())
+//}
+  
+//const unsubscribe = store.subscribe(handleChange)
+
+
+
 
 
 ReactDOM.render(
-<Provider store={store}>
-<App />
-</Provider>,
+    <Provider store={store}>
+        <App />
+    </Provider>,
     document.getElementById('root')
-);
+)
 
 
 
@@ -49,7 +59,7 @@ const init = assets => {
     createFrameUpdater(emitter)
     emitter.subscribe(FRAME_UPDATE)(() => TWEEN.update())
 
-    const studio = createStudio(emitter, assets)
+    const studio = createStudio(emitter, assets, store)
 
     /** player */
     new KeyBoard(emitter)
