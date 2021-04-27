@@ -1,6 +1,7 @@
 import { createStore , applyMiddleware, compose} from 'redux'
 import thunk from 'redux-thunk';
 import { combineReducers } from 'redux'
+import { FLOORS_CONF } from '../constants/constants_elements'
 
 
 const bot01 = {
@@ -58,7 +59,20 @@ const bot03 = {
 
 
 
+
+
 const appData = {
+    sceneEnvironment: {
+        color: FLOORS_CONF['-1']['outer'].color,
+        fogNear: FLOORS_CONF['-1']['outer'].fogNear,
+        fogFar: FLOORS_CONF['-1']['outer'].fogFar,
+        backgroundImgKey: 'skyBox',
+    },
+
+
+
+
+
     isCanChangeBotIndex: true,
     isDialogAnswered: false,
     botIndex: -1,
@@ -74,7 +88,30 @@ const appData = {
 
 
 
+
+
+
 const app = function(state = appData, action) {
+    if (action.type === 'CHANGE_ENVIRONMENT') {
+        const { newQuadrant, environmentMode } = action
+
+        if (!FLOORS_CONF[newQuadrant[1]]) return state;
+
+        const { fogNear, fogFar, color } = FLOORS_CONF[newQuadrant[1]][environmentMode]
+
+        return ({
+            ...state,
+            sceneEnvironment: {
+                fogNear,
+                fogFar,
+                color,
+            }
+        })
+    }
+
+
+
+
     if (action.type === 'CLICK_PHRASE') {
         return ({
             ...state,

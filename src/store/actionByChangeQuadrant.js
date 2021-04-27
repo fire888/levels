@@ -1,8 +1,4 @@
 import { emitter } from '../helpers/util_emitter'
-//import {
-    //START_LAYER_STATE,
-    //CHANGE_LAYER_STATE,
-//} from '../constants/constants_elements'
 import { S, H } from '../constants/constants_elements'
 import { pr } from '../componentsReact/App'
 
@@ -21,13 +17,9 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: [0, -2, 4], newQuadrant: [0, -2, 3],
         emitData: [
             {
-                //emitKey: 'changeEnvironment',
-                emitKey: 'CHANGE_ENVIROMENT',
+                emitKey: 'CHANGE_ENVIRONMENT',
                 environmentMode: 'corridorLight',
-            },
-            {
-                emitKey: 'toggleImgSceneBack',
-                backgroundImg: false,
+                backgroundImg: false
             },
         ],
     },
@@ -36,8 +28,7 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: [0, -2, 3], newQuadrant: [0, -2, 4],
         emitData: [
             {
-                //emitKey: 'changeEnvironment',
-                emitKey: 'CHANGE_ENVIROMENT',
+                emitKey: 'CHANGE_ENVIRONMENT',
                 environmentMode: 'outer',
             },
         ]
@@ -49,8 +40,7 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: [0, -1, 2], newQuadrant: [0, -1, 1],
         emitData: [
             {
-                //emitKey: 'changeEnvironment',
-                emitKey: 'CHANGE_ENVIROMENT',
+                emitKey: 'CHANGE_ENVIRONMENT',
                 environmentMode: 'firstRoomLight',
             }
         ],
@@ -60,8 +50,7 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: [0, -1, 1], newQuadrant: [0, -1, 2],
         emitData: [
             {
-                //emitKey: 'changeEnvironment',
-                emitKey: 'CHANGE_ENVIROMENT',
+                emitKey: 'CHANGE_ENVIRONMENT',
                 environmentMode: 'corridorLight',
             },
         ],
@@ -113,8 +102,7 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY_PLUS_ONE', 'ANY'],
         emitData: [
             {
-                //emitKey: 'changeEnvironment',
-                emitKey: 'CHANGE_ENVIROMENT',
+                emitKey: 'CHANGE_ENVIRONMENT',
                 environmentMode: 'default',
             },
             {
@@ -130,8 +118,7 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY_MINUS_ONE', 'ANY'],
         emitData: [
             {
-                //emitKey: 'changeEnvironment',
-                emitKey: 'CHANGE_ENVIROMENT',
+                emitKey: 'CHANGE_ENVIRONMENT',
                 environmentMode: 'default',
             },
             {

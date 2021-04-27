@@ -21,12 +21,13 @@ export function createStudio (emitter, assets, store) {
     renderer.setSize(window.innerWidth, window.innerHeight)
 
     const scene = new THREE.Scene()
-    scene.background = assets.skyBox
 
     {
-        const { color, fogNear, fogFar } = FLOORS_CONF['-1']['outer']
+        const { color, fogNear, fogFar, backgroundImgKey } = store.getState().app.sceneEnvironment
+        scene.background = assets[backgroundImgKey] || null
         scene.fog = new THREE.Fog(color, fogNear, fogFar)
     }
+
 
     let lightA
     {
@@ -59,43 +60,48 @@ export function createStudio (emitter, assets, store) {
 
 
 
-    emitter.subscribe('toggleImgSceneBack')(({ backgroundImg }) => {
-        console.log('backgroundImg', backgroundImg)
-        scene.background = backgroundImg ? assets.skyBox : null
-    })
+    let
+        oldFogNear = scene.fog.near,
+        oldFogFar = scene.fog.far,
+        oldColor = scene.fog.color,
+        oldBackgroundImgKey = store.getState().app.sceneEnvironment.backgroundImgKey
 
+    store.subscribe(() => {
 
-    emitter.subscribe('changeEnvironment')(data => {
-        const { newQuadrant, environmentMode } = data
+        const newState = store.getState()
+        const { fogNear, fogFar, color, backgroundImgKey } = newState.app.sceneEnvironment
+        if (fogNear !== oldFogNear || fogFar !== oldFogFar || color !== oldColor ) {
+            let startData = {
+                color: scene.fog.color,
+                near: scene.fog.near,
+                far: scene.fog.far,
+            }
+            let endData = {
+                color: new THREE.Color(color),
+                near: fogNear,
+                far: fogFar,
+            }
 
-        if (!FLOORS_CONF[newQuadrant[1]]) return;
+            oldFogNear = fogNear
+            oldFogFar = fogFar
+            oldColor = color
 
-        const { fogNear, fogFar, color } = FLOORS_CONF[newQuadrant[1]][environmentMode]
-
-
-        let startData = {
-            color: scene.fog.color,
-            near: scene.fog.near,
-            far: scene.fog.far,
+            new TWEEN.Tween(startData)
+                .to(endData, 3000)
+                .onUpdate(() => {
+                    scene.fog.color = startData.color
+                    scene.fog.near = startData.near
+                    scene.fog.far = startData.far
+                    lightA.color = startData.color
+                    renderer.setClearColor(startData.color)
+                })
+                .start()
         }
-        let endData = {
-            color: new THREE.Color(color),
-            near: fogNear,
-            far: fogFar,
+
+
+        if (backgroundImgKey !== oldBackgroundImgKey) {
+            scene.background = assets[backgroundImgKey] || null
         }
-
-
-        new TWEEN.Tween(startData)
-            .to(endData, 3000)
-            .onUpdate(() => {
-                scene.fog.color = startData.color
-                scene.fog.near = startData.near
-                scene.fog.far = startData.far
-                lightA.color = startData.color
-                renderer.setClearColor(startData.color)
-
-            })
-            .start()
     })
 
 
