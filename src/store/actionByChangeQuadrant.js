@@ -4,7 +4,6 @@ import { pr } from '../componentsReact/App'
 
 
 export const START_LAYER_STATE = 'outer'
-//export const START_LAYER_STATE = 'corridor'
 
 
 
@@ -63,10 +62,10 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: [0, -1, 0], newQuadrant: [0, -1, 'ANY_MINUS_ONE'],
         emitData: [
             {
-                emitKey: 'destroyStartCorridor'
+                emitKey: 'DESTROY_START_CORRIDOR'
             },
             {
-                 emitKey: 'changeLevel'
+                emitKey: 'CHANGE_QUADRANT'
             },
         ],
     },
@@ -75,10 +74,10 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: [0, -1, 0], newQuadrant: ['ANY_MINUS_ONE', -1, 0],
         emitData: [
             {
-                emitKey: 'destroyStartCorridor'
+                emitKey: 'DESTROY_START_CORRIDOR'
             },
             {
-                 emitKey: 'changeLevel'
+                emitKey: 'CHANGE_QUADRANT'
             },
         ],
     },
@@ -87,10 +86,10 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: [0, -1, 0], newQuadrant: ['ANY_PLUS_ONE', -1, 0],
         emitData: [
             {
-                emitKey: 'destroyStartCorridor'
+                emitKey: 'DESTROY_START_CORRIDOR'
             },
             {
-                emitKey: 'changeLevel'
+                emitKey: 'CHANGE_QUADRANT'
             },
         ],
     },
@@ -106,9 +105,9 @@ export const CHANGE_LAYER_STATE = [
                 environmentMode: 'default',
             },
             {
-                emitKey: 'changeLevel',
+                emitKey: 'CHANGE_QUADRANT',
                 counter: () => 0,
-            }
+            },
         ],
     },
 
@@ -122,8 +121,8 @@ export const CHANGE_LAYER_STATE = [
                 environmentMode: 'default',
             },
             {
-                emitKey: 'changeLevel',
-            }
+                emitKey: 'CHANGE_QUADRANT',
+            },
         ],
     },
 
@@ -135,7 +134,7 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY', 'ANY_MINUS_ONE'],
         emitData: [
             {
-                emitKey: 'changeLevel',
+                emitKey: 'CHANGE_QUADRANT',
                 counter: val => ++val,
             },
         ],
@@ -146,9 +145,9 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY_MINUS_ONE', 'ANY', 'ANY'],
         emitData: [
             {
-                emitKey: 'changeLevel',
+                emitKey: 'CHANGE_QUADRANT',
                 counter: val => ++val,
-            },
+            }
         ],
     },
 
@@ -157,9 +156,9 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY_PLUS_ONE', 'ANY', 'ANY'],
         emitData: [
             {
-                emitKey: 'changeLevel',
+                emitKey: 'CHANGE_QUADRANT',
                 counter: val => ++val,
-            },
+            }
         ],
     },
 
@@ -168,9 +167,9 @@ export const CHANGE_LAYER_STATE = [
         oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY', 'ANY_PLUS_ONE'],
         emitData: [
             {
-                emitKey: 'changeLevel',
+                emitKey: 'CHANGE_QUADRANT',
                 counter: val => ++val,
-            },
+            }
         ],
     },
 ]

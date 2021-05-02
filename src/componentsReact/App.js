@@ -38,15 +38,15 @@ function App(props) {
     )
 }
 
-let isCanChangeBot = 0
-
-emitter.subscribe('changeLevel')(({ direction, oldQuadrant, newQuadrant, counter }) => {
-    ++isCanChangeBot;
-    if (isCanChangeBot > 2) {
-        toggleDialog(pr.dispatch).changeBot()
-        isCanChangeBot = 0
-    }
-})
+// let isCanChangeBot = 0
+//
+// emitter.subscribe('changeLevel')(({ direction, oldQuadrant, newQuadrant, counter }) => {
+//     ++isCanChangeBot;
+//     if (isCanChangeBot > 2) {
+//         toggleDialog(pr.dispatch).changeBot()
+//         isCanChangeBot = 0
+//     }
+// })
 
 export const pr = { dispatch: null }
 

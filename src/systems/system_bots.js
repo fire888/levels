@@ -14,7 +14,7 @@ const H_BOT = 14
 
 
 
-export const createSystemBots = (assets, materials, emitter) => {
+export const createSystemBots = (assets, materials, emitter, store) => {
     Bot.botMaterial = materials.iron
     Bot.botScene = assets.bot
 
@@ -42,13 +42,28 @@ export const createSystemBots = (assets, materials, emitter) => {
     })
 
 
-    emitter.subscribe('destroyStartCorridor')(() => {
-        for (let i = 0; i < arrBots.length; ++i) {
-            arrBots[i].inScene = null
-            arrBots[i].container.position.y = -10000
-            arrBots[i].removeCollisionMesh()
+
+
+    const initState = store.getState()
+    let saveIsStartCorridorShow = initState.app.level.isStartCorridorShow
+
+    store.subscribe(() => {
+        const newState = store.getState()
+        if (saveIsStartCorridorShow && saveIsStartCorridorShow !== newState.app.level.isStartCorridorShow) {
+            saveIsStartCorridorShow = newState.app.level.isStartCorridorShow
+
+            for (let i = 0; i < arrBots.length; ++i) {
+                arrBots[i].inScene = null
+                arrBots[i].container.position.y = -10000
+                arrBots[i].removeCollisionMesh()
+            }
         }
     })
+
+
+
+
+
 
     emitter.subscribe('levelChanged')(({ typeLevelChange, instanceKey, objKey, kv, isAddBot, isRemoveBot }) => {
         if (isAddBot) {
@@ -71,6 +86,10 @@ export const createSystemBots = (assets, materials, emitter) => {
             } 
         }
     })
+
+
+
+
 
 
     emitter.subscribe('playerMove')(pos => {

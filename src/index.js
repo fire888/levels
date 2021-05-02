@@ -71,11 +71,11 @@ const init = assets => {
     const { allMeshes,  rooms, materials } = prepareMeshesFromAssets(assets)
 
     /** level */
-    const { group } = createLevel(emitter, rooms, allMeshes)
+    const { group } = createLevel(emitter, rooms, allMeshes, store)
     studio.addToScene(group)
 
     /** bots */
-    const systemBots = createSystemBots(assets, materials, emitter)
+    const systemBots = createSystemBots(assets, materials, emitter, store)
     studio.addToScene(systemBots.groupBots)
 
 

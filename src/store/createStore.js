@@ -69,9 +69,15 @@ const appData = {
         backgroundImgKey: 'skyBox',
     },
 
+    playerQuadrant: {
+        oldQuadrant: [0, 0, 0],
+        newQuadrant: [0, 0, 0],
+        counter: null,
+    },
 
-
-
+    level: {
+        isStartCorridorShow: true,
+    },
 
     isCanChangeBotIndex: true,
     isDialogAnswered: false,
@@ -89,6 +95,7 @@ const appData = {
 
 
 
+let isCanChangeBot = 0
 
 
 const app = function(state = appData, action) {
@@ -109,6 +116,35 @@ const app = function(state = appData, action) {
         })
     }
 
+
+    if (action.type === 'CHANGE_QUADRANT') {
+        ++isCanChangeBot;
+        let isCanChangeBotIndex = state.isCanChangeBotIndex
+        if (isCanChangeBot > 2) {
+            isCanChangeBotIndex = true
+            isCanChangeBot = 0
+        }
+
+        return ({
+            ...state,
+            playerQuadrant: {
+                ...action,
+            },
+            isCanChangeBotIndex,
+        })
+    }
+
+
+
+    if (action.type === 'DESTROY_START_CORRIDOR') {
+        return ({
+            ...state,
+            level: {
+                ...state.level,
+                isStartCorridorShow: false,
+            }
+        })
+    }
 
 
 
