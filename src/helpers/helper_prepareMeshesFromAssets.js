@@ -13,7 +13,7 @@ export function prepareMeshesFromAssets (assets) {
 
     assets['level-rooms'].traverse(child => {
         if (child.name.includes("room_")) {
-            const mesh = new THREE.Mesh(child.geometry)
+            const mesh = new THREE.Mesh(child.geometry, materials.wall)
             rooms[child.name] = mesh
             mesh.name = child.name
             allMeshes[child.name] = mesh
@@ -25,7 +25,7 @@ export function prepareMeshesFromAssets (assets) {
             allMeshes[child.name] = mesh
         }
         if (child.name.includes("outer_walls")) {
-            const mesh = new THREE.Mesh(child.geometry)
+            const mesh = new THREE.Mesh(child.geometry, materials.wall)
             mesh.name = child.name
             allMeshes[child.name] = mesh
         }
@@ -54,7 +54,7 @@ const createMaterials = assets => {
     for (let key in assets) 
         assets[key].wrapS && (assets[key].wrapS = assets[key].wrapT = THREE.RepeatWrapping)
 
-    const mapsKeys = ['bumpMap', 'envMap', 'map']
+    const mapsKeys = ['bumpMap', 'envMap', 'map', 'normalMap', 'lightMap', 'aoMap']
     const materials = {}
     for (let key in MATERIALS_CONFIG) {
         materials[key] = new THREE[MATERIALS_CONFIG[key].mat]({

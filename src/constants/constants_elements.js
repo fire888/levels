@@ -1,3 +1,4 @@
+import * as THREE from 'three'
 import { DoubleSide } from 'three'
 
 //import '../assets/start-img.png'
@@ -23,6 +24,12 @@ import mapFloorOuter from '../assets/floor_outer_map.jpg'
 
 import botMap from '../assets/botMap.png'
 import botSrc from '../assets/botAnim.glb'
+
+
+import tAlbedo from '../assets/TexturesCom_Paint_Epoxy_512_albedo.jpg'
+import tHeight from '../assets/TexturesCom_Paint_Epoxy_512_height.jpg'
+import tNormal from '../assets/TexturesCom_Paint_Epoxy_512_normal.jpg'
+import tRough from '../assets/TexturesCom_Paint_Epoxy_512_roughness.jpg'
 
 
 
@@ -57,26 +64,70 @@ export const ASSETS_TO_LOAD = [
         filename: mapFloorOuter,
         key: 'mapFloorOuter',
         wrap: true,
+   // },
+
+
+    // {
+    //     type: 'img',
+    //     filename: tAlbedo,
+    //     key: 'mapTAlbeto',
+    //     wrap: true,
+    // }, {
+    //     type: 'img',
+    //     filename: tHeight,
+    //     key: 'mapTHeight',
+    //     wrap: true,
+    // }, {
+    //     type: 'img',
+    //     filename: tNormal,
+    //     key: 'mapTNormal',
+    //     wrap: true,
+    // }, {
+    //     type: 'img',
+    //     filename: tRough,
+    //     key: 'mapTRough',
+    //     wrap: true,
 },]
 
 
 
 
 export const MATERIALS_CONFIG = {
-    'wall': {
-        mat: 'MeshPhongMaterial',
-        props: {
-            color: 0xffffff,
-            emissive: 0x003388,
-            specular: 0xffffff,
-            shininess: 60,
-            bumpMap: 'bumpWalls',
-            bumpScale: 0.1,
-            envMap: 'skyBox',
-            reflectivity: 0.5,
-            map: 'bumpWalls',
-        },
-    },
+    // 'wall': {
+    //     mat: 'MeshPhongMaterial',
+    //     props: {
+    //         color: 0xffffff,
+    //         emissive: 0x003388,
+    //         specular: 0xffffff,
+    //         shininess: 60,
+    //         bumpMap: 'bumpWalls',
+    //         bumpScale: 0.1,
+    //         envMap: 'skyBox',
+    //         reflectivity: 0.5,
+    //         map: 'bumpWalls',
+    //     },
+    // },
+
+    // 'wall': {
+    //     mat: 'MeshPhongMaterial',
+    //     props: {
+    //         color: 0xffffff,
+    //         emissive: 0x333333,
+    //         specular: 0xffffff,
+    //         //shininess: 3,
+    //        // bumpMap: 'bumpWalls',
+    //         normalMap: 'mapTNormal',
+    //         normalScale: new THREE.Vector2(.5, .5),
+    //         //bumpScale: 0.5,
+    //         envMap: 'skyBox',
+    //         //aoMap: 'mapTRough',
+    //         //lightMap: 'mapTRough',
+    //         reflectivity: 0.02,
+    //         map: 'mapTAlbeto',
+    //     },
+    // },
+
+
     'iron': {
         mat: 'MeshPhongMaterial',
         props: {
@@ -92,6 +143,22 @@ export const MATERIALS_CONFIG = {
             skinning: true,
         },
     },
+
+    'wall': {
+        mat: 'MeshPhongMaterial',
+        props: {
+            color: 0x004466,
+            emissive: 0xffffff,
+            map: 'mapFloorOuter',
+            bumpMap: 'mapFloorOuter',
+            bumpScale: 1,
+            envMap: 'skyBox',
+            reflectivity: 0.5,
+            specular: 0x222222,
+        },
+    },
+
+
     'green': {
         mat: 'MeshPhongMaterial',
         props: {
@@ -177,7 +244,7 @@ export const studioConfig = {
     backgroundColor: FLOORS_CONF[-1]['outer'].color,
     amb: {
         color: FLOORS_CONF[-1]['outer'].color,
-        strength: 0.8,
+        strength: 0.7,
     },
 }
 
@@ -204,12 +271,12 @@ export const playerConfig = {
     frontObjPos: [0, 0, -1],
     lightDataOne: {
         color: 0xc2d4f3,
-        strength: 0.5,
-        pos: [0, 100, 0],
+        strength: 0.01,
+        pos: [0, 50, 5],
     },
-    lightDataTwo: {
-        color: 0xff0000, 
-        strength: 0.4,
-        pos: [0, -30, 40],
-    },
+    // lightDataTwo: {
+    //     color: 0xff0000,
+    //     strength: 0.2,
+    //     pos: [0, -30, 40],
+    // },
 }
