@@ -270,8 +270,9 @@ export const playerConfig = {
     },
     frontObjPos: [0, 0, -1],
     lightDataOne: {
-        color: 0xc2d4f3,
-        strength: 0.01,
+        //color: 0xc2d4f3,
+        color: 0xffffff,
+        strength: 5000,
         pos: [0, 50, 5],
     },
     // lightDataTwo: {

@@ -38,6 +38,8 @@ export function createStudio (emitter, assets, store) {
 
     let camera = null
 
+
+
     const resize = () => {
         const size = { width: window.innerWidth, height: window.innerHeight }
         renderer.setSize(size.width, size.height)
@@ -46,19 +48,19 @@ export function createStudio (emitter, assets, store) {
             camera.updateProjectionMatrix()
         }
     }
-
     window.addEventListener('resize', resize)
     resize()
 
+
+
+
     const addToScene = scene.add.bind(scene)
-
     const drawFrame = () => camera && renderer.render(scene, camera)
-
-
-
     emitter.subscribe(FRAME_UPDATE)(drawFrame)
 
 
+
+    
 
     let
         oldFogNear = scene.fog.near,
@@ -66,8 +68,10 @@ export function createStudio (emitter, assets, store) {
         oldColor = scene.fog.color,
         oldBackgroundImgKey = store.getState().app.sceneEnvironment.backgroundImgKey
 
-    store.subscribe(() => {
 
+
+
+    store.subscribe(() => {
         const newState = store.getState()
         const { fogNear, fogFar, color, backgroundImgKey } = newState.app.sceneEnvironment
         if (fogNear !== oldFogNear || fogFar !== oldFogFar || color !== oldColor ) {
