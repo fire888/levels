@@ -7,7 +7,7 @@ export function createDeviceResizer () {
 
     setTimeout(() => {
         const appWrapper = document.querySelector('.app-wrapper')
-        const fullScreenButton = document.querySelector('#butt-fullscreen')
+        const fullScreenButton = document.querySelector('.butt-fullscreen')
     
         /** fullscreen */
         const openAppFullScreenIfMobile = () => {    

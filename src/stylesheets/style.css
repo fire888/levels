@@ -130,16 +130,23 @@
 
 .butt-fullscreen {
     top: 1em;
-    left: 5em; 
+    right: 1em;
+}
+
+.butt-info {
+    top: 1em;
+    right: 5em;
+    height: 2em;
+}
+
+.butt-toggleDialog {
+    bottom: 2.7em;
+    max-width: 30vw;
+    min-width: 30vw;
+    left: 35vw;
 }
 
 
-
-
-#dialog-button-toggle {
-    height: 3.1em;
-    border-radius: 40px;
-}
 
 
 .ui button.control {
@@ -149,10 +156,6 @@
     margin: 0.2em;
 }
 
-.ui #replicies button {
-    width: 100%;
-    margin: 1px;
-}
 
 
 .ui button:hover {
@@ -163,56 +166,56 @@
 }
 
 
-.ui-center,
-#root,
-.App {
+
+.dialog {
+    position: absolute;
+    top: 3em;
+    left: 0;
+    right: 0;
+    bottom: 14em;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
     flex-direction: column;
-    flex: 1 0 auto;
+    justify-content: center;
+    align-content: stretch;
+    align-items: center;
 }
 
-.ui .dialog {
-    flex: 1 0 auto;
+.dialog-inner {
+    flex: 2 0 auto;
     display: flex;
+    box-sizing: border-box;
+    max-width: 30vw;
+    min-width: 320px;
+    flex-direction: column;
     justify-content: stretch;
     align-items: stretch;
     align-content: stretch;
-}
-
-.ui button.last-elem {
-    flex: 0 1 auto;
-    min-width: 30vw;
-}
-
-
-.dialog-inner {
-    box-sizing: border-box;
-    max-width: 31vw;
-    min-width: 30vw;
-    flex: 1 0 auto;
+    padding: 20px;
     background: rgba(0, 59, 119, 0.58);
     border-radius: 5px;
-    margin-bottom: 30px;
     padding: 20px;
     font-size: 2.2em;
     color: white;
-    display: flex;
-    flex-direction: column;
 }
+
 
 .userReplicies {
     flex: 0 1 auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    align-items: stretch;
+    align-content: stretch;
+
 }
 
 .userReplicies button {
+    position: static;
+    flex: 2 0 auto;
+    margin: 1px;
     font-size: 1em;
     max-width: 1000px;
+
 }
 
 .botAnswers {

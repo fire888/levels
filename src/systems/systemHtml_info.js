@@ -34,7 +34,7 @@ export function createInfo (emitter) {
         cont.style.display = 'none'
     })
     wrapper.appendChild(closeButt)
-    document.querySelector('#butt-info').addEventListener('click', () => {
+    document.querySelector('.butt-info').addEventListener('click', () => {
         cont.style.display = 'flex'
     })
     emitter.subscribe('setLanguage')(keyLanguage => {
