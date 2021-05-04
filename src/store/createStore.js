@@ -12,47 +12,60 @@ const bot01 = {
         levelEvent: null,
     }, {
         q: 'Что это за место ?',
-        a: 'Это энтропийный гипперлабиринт.',
+        a: 'Это вход в энтропийный гиппер-лабиринт.',
         event: 'close',
         levelEvent: null,
     },]
 }
 
+
+
 const bot02 = {
-    phrases: [{
-        q: 'Что ты сдесь делаешь !',
-        a: 'Собираю энергию ночи.',
-        event: 'nextReply',
-        levelEvent: null,
-    },{
-        q: 'Я уже долго иду !',
-        a: 'Твой путь еще не пройден.',
-        event: 'close',
-        levelEvent: null,
-    },]
+    phrases: [
+        {
+            q: 'Что ты сдесь делаешь ?',
+            a: 'Собираю энергию ночи.',
+            event: 'nextReply',
+            levelEvent: null,
+        },
+        {
+            q: 'В какую сторону мне идти ?',
+            a: 'Здесь нет сторон. Здесь важна только длинна пути.',
+            event: 'close',
+            //levelEvent: null,
+            levelEvent: 'addWell',
+        },
+    ]
 }
+
+
 
 const bot02_2 = {
     phrases: [{
-        q: 'Это ты или не ты?',
-        a: 'Я это я.',
+        q: 'В какую сторону мне идти?',
+        a: 'Ты уже спрашивал.',
         event: 'nextReply',
         levelEvent: null,
     },{
-        q: 'Я уже долго иду !',
+        q: 'Как долго идти?',
         a: 'Твой путь еще не пройден.',
         event: 'close',
         levelEvent: 'addStairs',
     },]
 }
 
+
+
+
 const bot03 = {
-    phrases: [{
-        q: 'Что ты сдесь делаешь !',
-        a: 'Собираю энергию дня.',
-        event: 'close',
-        levelEvent: 'addWell',
-    },]
+    phrases: [
+        {
+            q: 'Что ты сдесь делаешь ?',
+            a: 'Собираю энергию дня.',
+            event: 'close',
+            levelEvent: 'addWell',
+        },
+    ]
 }
 
 
@@ -79,6 +92,12 @@ const appData = {
         isStartCorridorShow: true,
     },
 
+    ui: {
+        isShowButtFullScreen: true,
+        isShowInfo: false,
+        isShowFinalMessage: false,
+    },
+
     isCanChangeBotIndex: true,
     isDialogAnswered: false,
     botIndex: -1,
@@ -99,6 +118,55 @@ let isCanChangeBot = 0
 
 
 const app = function(state = appData, action) {
+    if (action.type === 'CLICK_FULL_SCREEN') {
+        return ({
+            ...state,
+            ui: {
+                ...state.ui,
+                isShowButtFullScreen: false,
+            }
+        })
+    }
+
+
+    if (action.type === 'EXIT_FULL_SCREEN') {
+        return ({
+            ...state,
+            ui: {
+                ...state.ui,
+                isShowButtFullScreen: true,
+            }
+        })
+    }
+
+
+    if (action.type === 'INFO_TOGGLE') {
+        return ({
+            ...state,
+            ui: {
+                ...state.ui,
+                isShowFinalMessage: false,
+                isShowInfo: action.mode,
+            }
+        })
+    }
+
+
+    if (action.type === 'TOGGLE_FINAL_MESSAGE') {
+        return ({
+            ...state,
+            ui: {
+                ...state.ui,
+                isShowFinalMessage: action.mode,
+                isShowInfo: false,
+            }
+        })
+    }
+
+
+
+
+
     if (action.type === 'CHANGE_ENVIRONMENT') {
         const { newQuadrant, environmentMode } = action
 
@@ -201,16 +269,25 @@ const app = function(state = appData, action) {
 
 
     if (action.type === 'TOGGLE_DIALOG') {
-        if (!state.isCanChangeBotIndex && state.isDialogAnswered) {
-            return ({
-                ...state,
-                isDialog: action.isDialog,
-                isButtonDialog: true,
-            })
-        }
+        // TODO: uncomment
+        // if (!state.isCanChangeBotIndex && state.isDialogAnswered) {
+        //     return ({
+        //         ...state,
+        //         isDialog: action.isDialog,
+        //         isButtonDialog: true,
+        //     })
+        // }
+        // const botIndex = state.isCanChangeBotIndex ? state.botIndex + 1 : state.botIndex
+        // const isButtonDialog = false
 
-        const botIndex = state.isCanChangeBotIndex ? state.botIndex + 1 : state.botIndex
-        const userReplicies = [state.phrasesData[botIndex].phrases[state.phraseIndex]]
+
+        // TODO: REMOVE
+        const botIndex = action.isDialog ? state.botIndex + 1 : state.botIndex
+        const isButtonDialog = !action.isDialog
+        ////////////////
+
+
+        const userReplicies = state.phrasesData[botIndex] ? [state.phrasesData[botIndex].phrases[state.phraseIndex]] : []
 
         return ({
             ...state,
@@ -219,7 +296,7 @@ const app = function(state = appData, action) {
             botAnswers: [],
             isDialog: action.isDialog,
             isCanChangeBotIndex: false,
-            isButtonDialog: false,
+            isButtonDialog,
         })
     }
 

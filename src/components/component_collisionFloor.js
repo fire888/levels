@@ -24,7 +24,7 @@ export const createComponentCollisionFloors = (objFromLink, offset, delta, speed
             vec3Src.copy(objFrom.position)
             const raycasterDown = new THREE.Raycaster(vec3Src, vec3Ray)
             const intersectsFloor = raycasterDown.intersectObjects(FLOORS_ARRAY)
-            if ( intersectsFloor && intersectsFloor[0] && intersectsFloor[0].distance > offsetFromFloor + offsetFromFloorFactor) {
+            if (intersectsFloor && intersectsFloor[0] && intersectsFloor[0].distance > offsetFromFloor + offsetFromFloorFactor) {
                 objFrom.position.y += speedDown * updateData.count
                 return;
             }

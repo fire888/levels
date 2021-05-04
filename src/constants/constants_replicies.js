@@ -1,5 +1,17 @@
 export const TRANSLATE_WORLDS = {
     'ru': {
+        'open dialog': 'начать диалог',
+        'close dialog': 'закончить диалог',
+        'The end.': 'Это конец.',
+
+
+
+
+
+
+
+
+
         'After a long wandering in the desert...': 'После долгого блуждания по пустоши...',
         'Stranger, I threw you a terminal with a pass phrase. Remember:': 'Незнакомец, я сбросил тебе терминал с парольной фразой. Запомни:',
         'And blood-black nothingness began to spin...': 'Кроваво-черное ничто пустилось вить систему клеток,',
@@ -36,6 +48,5 @@ export const TRANSLATE_WORLDS = {
         'Previous part: ': 'Предыдущая часть: ',
         'Author: ': 'Автор: ',
         'link': 'ссылка',
-        '/factory': '/ru/factory/'
     }
 }

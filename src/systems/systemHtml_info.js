@@ -1,12 +1,12 @@
-import { TRANSLATE_WORLDS } from '../constants/constants_replicies'
+import { t } from '../helpers/util_translate'
 
 
 
-let currentLanguage = 'en'
 
 
 
-export function createInfo (emitter) {
+
+export function createInfo () {
     const cont = document.createElement('div')
     cont.style.display = 'none'
     cont.classList.add('info-cont')
@@ -37,17 +37,9 @@ export function createInfo (emitter) {
     document.querySelector('.butt-info').addEventListener('click', () => {
         cont.style.display = 'flex'
     })
-    emitter.subscribe('setLanguage')(keyLanguage => {
-        currentLanguage = keyLanguage
-        createInnerMess()
-    })
-
 
     document.querySelector('.app-wrapper').appendChild(cont)
 }
 
 
-
-/** Translate. */
-const t = val => (TRANSLATE_WORLDS[currentLanguage] && TRANSLATE_WORLDS[currentLanguage][val]) || val
 

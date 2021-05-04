@@ -7,6 +7,8 @@ import { createComponentCollisionWalls } from '../components/component_collision
 import { createCheckerNearItem } from '../components/component_checkNearItem'
 
 import { FRAME_UPDATE } from '../constants/constants_elements'
+import { showMessages } from '../store/actions'
+import { pr } from '../componentsReact/App'
 
 
 
@@ -65,7 +67,11 @@ export function createPlayer (emitterLink) {
 
     const checkFloors = createComponentCollisionFloors(mainObj, offsetFromFloor, offsetFromFloorFactor, speedDown)
     const checkWalls = createComponentCollisionWalls(mainObj, frontObj, offsetWallCollision)
-    const checkNearItem = createCheckerNearItem(mainObj, emitter) 
+    const checkNearItem = createCheckerNearItem(mainObj, emitter)
+
+    let oldY = mainObj.position.y
+    let countDropped = 0
+    let isGameComplete = false
 
     const update = data => {
         if (isButtonsDisabled) return;
@@ -85,6 +91,21 @@ export function createPlayer (emitterLink) {
         }
         keys['left'] && (mainObj.rotation.y += (speedRot * data.count))
         keys['right'] && (mainObj.rotation.y -= (speedRot * data.count))
+
+
+        if (oldY > mainObj.position.y) {
+            ++countDropped
+        } else {
+            countDropped = 0
+        }
+        oldY = mainObj.position.y
+
+        if (countDropped > 800 && !isGameComplete) {
+            isGameComplete = true
+            setTimeout(() => {
+                showMessages(pr.dispatch).toggleFinalMessage(true)
+            }, 5000)
+        }
     }
 
 

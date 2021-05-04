@@ -30,15 +30,6 @@ import { store } from './store/createStore'
 
 
   
-  
-//function handleChange() {
-//    console.log(store.getState())
-//}
-  
-//const unsubscribe = store.subscribe(handleChange)
-
-
-
 
 
 ReactDOM.render(
@@ -52,7 +43,7 @@ ReactDOM.render(
 
 
 
-createDeviceResizer()
+createDeviceResizer(emitter)
 
 
 const init = assets => {

@@ -172,6 +172,20 @@ export const CHANGE_LAYER_STATE = [
             }
         ],
     },
+
+
+    /** **********************************************************/
+
+    {
+        oldState: 'addWell', newState: 'addWell',
+        oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY_MINUS_ONE', 'ANY'],
+        emitData: [
+            {
+                emitKey: 'CHANGE_QUADRANT',
+                counter: val => ++val,
+            }
+        ],
+    },
 ]
 
 

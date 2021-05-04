@@ -1,8 +1,4 @@
-import * as THREE from 'three'
 import { DoubleSide } from 'three'
-
-//import '../assets/start-img.png'
-//import '../../public/progress-img.png'
 
 import pxjpg from '../assets/skybox/px.jpg'
 import nxjpg from '../assets/skybox/nx.jpg'
@@ -24,13 +20,6 @@ import mapFloorOuter from '../assets/floor_outer_map.jpg'
 
 import botMap from '../assets/botMap.png'
 import botSrc from '../assets/botAnim.glb'
-
-
-import tAlbedo from '../assets/TexturesCom_Paint_Epoxy_512_albedo.jpg'
-import tHeight from '../assets/TexturesCom_Paint_Epoxy_512_height.jpg'
-import tNormal from '../assets/TexturesCom_Paint_Epoxy_512_normal.jpg'
-import tRough from '../assets/TexturesCom_Paint_Epoxy_512_roughness.jpg'
-
 
 
 
@@ -64,69 +53,12 @@ export const ASSETS_TO_LOAD = [
         filename: mapFloorOuter,
         key: 'mapFloorOuter',
         wrap: true,
-   // },
-
-
-    // {
-    //     type: 'img',
-    //     filename: tAlbedo,
-    //     key: 'mapTAlbeto',
-    //     wrap: true,
-    // }, {
-    //     type: 'img',
-    //     filename: tHeight,
-    //     key: 'mapTHeight',
-    //     wrap: true,
-    // }, {
-    //     type: 'img',
-    //     filename: tNormal,
-    //     key: 'mapTNormal',
-    //     wrap: true,
-    // }, {
-    //     type: 'img',
-    //     filename: tRough,
-    //     key: 'mapTRough',
-    //     wrap: true,
 },]
 
 
 
 
 export const MATERIALS_CONFIG = {
-    // 'wall': {
-    //     mat: 'MeshPhongMaterial',
-    //     props: {
-    //         color: 0xffffff,
-    //         emissive: 0x003388,
-    //         specular: 0xffffff,
-    //         shininess: 60,
-    //         bumpMap: 'bumpWalls',
-    //         bumpScale: 0.1,
-    //         envMap: 'skyBox',
-    //         reflectivity: 0.5,
-    //         map: 'bumpWalls',
-    //     },
-    // },
-
-    // 'wall': {
-    //     mat: 'MeshPhongMaterial',
-    //     props: {
-    //         color: 0xffffff,
-    //         emissive: 0x333333,
-    //         specular: 0xffffff,
-    //         //shininess: 3,
-    //        // bumpMap: 'bumpWalls',
-    //         normalMap: 'mapTNormal',
-    //         normalScale: new THREE.Vector2(.5, .5),
-    //         //bumpScale: 0.5,
-    //         envMap: 'skyBox',
-    //         //aoMap: 'mapTRough',
-    //         //lightMap: 'mapTRough',
-    //         reflectivity: 0.02,
-    //         map: 'mapTAlbeto',
-    //     },
-    // },
-
 
     'iron': {
         mat: 'MeshPhongMaterial',
@@ -171,6 +103,7 @@ export const MATERIALS_CONFIG = {
             reflectivity: 0.5,
         },        
     },
+
     'road': {
         mat: 'MeshPhongMaterial',
         props: {

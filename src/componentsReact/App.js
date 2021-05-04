@@ -2,8 +2,9 @@ import { UserReplicies } from './UserReplicies'
 import { BotAnswers } from './BotAnswers'
 
 import { connect } from 'react-redux'
-import { toggleDialog } from '../store/actions'
+import { toggleDialog, clickFullScreen, clickInfo, showMessages } from '../store/actions'
 import { emitter } from '../helpers/util_emitter'
+import { t } from '../helpers/util_translate'
 
 
 
@@ -11,6 +12,9 @@ import { emitter } from '../helpers/util_emitter'
 const mapStateToProps = state => ({
     isButtonDialog: state.app.isButtonDialog,
     isDialog: state.app.isDialog,
+    isShowClickFullScreen: state.app.ui.isShowButtFullScreen,
+    isShowInfo: state.app.ui.isShowInfo,
+    isShowFinalMessage: state.app.ui.isShowFinalMessage,
 })
 
 
@@ -23,18 +27,24 @@ function App(props) {
 
     return (
         <div className="ui">
-            <button
-                className="butt-fullscreen control"
-                style={{"display": "none"}}>
-                &#10066;
-            </button>
+            {props.isShowClickFullScreen && (
+                <button
+                    className="butt-fullscreen control"
+                    onClick={() => {
+                        emitter.emit('mouseDown')('butt-fullscreen')
+                        clickFullScreen(props.dispatch).clickFullScreen()
+                    }}>
+                    &#10066;
+                </button>)}
 
 
 
-            <button
-                className="butt-info control">
-                i
-            </button>
+            {!props.isDialog && !props.isShowInfo && (
+                <button
+                    className="butt-info control"
+                    onClick={() => clickInfo(props.dispatch).clickInfo(true)}>
+                    i
+                </button>)}
 
 
 
@@ -78,8 +88,9 @@ function App(props) {
                 <button
                     className="butt-toggleDialog"
                     onClick={() => {toggleDialog(props.dispatch).toggleDialog(!props.isDialog)}}>
-                    {props.isDialog ? 'close dialog' : 'open dialog' }
+                    {props.isDialog ? t('close dialog') : t('open dialog') }
                 </button>)}
+
 
 
             {props.isDialog && (
@@ -90,6 +101,44 @@ function App(props) {
                     </div>
                 </div>)}
 
+
+
+            {props.isShowFinalMessage && (
+                <div className="info">
+                    <div className="info-inner final-message">
+                        <button
+                            className="control butt-infoClose"
+                            onClick={() => showMessages(props.dispatch).toggleFinalMessage(false)}>
+                            x
+                        </button>
+                        <p>{t('The end')}</p>
+                    </div>
+                </div>)}
+
+
+
+            {props.isShowInfo && (
+                <div className="info">
+                    <div className="info-inner">
+                        <button
+                            className="control butt-infoClose"
+                            onClick={() => clickInfo(props.dispatch).clickInfo(false)}>
+                            x
+                        </button>
+                        <p>
+                            {t('Previous part: ')}
+                            <a href="http://js.otrisovano.ru/bridge" target="blank">{ t('link') }</a>
+                        </p>
+                        <p>
+                            {t('Author: ')}
+                            <a href="http://otrisovano.ru" target="blank">{ t('link') }</a>
+                        </p>
+                        <p>
+                            {t('Github: ')}
+                            <a href="https://github.com/fire888/levels\" target="blank">{ t('link') }</a>
+                        </p>
+                    </div>
+                </div>)}
         </div>
     )
 }
