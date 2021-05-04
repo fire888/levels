@@ -104,7 +104,7 @@ export function createPlayer (emitterLink) {
             isGameComplete = true
             setTimeout(() => {
                 showMessages(pr.dispatch).toggleFinalMessage(true)
-            }, 5000)
+            }, 20000)
         }
     }
 

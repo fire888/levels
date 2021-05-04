@@ -10,8 +10,8 @@ import { t } from '../helpers/util_translate'
 
 
 const mapStateToProps = state => ({
-    isButtonDialog: state.app.isButtonDialog,
-    isDialog: state.app.isDialog,
+    isButtonDialog: state.app.ui.isButtonDialog,
+    isDialog: state.app.ui.isDialog,
     isShowClickFullScreen: state.app.ui.isShowButtFullScreen,
     isShowInfo: state.app.ui.isShowInfo,
     isShowFinalMessage: state.app.ui.isShowFinalMessage,

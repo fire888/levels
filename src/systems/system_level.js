@@ -113,7 +113,6 @@ export function createLevel (emitter, rooms, allMeshes, store) {
 
 
 
-    let finalDroppedLevels = 0
     let wentLevels = 0
     let flagIsSpecial = false
 
@@ -170,15 +169,17 @@ export function createLevel (emitter, rooms, allMeshes, store) {
             } else {
                 if (wentLevels < 3) {
                     state = 'normal'
-                } else {
+                } else if (wentLevels < 100) {
                     if (state === 'normal') {
                         state = 'addBot'
                     }
+                } else {
+                    state = 'addStairs'
                 }
 
 
                 if (state === 'addBot') {
-                    keyCreateRoom = 'room_01' //////////////////////////////
+                    keyCreateRoom = 'room_01'
                     flagIsSpecial = true
                 }
                 if (state === 'addStairs') {

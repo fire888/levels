@@ -122,6 +122,7 @@ export const CHANGE_LAYER_STATE = [
             },
             {
                 emitKey: 'CHANGE_QUADRANT',
+                counter: () => 100,
             },
         ],
     },
@@ -176,16 +177,16 @@ export const CHANGE_LAYER_STATE = [
 
     /** **********************************************************/
 
-    {
-        oldState: 'addWell', newState: 'addWell',
-        oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY_MINUS_ONE', 'ANY'],
-        emitData: [
-            {
-                emitKey: 'CHANGE_QUADRANT',
-                counter: val => ++val,
-            }
-        ],
-    },
+    // {
+    //     oldState: 'addWell', newState: 'addWell',
+    //     oldQuadrant: ['ANY', 'ANY', 'ANY'], newQuadrant: ['ANY', 'ANY_MINUS_ONE', 'ANY'],
+    //     emitData: [
+    //         {
+    //             emitKey: 'CHANGE_QUADRANT',
+    //             counter: val => ++val,
+    //         }
+    //     ],
+    // },
 ]
 
 
@@ -209,8 +210,6 @@ export const createActionByChangedQuadrant = () => {
             ...item,
             type: item.emitKey,
         }))
-        arrEmitData.length &&
-            arrEmitData.forEach(item => emitter.emit(item.emitKey)(item))
     })
 }
 

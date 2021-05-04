@@ -4,7 +4,7 @@ import { toggleDialog } from '../store/actions'
 
 
 const mapStateToProps = state => ({
-    userReplicies: state.app.userReplicies,
+    userReplicies: state.app.ui.userReplicies,
 })
 
 

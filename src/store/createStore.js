@@ -33,7 +33,7 @@ const bot02 = {
             a: 'Здесь нет сторон. Здесь важна только длинна пути.',
             event: 'close',
             //levelEvent: null,
-            levelEvent: 'addWell',
+            levelEvent: null,
         },
     ]
 }
@@ -73,7 +73,6 @@ const bot03 = {
 
 
 
-
 const appData = {
     sceneEnvironment: {
         color: FLOORS_CONF['-1']['outer'].color,
@@ -96,25 +95,20 @@ const appData = {
         isShowButtFullScreen: true,
         isShowInfo: false,
         isShowFinalMessage: false,
+        botAnswers: [],
+        userReplicies: [],
+        history: [],
+        isDialog: false,
+        isButtonDialog: false,
     },
 
-    isCanChangeBotIndex: true,
-    isDialogAnswered: false,
     botIndex: -1,
     phraseIndex: 0,
     phrasesData: [bot01, bot02, bot02_2, bot03, null],
-    botAnswers: [],
-    userReplicies: [],
-    history: [],
-    isDialog: false,
-    isButtonDialog: false
+    isCanChangeBotIndex: true,
+    isCanChangeBotCounter: 0,
 }
 
-
-
-
-
-let isCanChangeBot = 0
 
 
 const app = function(state = appData, action) {
@@ -186,11 +180,16 @@ const app = function(state = appData, action) {
 
 
     if (action.type === 'CHANGE_QUADRANT') {
-        ++isCanChangeBot;
+        console.log()
+
+
+
+
+        let isCanChangeBotCounter = state.isCanChangeBotCounter + 1;
         let isCanChangeBotIndex = state.isCanChangeBotIndex
-        if (isCanChangeBot > 2) {
+        if (isCanChangeBotCounter > 2) {
             isCanChangeBotIndex = true
-            isCanChangeBot = 0
+            isCanChangeBotCounter = 0
         }
 
         return ({
@@ -199,6 +198,7 @@ const app = function(state = appData, action) {
                 ...action,
             },
             isCanChangeBotIndex,
+            isCanChangeBotCounter,
         })
     }
 
@@ -219,11 +219,14 @@ const app = function(state = appData, action) {
     if (action.type === 'CLICK_PHRASE') {
         return ({
             ...state,
-            botAnswers: [
-                ...state.botAnswers,
-                action.phrase,
-            ],
-            userReplicies: [],
+            ui: {
+                ...state.ui,
+                botAnswers: [
+                    ...state.ui.botAnswers,
+                    action.phrase,
+                ],
+                userReplicies: [],
+            },
         })
     }
 
@@ -240,7 +243,10 @@ const app = function(state = appData, action) {
             return ({
                 ...state,
                 phraseIndex: state.phraseIndex++,
-                userReplicies,
+                ui: {
+                    ...state.ui,
+                    userReplicies,
+                }
             })
 
         }
@@ -248,9 +254,11 @@ const app = function(state = appData, action) {
         if (event === 'close') {
             return ({
                 ...state,
-                isDialogAnswered: true,
-                userReplicies: [],
-                isButtonDialog: true,
+                ui: {
+                    ...state.ui,
+                    userReplicies: [],
+                    isButtonDialog: true,
+                }
             })
         }
     }
@@ -269,21 +277,25 @@ const app = function(state = appData, action) {
 
 
     if (action.type === 'TOGGLE_DIALOG') {
-        // TODO: uncomment
-        // if (!state.isCanChangeBotIndex && state.isDialogAnswered) {
-        //     return ({
-        //         ...state,
-        //         isDialog: action.isDialog,
-        //         isButtonDialog: true,
-        //     })
-        // }
-        // const botIndex = state.isCanChangeBotIndex ? state.botIndex + 1 : state.botIndex
-        // const isButtonDialog = false
+        //TODO: UNCOMMENT
+        if (!state.isCanChangeBotIndex) {
+            return ({
+                ...state,
+                ui: {
+                    ...state.ui,
+                    isDialog: action.isDialog,
+                    isButtonDialog: true,
+                },
+
+            })
+        }
+        const botIndex = state.isCanChangeBotIndex ? state.botIndex + 1 : state.botIndex
+        const isButtonDialog = false
 
 
         // TODO: REMOVE
-        const botIndex = action.isDialog ? state.botIndex + 1 : state.botIndex
-        const isButtonDialog = !action.isDialog
+        //const botIndex = action.isDialog ? state.botIndex + 1 : state.botIndex
+        //const isButtonDialog = !action.isDialog
         ////////////////
 
 
@@ -292,11 +304,14 @@ const app = function(state = appData, action) {
         return ({
             ...state,
             botIndex,
-            userReplicies,
-            botAnswers: [],
-            isDialog: action.isDialog,
+            ui: {
+                ...state.ui,
+                userReplicies,
+                botAnswers: [],
+                isDialog: action.isDialog,
+                isButtonDialog,
+            },
             isCanChangeBotIndex: false,
-            isButtonDialog,
         })
     }
 
@@ -304,8 +319,11 @@ const app = function(state = appData, action) {
 
         return ({
             ...state,
-            isDialog: false,
-            isButtonDialog: action.isButtonDialog,
+            ui: {
+                ...state.ui,
+                isDialog: false,
+                isButtonDialog: action.isButtonDialog,
+            },
         })
     }
 
