@@ -190,7 +190,7 @@ const bot01 = [{
                 q: 'Мне кажется ты идешь в нагрузку к этому сегменту корридора.',
                 a: 'Тебе открыт следующий уровень.',
                 event: 'close',
-                levelEvent: 'addWell',
+                levelEvent: 'addStairs',
             },
         ]
     },
