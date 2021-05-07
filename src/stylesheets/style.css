@@ -210,11 +210,13 @@
 }
 
 .userReplicies button {
+    display: block;
     position: static;
     flex: 2 0 auto;
     margin: 1px;
     font-size: 1em;
     max-width: 1000px;
+    height: auto;
 
 }
 

@@ -1,26 +1,49 @@
 import { createStore , applyMiddleware, compose} from 'redux'
-import thunk from 'redux-thunk';
+import thunk from 'redux-thunk'
 import { combineReducers } from 'redux'
 import { FLOORS_CONF } from '../constants/constants_elements'
 
 
-const bot01 = {
-    phrases: [{
-        q: 'Привет !',
-        a: 'День добрый, кремниевая форма жизни.',
-        event: 'nextReply',
-        levelEvent: null,
-    }, {
-        q: 'Что это за место ?',
-        a: 'Это вход в энтропийный гиппер-лабиринт.',
-        event: 'close',
-        levelEvent: null,
-    },]
-}
 
 
 
-const bot02 = {
+const bot01 = [{
+    phrases: [
+        {
+            q: 'Привет !',
+            a: 'День добрый, кремниевая форма жизни.',
+            event: 'nextReply',
+            levelEvent: null,
+        }, {
+            q: 'Что это за место?',
+            a: 'Это вход в энтропийный гиппер-лабиринт.',
+            event: 'nextReply',
+            levelEvent: null,
+        }, {
+            q: 'Что будет, если я войду в него?',
+            a: 'Лабиринт ждет.',
+            event: 'close',
+            levelEvent: null,
+        },
+    ]
+}, {
+    phrases: [
+        {
+            q: 'Куда ведут эти корридоры ?',
+            a: 'Они приведут тебя к финалу.',
+            event: 'nextReply',
+            levelEvent: null,
+        }, {
+            q: 'Я пошел дальше.',
+            a: 'Мы еще увидимся.',
+            event: 'close',
+            levelEvent: null,
+        },
+    ]
+}, {
+
+
+
     phrases: [
         {
             q: 'Что ты сдесь делаешь ?',
@@ -36,37 +59,318 @@ const bot02 = {
             levelEvent: null,
         },
     ]
-}
+},
 
 
 
-const bot02_2 = {
-    phrases: [{
-        q: 'В какую сторону мне идти?',
-        a: 'Ты уже спрашивал.',
+    {
+    phrases: [
+        {
+        q: 'Я уже долго иду.',
+        a: 'Ты прошел достаточно для этого уровня.',
         event: 'nextReply',
         levelEvent: null,
     },{
-        q: 'Как долго идти?',
-        a: 'Твой путь еще не пройден.',
+        q: 'Что это значит?',
+        a: 'Тебе открыт путь на одну ступень выше.',
         event: 'close',
         levelEvent: 'addStairs',
-    },]
-}
+    },
+    ]
+},
 
 
+    /////////////////////////////////// 11111111111111111
 
-
-const bot03 = {
+    {
     phrases: [
         {
-            q: 'Что ты сдесь делаешь ?',
-            a: 'Собираю энергию дня.',
-            event: 'close',
+            q: 'Я ищу финал.',
+            a: 'Я помню о твоем пути.',
+            event: 'nextReply',
             levelEvent: 'addWell',
+        }, {
+            q: 'Вы все так похожи.',
+            a: 'Мы еще встретимся.',
+            event: 'close',
+            levelEvent: null,
         },
     ]
-}
+},
+
+
+    {
+        phrases: [
+            {
+                q: 'Это снова ты?',
+                a: 'Да мы все едины.',
+                event: 'nextReply',
+                levelEvent: 'addWell',
+            }, {
+                q: 'Тут все корридоры повторяются.',
+                a: 'Суть всего в едином.',
+                event: 'close',
+                levelEvent: null,
+            },
+        ]
+    },
+
+
+    {
+        phrases: [
+            {
+                q: 'Как долго еще идти.',
+                a: 'Тебе будет знак, когда ты будешь готов.',
+                event: 'nextReply',
+                levelEvent: 'addWell',
+            }, {
+                q: 'Как я узнаю этот знак.',
+                a: 'Я подам его.',
+                event: 'close',
+                levelEvent: null,
+            },
+        ]
+    },
+
+
+    {
+        phrases: [
+            {
+                q: 'Это одинаковый сегмент корридора с тобой.',
+                a: 'Ты готов к новому уровню.',
+                event: 'close',
+                levelEvent: 'addStairs',
+            },
+        ]
+    },
+
+    /////////////////////////////////// 222222222222222222
+
+
+    {
+        phrases: [
+            {
+                q: 'Привет снова. Как выбраться. Уже надоело.',
+                a: 'Ты не постиг дзен.',
+                event: 'nextReply',
+                levelEvent: null,
+            },
+            {
+                q: 'Ты то как выходишь на поверхность?',
+                a: 'У меня свой путь.',
+                event: 'close',
+                levelEvent: null,
+            },
+        ]
+    },
+
+
+
+    {
+        phrases: [
+            {
+                q: 'Ты все на своем пути?',
+                a: 'Как и ты.',
+                event: 'nextReply',
+                levelEvent: null,
+            },
+            {
+                q: 'Как долго ты на нем.',
+                a: 'Эти стены нас слышат.',
+                event: 'close',
+                levelEvent: null,
+            },
+        ]
+    },
+
+
+    {
+        phrases: [
+            {
+                q: 'Мне кажется ты идешь в нагрузку к этому сегменту корридора.',
+                a: 'Тебе открыт следующий уровень.',
+                event: 'close',
+                levelEvent: 'addWell',
+            },
+        ]
+    },
+
+
+
+
+
+
+    /////////////////////////////////////////////////// 3333333333333
+
+
+    {
+        phrases: [
+            {
+                q: 'Ничего не меняется.',
+                a: 'Меняется количество пройденных шагов.',
+                event: 'nextReply',
+                levelEvent: null,
+            },
+            {
+                q: 'Это место считает шаги?',
+                a: 'Это место ждет.',
+                event: 'close',
+                levelEvent: null,
+            },
+        ]
+    },
+
+
+
+    {
+        phrases: [
+            {
+                q: 'Как давно ты здесь.',
+                a: 'Время не имеет значения, значение имеет лишь путь.',
+                event: 'nextReply',
+                levelEvent: null,
+            },
+            {
+                q: 'Но ты же не идешь.',
+                a: 'Зато ты каждый раз проходишь мимо.',
+                event: 'close',
+                levelEvent: null,
+            },
+        ]
+    },
+
+    {
+        phrases: [
+            {
+                q: 'Сделай новый уровень.',
+                a: 'Ты готов - новый уровень ждет тебя.',
+                event: 'close',
+                levelEvent: 'addStairs',
+            },
+        ]
+    },
+
+
+    //////////////////////////////// 44444444
+
+    {
+        phrases: [
+            {
+                q: 'Ты и есть это место. Ты управляешь сегментами.',
+                a: 'Ты почти дошел до края.',
+                event: 'nextReply',
+                levelEvent: null,
+            },
+            {
+                q: 'Зачем тебе это?',
+                a: 'Это способ свернуть пространство. Больше движения. Больше сегментов.',
+                event: 'close',
+                levelEvent: null,
+            },
+        ]
+    },
+
+
+    {
+        phrases: [
+            {
+                q: 'Как много путников попадало сюда.',
+                a: 'Много и они до сих пор здесь.',
+                event: 'nextReply',
+                levelEvent: null,
+            },
+            {
+                q: 'Почему я их не встретил?',
+                a: 'У каждого своя система сегментов и свой наставник.',
+                event: 'close',
+                levelEvent: null,
+            },
+        ]
+    },
+
+
+    {
+        phrases: [
+            {
+                q: 'Ты выпустишь меня?',
+                a: 'Все стороны света открыты тебе.',
+                event: 'nextReply',
+                levelEvent: null,
+            },
+            {
+                q: 'Я хочу встретить других.',
+                a: 'Тебе открыт новый уровень.',
+                event: 'close',
+                levelEvent: null,
+            },
+        ]
+    },
+
+    //////////////////////////////////////////////// 5555555555
+
+
+    {
+        phrases: [
+            {
+                q: 'Все повторяется.',
+                a: 'Все повторяется с небольшой разницей.',
+                event: 'nextReply',
+                levelEvent: null,
+            },
+            {
+                q: 'Как много этажей еще ждет меня?',
+                a: 'Все зависит от тебя.',
+                event: 'close',
+                levelEvent: null,
+            },
+        ]
+    },
+
+
+
+    {
+        phrases: [
+            {
+                q: 'Все мой путь окончен.',
+                a: 'Ты отказываешься идти?',
+                event: 'nextReply',
+                levelEvent: null,
+            },
+            {
+                q: 'Да ты безумен.',
+                a: 'Я освобождаю тебя.',
+                event: 'close',
+                levelEvent: 'addWell',
+            },
+        ]
+    },
+
+
+]
+
+
+
+
+
+
+
+
+
+
+
+
+// {
+//     phrases: [
+//         {
+//             q: 'Это одинаковый сегмент корридора с тобой.',
+//             a: 'Ты готов к новому уровню.',
+//             event: 'close',
+//             levelEvent: 'addWell',
+//         },
+//     ]
+// },
+
+
 
 
 
@@ -104,7 +408,7 @@ const appData = {
 
     botIndex: -1,
     phraseIndex: 0,
-    phrasesData: [bot01, bot02, bot02_2, bot03, null],
+    phrasesData: bot01,
     isCanChangeBotIndex: true,
     isCanChangeBotCounter: 0,
 }
@@ -180,10 +484,6 @@ const app = function(state = appData, action) {
 
 
     if (action.type === 'CHANGE_QUADRANT') {
-        console.log()
-
-
-
 
         let isCanChangeBotCounter = state.isCanChangeBotCounter + 1;
         let isCanChangeBotIndex = state.isCanChangeBotIndex
@@ -242,7 +542,7 @@ const app = function(state = appData, action) {
 
             return ({
                 ...state,
-                phraseIndex: state.phraseIndex++,
+                phraseIndex: state.phraseIndex + 1,
                 ui: {
                     ...state.ui,
                     userReplicies,
@@ -258,7 +558,7 @@ const app = function(state = appData, action) {
                     ...state.ui,
                     userReplicies: [],
                     isButtonDialog: true,
-                }
+                },
             })
         }
     }
@@ -277,7 +577,7 @@ const app = function(state = appData, action) {
 
 
     if (action.type === 'TOGGLE_DIALOG') {
-        //TODO: UNCOMMENT
+        //////////////////////////////////////////// TODO: UNCOMMENT
         if (!state.isCanChangeBotIndex) {
             return ({
                 ...state,
@@ -289,21 +589,28 @@ const app = function(state = appData, action) {
 
             })
         }
+        const phraseIndex = state.isCanChangeBotIndex ? 0 : state.phraseIndex
         const botIndex = state.isCanChangeBotIndex ? state.botIndex + 1 : state.botIndex
         const isButtonDialog = false
+        /////////////////////////////////////////////////////
 
 
-        // TODO: REMOVE
-        //const botIndex = action.isDialog ? state.botIndex + 1 : state.botIndex
-        //const isButtonDialog = !action.isDialog
-        ////////////////
+        ///////////////////////////////////////////// TODO: REMOVE
+        // let botIndex = state.botIndex
+        // let phraseIndex = state.phraseIndex
+        // if (action.isDialog) {
+        //     botIndex = state.botIndex + 1
+        //     phraseIndex = 0
+        // }
+        // const isButtonDialog = !action.isDialog
+        // /////////////////////////////////////////////////
 
 
-        const userReplicies = state.phrasesData[botIndex] ? [state.phrasesData[botIndex].phrases[state.phraseIndex]] : []
+        const userReplicies = state.phrasesData[botIndex] ? [state.phrasesData[botIndex].phrases[phraseIndex]] : []
 
         return ({
             ...state,
-            botIndex,
+
             ui: {
                 ...state.ui,
                 userReplicies,
@@ -311,7 +618,10 @@ const app = function(state = appData, action) {
                 isDialog: action.isDialog,
                 isButtonDialog,
             },
+
             isCanChangeBotIndex: false,
+            botIndex,
+            phraseIndex,
         })
     }
 
