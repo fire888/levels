@@ -15,4 +15,4 @@ About
 
 Play
 ------------ 
-[Let's play](http://js.otrisovano.ru/tests/201124_levels/02/)
+[Let's play](http://js.otrisovano.ru/levels/)
