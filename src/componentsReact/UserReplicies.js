@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { toggleDialog } from '../store/actions'
+import { t } from '../helpers/util_translate'
 
 
 
@@ -18,7 +19,7 @@ export const UserReplicies = connect(mapStateToProps)(function (props) {
                     onClick={() => {
                         toggleDialog(props.dispatch).clickPhrase(item)
                     }}>
-                    {item.q}
+                    {t(item.q)}
                 </button>)
             )}
         </div>

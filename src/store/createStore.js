@@ -9,311 +9,343 @@ import { FLOORS_CONF } from '../constants/constants_elements'
 
 const DIALOGS_DATA = [
     {
-        phrases: [
-            {
-                q: 'Привет !',
-                a: 'День добрый, кремниевая форма жизни.',
-                event: 'nextReply',
-                levelEvent: null,
-            },
-            {
-                q: 'Что это за место?',
-                a: 'Это вход в энтропийный гипер-куб.',
-                event: 'nextReply',
-                levelEvent: null,
-            },
-            {
-                q: 'Что будет, если я войду в него?',
-                a: 'Куб примет тебя.',
-                event: 'close',
-                levelEvent: null,
-            },
-        ]
-    },
-    {
-        phrases: [
-            {
-                q: 'Куда ведут эти коридоры ?',
-                a: 'Они приведут тебя к финалу.',
-                event: 'nextReply',
-                levelEvent: null,
-            }, {
-                q: 'Я пошел дальше.',
-                a: 'Мы еще увидимся.',
-                event: 'close',
-                levelEvent: null,
-            },
-        ]
-    },
-    {
-        phrases: [
-            {
-                q: 'Что ты здесь делаешь ?',
-                a: 'Собираю энергию ночи.',
-                event: 'nextReply',
-                levelEvent: null,
-            },
-            {
-                q: 'В какую сторону мне идти ?',
-                a: 'Здесь нет сторон. Здесь важна только длина пути.',
-                event: 'close',
-                levelEvent: null,
-            },
-        ]
-    },
-    {
-        phrases: [
-            {
-                q: 'Я уже долго иду.',
-                a: 'Ты прошел достаточно для этого уровня.',
-                event: 'nextReply',
-                levelEvent: null,
-            },{
-                q: 'Что это значит?',
-                a: 'Тебе открыт путь на одну ступень выше.',
-                event: 'close',
-                levelEvent: 'addStairs',
-            },
-        ]
-    },
-
-
-    // %%%%%%%%%%%%%%%%%%%%%%% 22222222222222222 %%%%%%%%%%%%%%%%%%%%
-    {
-        phrases: [
-            {
-                q: 'Я ищу финал.',
-                a: 'Я помню о твоем пути.',
-                event: 'nextReply',
-                levelEvent: null,
-            }, {
-                q: 'Вы все так похожи.',
-                a: 'Мы еще встретимся.',
-                event: 'close',
-                levelEvent: null,
-            },
-        ]
-    },
-    {
-        phrases: [
-            {
-                q: 'Это снова ты?',
-                a: 'Да, мы все едины.',
-                event: 'nextReply',
-                levelEvent: null,
-            }, {
-                q: 'Тут все коридоры повторяются.',
-                a: 'Суть всего в едином.',
-                event: 'close',
-                levelEvent: null,
-            },
-        ]
-    },
-    {
-        phrases: [
-            {
-                q: 'Как долго еще идти.',
-                a: 'Тебе будет знак, когда ты будешь готов.',
-                event: 'nextReply',
-                levelEvent: null,
-            }, {
-                q: 'Как я узнаю этот знак.',
-                a: 'Я подам его.',
-                event: 'close',
-                levelEvent: null,
-            },
-        ]
-    },
-    {
-        phrases: [
-            {
-                q: 'Это одинаковый сегмент коридора с тобой.',
-                a: 'Ты готов к новому уровню.',
-                event: 'close',
-                levelEvent: 'addStairs',
-            },
-        ]
-    },
-
-
-    // %%%%%%%%%%%%%%%%%%%%% 33333333 %%%%%%%%%%%%%%%%%%%%%%
-    {
-        phrases: [
-            {
-                q: 'Привет снова. Как выбраться. Уже надоело.',
-                a: 'Ты не постиг дзен.',
-                event: 'nextReply',
-                levelEvent: null,
-            },
-            {
-                q: 'Ты-то как выходишь на поверхность?',
-                a: 'У меня свой путь.',
-                event: 'close',
-                levelEvent: null,
-            },
-        ]
-    },
-    {
-        phrases: [
-            {
-                q: 'Ты все на своем пути?',
-                a: 'Как и ты.',
-                event: 'nextReply',
-                levelEvent: null,
-            },
-            {
-                q: 'Как долго ты на нем?',
-                a: 'Эти стены нас слышат.',
-                event: 'close',
-                levelEvent: null,
-            },
-        ]
-    },
-    {
-        phrases: [
-            {
-                q: 'Мне кажется, ты идешь в нагрузку к этому сегменту коридора.',
-                a: 'Тебе открыт следующий уровень.',
-                event: 'close',
-                levelEvent: 'addStairs',
-            },
-        ]
-    },
-
-
+     phrases: [
+         {
+             q: 'Hello there!',
+             a: 'Good day, carbon-based life form.',
+             event: 'nextReply',
+             levelEvent: null,
+         }, {
+             q: 'What is this place ?',
+             a: 'This is an entrance to the entropic hyper-maze.',
+             event: 'nextReply',
+             levelEvent: null,
+         }, {
+             q: 'And what happens if I enter it ?',
+             a: 'This place is waiting.',
+             event: 'close',
+             levelEvent: null,
+         },
+     ]
+  }, {
+     phrases: [
+         {
+             q: 'Say, where do these corridors lead ?',
+             a: 'They will lead you to the end.',
+             event: 'nextReply',
+             levelEvent: null,
+         }, {
+             q: 'Ooook, I\'m heading in then.',
+             a: 'We will meet again.',
+             event: 'close',
+             levelEvent: null,
+         },
+     ]
+  }, {
+  
+  
+  
+     phrases: [
+         {
+             q: 'What do you do here ?',
+             a: 'Collecting the energy of the night.',
+             event: 'nextReply',
+             levelEvent: null,
+         },
+         {
+             q: 'Can you tell me which way is out of here ?',
+             a: 'It is about the journey, not the destination',
+             event: 'close',
+             levelEvent: null,
+         },
+     ]
+  },
+  
+  
+  
+     {
+     phrases: [
+         {
+         q: 'Hey, it looks like I\'m walking in circles.',
+         a: 'You have walked long enough.',
+         event: 'nextReply',
+         levelEvent: null,
+     },{
+         q: 'Meaning?',
+         a: 'The way to the next level is open to you.',
+         event: 'close',
+         levelEvent: 'addStairs',
+     },
+     ]
+  },
+  
+  
+     // %%%%%%%%%%%%%%%%%%%%%%% 22222222222222222 %%%%%%%%%%%%%%%%%%%%
+  
+     {
+     phrases: [
+         {
+             q: 'Hi, I heard I can find the "end" around here?',
+             a: 'Yes, I told you this is where the corridors lead.',
+             event: 'nextReply',
+             levelEvent: null,
+         }, {
+             q: 'Man, you all look the same.',
+             a: 'We will meet again.',
+             event: 'close',
+             levelEvent: null,
+         },
+     ]
+  },
+  
+  
+     {
+         phrases: [
+             {
+                 q: 'Soooo, is that you again ?',
+                 a: 'Yes. All of me are myself.',
+                 event: 'nextReply',
+                 levelEvent: null,
+             }, {
+                 q: 'Yeah, just like those corridors.',
+                 a: 'The meaning of everything is in being whole.',
+                 event: 'close',
+                 levelEvent: null,
+             },
+         ]
+     },
+  
+  
+     {
+         phrases: [
+             {
+                 q: 'Am I there yet?',
+                 a: 'The sign will be given when you are.',
+                 event: 'nextReply',
+                 levelEvent: null,
+             }, {
+                 q: 'How do I know what it is?',
+                 a: 'I will give it to you.',
+                 event: 'close',
+                 levelEvent: null,
+             },
+         ]
+     },
+  
+  
+     {
+         phrases: [
+             {
+                 q: 'That\'s the same exact corridor with you again.',
+                 a: 'You are ready for the next level.',
+                 event: 'close',
+                 levelEvent: 'addStairs',
+             },
+         ]
+     },
+  
+     // %%%%%%%%%%%%%%%%%%%%% 33333333 %%%%%%%%%%%%%%%%%%%%%%
+  
+  
+     {
+         phrases: [
+             {
+                 q: 'Hey man, seriously, how do I get out of here ?',
+                 a: 'You have not reached the end.',
+                 event: 'nextReply',
+                 levelEvent: null,
+             },
+             {
+                 q: 'We\'ll how do you reach it ?',
+                 a: 'I have my way.',
+                 event: 'close',
+                 levelEvent: null,
+             },
+         ]
+     },
+  
+  
+  
+     {
+         phrases: [
+             {
+                 q: 'So how\'s your way btw ?',
+                 a: 'It is like yourself.',
+                 event: 'nextReply',
+                 levelEvent: null,
+             },
+             {
+                 q: 'And how long you\'ve been on it ?',
+                 a: 'These walls can hear us.',
+                 event: 'close',
+                 levelEvent: null,
+             },
+         ]
+     },
+  
+  
+     {
+         phrases: [
+             {
+                 q: 'I think you\'re weighing this corridor down.',
+                 a: 'The next level is open to you.',
+                 event: 'close',
+                 levelEvent: 'addStairs',
+             },
+         ]
+     },
+  
+  
+  
+  
+  
+  
     // %%%%%%%%%%%%%%%%%%%%% 444444444444444 %%%%%%%%%%%%%%
-    {
-        phrases: [
-            {
-                q: 'Ничего не меняется.',
-                a: 'Меняется количество пройденных шагов.',
-                event: 'nextReply',
-                levelEvent: null,
-            },
-            {
-                q: 'Это место считает шаги?',
-                a: 'Это место ждет.',
-                event: 'close',
-                levelEvent: null,
-            },
-        ]
-    },
-    {
-        phrases: [
-            {
-                q: 'Как давно ты здесь?',
-                a: 'Время не имеет значения, значение имеет лишь путь.',
-                event: 'nextReply',
-                levelEvent: null,
-            },
-            {
-                q: 'Но ты же не идешь.',
-                a: 'Зато ты каждый раз проходишь мимо.',
-                event: 'close',
-                levelEvent: null,
-            },
-        ]
-    },
-    {
-        phrases: [
-            {
-                q: 'Сделай новый уровень.',
-                a: 'Ты готов - новый уровень ждет тебя.',
-                event: 'close',
-                levelEvent: 'addStairs',
-            },
-        ]
-    },
-
-
+  
+  
+     {
+         phrases: [
+             {
+                 q: 'Look bud, next level or not, nothing\'s changed at all !',
+                 a: 'Except the number of steps.',
+                 event: 'nextReply',
+                 levelEvent: null,
+             },
+             {
+                 q: 'So this place counts steps ?',
+                 a: 'This is place is waiting.',
+                 event: 'close',
+                 levelEvent: null,
+             },
+         ]
+     },
+  
+  
+  
+     {
+         phrases: [
+             {
+                 q: 'How long have you been here ?',
+                 a: 'How long is irrelevant. What matters is the journey.',
+                 event: 'nextReply',
+                 levelEvent: null,
+             },
+             {
+                 q: 'Then why aren\'t you on one?',
+                 a: 'With you walking for both of us, I do not have to.',
+                 event: 'close',
+                 levelEvent: null,
+             },
+         ]
+     },
+  
+     {
+         phrases: [
+             {
+                 q: 'Look, just make a new level, please.',
+                 a: 'You are ready. It is waiting for you.',
+                 event: 'close',
+                 levelEvent: 'addStairs',
+             },
+         ]
+     },
+  
+  
     // %%%%%%%%%%%%%%%%%% 5555555 %%%%%%%%%%%%%%%%%%%
-
-    {
-        phrases: [
-            {
-                q: 'Ты и есть это место. Ты управляешь сегментами.',
-                a: 'Ты почти дошел до края.',
-                event: 'nextReply',
-                levelEvent: null,
-            },
-            {
-                q: 'Зачем тебе это?',
-                a: 'Это способ свернуть пространство. Больше движения. Больше сегментов.',
-                event: 'close',
-                levelEvent: null,
-            },
-        ]
-    },
-    {
-        phrases: [
-            {
-                q: 'Как много путников попадало сюда?',
-                a: 'Многие из них до сих пор тут.',
-                event: 'nextReply',
-                levelEvent: null,
-            },
-            {
-                q: 'Почему я их не встретил?',
-                a: 'У каждого своя система сегментов.',
-                event: 'close',
-                levelEvent: null,
-            },
-        ]
-    },
-    {
-        phrases: [
-            {
-                q: 'Ты выпустишь меня?',
-                a: 'Все стороны света открыты тебе.',
-                event: 'nextReply',
-                levelEvent: null,
-            },
-            {
-                q: 'Я хочу встретить других.',
-                a: 'Тебе открыт новый уровень.',
-                event: 'close',
-                levelEvent: 'addStairs',
-            },
-        ]
-    },
-
-
-// %%%%%%%%%%%%%%%%%%% 6666666666666666 %%%%%%%%%%%%%%%%%%
-
-    {
-        phrases: [
-            {
-                q: 'Я вижу зарево?',
-                a: 'Это зарево просветления. Ты близок',
-                event: 'nextReply',
-                levelEvent: null,
-            },
-            {
-                q: 'Все коридоры повторяются.',
-                a: 'Все повторяется с небольшой разницей.',
-                event: 'close',
-                levelEvent: null,
-            },
-        ]
-    },
-    {
-        phrases: [
-            {
-                q: 'Все мой путь окончен.',
-                a: 'Ты отказываешься идти?',
-                event: 'nextReply',
-                levelEvent: null,
-            },
-            {
-                q: 'Да, ты безумен.',
-                a: 'Я освобождаю тебя.',
-                event: 'close',
-                levelEvent: 'addWell',
-            },
-        ]
-    }
-]
-
+  
+     {
+         phrases: [
+             {
+                 q: 'Wait, you are this place! You control all its fragments.',
+                 a: 'You have almost reached the end.',
+                 event: 'nextReply',
+                 levelEvent: null,
+             },
+             {
+                 q: 'Why do you do this ?',
+                 a: 'It is my way to warp space. More movement. More fragments.',
+                 event: 'close',
+                 levelEvent: null,
+             },
+         ]
+     },
+  
+  
+     {
+         phrases: [
+             {
+                 q: 'How many people have been through here ?',
+                 a: 'Many are still here.',
+                 event: 'nextReply',
+                 levelEvent: null,
+             },
+             {
+                 q: 'So where are they?',
+                 a: 'Everyone has a different system of fragments.',
+                 event: 'close',
+                 levelEvent: null,
+             },
+         ]
+     },
+  
+  
+     {
+         phrases: [
+             {
+                 q: 'Will you let me out ?',
+                 a: 'All ways lead to the end.',
+                 event: 'nextReply',
+                 levelEvent: null,
+             },
+             {
+                 q: 'I wanna meet the others.',
+                 a: 'The next level is waiting for you.',
+                 event: 'close',
+                 levelEvent: 'addStairs',
+             },
+         ]
+     },
+  
+    // %%%%%%%%%%%%%%%%%%% 6666666666666666 %%%%%%%%%%%%%%%%%%
+  
+  
+     {
+         phrases: [
+             {
+                 q: 'Everything\'s looped here.',
+                 a: 'Everything is looped with small differences.',
+                 event: 'nextReply',
+                 levelEvent: null,
+             },
+             {
+                 q: 'How many levels even are there ?',
+                 a: 'It all depends on you.',
+                 event: 'close',
+                 levelEvent: null,
+             },
+         ]
+     },
+  
+  
+  
+     {
+         phrases: [
+             {
+                 q: 'That\'s it, I\'m done.',
+                 a: 'Have you reached your journey\'s end ?',
+                 event: 'nextReply',
+                 levelEvent: null,
+             },
+             {
+                 q: 'Yes, you mad bastard! I have !',
+                 a: 'Then I am giving you the sign.',
+                 event: 'close',
+                 levelEvent: 'addWell',
+             },
+         ]
+     },
+  ]  
+  
 
 
 
