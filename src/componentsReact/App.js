@@ -106,11 +106,11 @@ function App(props) {
             {props.isShowFinalMessage && (
                 <div className="info">
                     <div className="info-inner final-message">
-                        <button
-                            className="control butt-infoClose"
-                            onClick={() => showMessages(props.dispatch).toggleFinalMessage(false)}>
-                            x
-                        </button>
+                        {/*<button*/}
+                            {/*className="control butt-infoClose"*/}
+                            {/*onClick={() => showMessages(props.dispatch).toggleFinalMessage(false)}>*/}
+                            {/*x*/}
+                        {/*</button>*/}
                         <p>{t('The end')}</p>
                     </div>
                 </div>)}
@@ -133,7 +133,7 @@ function App(props) {
                             {`2 ${t('chapter')}: `}
                             <a href="http://js.otrisovano.ru/bridge/" target="blank">{ t('link') }</a>
                         </p>
-                        <p>
+                        <p><br /><br />
                             {t('Author: ')}
                             <a href="http://otrisovano.ru" target="blank">{ t('link') }</a>
                         </p>

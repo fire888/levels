@@ -11,7 +11,12 @@ export const startPlay = dispatch => ({
         type: 'CHANGE_ENVIRONMENT',
         newQuadrant: [0, -1, -50],
         environmentMode: 'back',
-    })
+    }),
+    startFinalFog: () => dispatch({
+        type: 'CHANGE_ENVIRONMENT',
+        newQuadrant: [0, -1, -50],
+        environmentMode: 'start',
+    }),
 })
 
 
@@ -52,13 +57,6 @@ export const clickInfo = dispatch => {
 
 
 export const toggleDialog = dispatch => ({
-    changeBot: data => {
-        dispatch({
-            type: 'CHANGE_BOT',
-            phrase: data,
-        })
-    },
-
     clickPhrase: r => {
         dispatch({
             type: 'CLICK_PHRASE',

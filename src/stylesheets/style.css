@@ -70,14 +70,22 @@
 
 button.butt-toggleDialog {
     display: block;
-    bottom: 1.5rem;
+    bottom: 7rem;
     max-width: 30vw;
     min-width: 30vw;
     left: 35vw;
-    padding: 5px;
+    padding: 10px;
     height: auto;
     font-size: 1.1rem;
     z-index: 10;
+}
+
+
+@media (max-width: 900px) {
+    button.butt-toggleDialog {
+        bottom: 1.5rem;
+        padding: 3px;
+    }
 }
 
 
@@ -110,7 +118,7 @@ button.butt-toggleDialog {
     top: 3rem;
     left: 0;
     right: 0;
-    bottom: 4rem;
+    bottom: 11rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -178,6 +186,14 @@ button.butt-toggleDialog {
 
 
 
+@media (max-width: 900px) {
+    .dialog {
+        bottom: 7rem;
+    }
+}
+
+
+
 
 
 
@@ -205,16 +221,17 @@ button.butt-toggleDialog {
     width: 35vw;
     max-height: 40vh;
     min-height: 250px;
-    min-width: 350px;
+    min-width: 250px;
     height: 40vw;
     background: rgba(38, 19, 87, 0.89);
-    padding: 100px 20px;
+    padding: 70px 20px;
     box-sizing: border-box;
     color: white;
     position: relative;
 }
 
 .info-inner p {
+    text-align: center;
     font-size: 2.2em;
     margin-top: .4em;
 }
@@ -222,7 +239,16 @@ button.butt-toggleDialog {
 
 .final-message {
     text-align: center;
+    background: none;
 }
+
+
+
+.final-message p {
+    font-size: 3rem;
+}
+
+
 
 .butt-infoClose {
     position: absolute;

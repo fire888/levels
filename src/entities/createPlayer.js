@@ -7,7 +7,7 @@ import { createComponentCollisionWalls } from '../components/component_collision
 import { createCheckerNearItem } from '../components/component_checkNearItem'
 
 import { FRAME_UPDATE } from '../constants/constants_elements'
-import { showMessages } from '../store/actions'
+import { showMessages, startPlay } from '../store/actions'
 import { pr } from '../componentsReact/App'
 
 
@@ -58,12 +58,6 @@ export function createPlayer (emitterLink) {
         mainObj.add(light)
     }
 
-    {
-      //const { color, strenth, pos } = lightDataTwo
-      //const light = new THREE.PointLight(color, strenth)
-      //light.position.fromArray(pos)
-      //mainObj.add(light)
-    }
 
     const checkFloors = createComponentCollisionFloors(mainObj, offsetFromFloor, offsetFromFloorFactor, speedDown)
     const checkWalls = createComponentCollisionWalls(mainObj, frontObj, offsetWallCollision)
@@ -103,8 +97,11 @@ export function createPlayer (emitterLink) {
         if (countDropped > 800 && !isGameComplete) {
             isGameComplete = true
             setTimeout(() => {
-                showMessages(pr.dispatch).toggleFinalMessage(true)
-            }, 20000)
+                startPlay(pr.dispatch).startFinalFog()
+                setTimeout(() => {
+                    showMessages(pr.dispatch).toggleFinalMessage(true)
+                }, 6000)
+            }, 10000)
         }
     }
 
