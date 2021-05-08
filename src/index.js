@@ -3,6 +3,8 @@ import { KeyBoard } from './helpers/util_keyBoard'
 import { emitter } from './helpers/util_emitter'
 import { createFrameUpdater } from './helpers/util_frameUpater'
 import { createActionByChangedQuadrant } from './store/actionByChangeQuadrant'
+import { startPlay } from './store/actions'
+import { pr } from './componentsReact/App'
 
 import { ASSETS_TO_LOAD } from './constants/constants_elements'
 
@@ -78,6 +80,10 @@ const init = assets => {
     /** UI */
     createInfo(emitter)
     showStartButton(emitter)
+    emitter.subscribe('setLanguage')(() => {
+        setTimeout(startPlay(pr.dispatch).startPlay, 1000)
+        setTimeout(startPlay(pr.dispatch).showBackground, 3000)
+    })
 }
 
 

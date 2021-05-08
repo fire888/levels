@@ -143,7 +143,9 @@ export const FLOORS_CONF = {
    
 
     '-1': {
+        'start': { fogNear: 0, fogFar: 5, color: 0x18257d },
         'outer': { fogNear: 20, fogFar: 500, color: 0x18257d },
+        'back': { fogNear: 20, fogFar: 500, color: 0x18257d, backgroundImgKey: 'skyBox' },
         'firstRoomLight': { fogNear: -40, fogFar: 150, color: 0x00235e},
         'corridorLight': { fogNear: -40, fogFar: 150, color: 0x6b006c },
         'default': { fogNear: -40, fogFar: 150, color: 0x2e118b },

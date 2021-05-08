@@ -1,6 +1,20 @@
 import { emitter } from '../helpers/util_emitter'
 
 
+export const startPlay = dispatch => ({
+    startPlay: () => dispatch({
+        type: 'CHANGE_ENVIRONMENT',
+        newQuadrant: [0, -1, -50],
+        environmentMode: 'outer',
+    }),
+    showBackground: () => dispatch({
+        type: 'CHANGE_ENVIRONMENT',
+        newQuadrant: [0, -1, -50],
+        environmentMode: 'back',
+    })
+})
+
+
 export const showMessages = dispatch => ({
     toggleFinalMessage: val => dispatch({
         type: 'TOGGLE_FINAL_MESSAGE',

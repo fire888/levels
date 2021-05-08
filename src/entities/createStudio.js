@@ -82,6 +82,7 @@ export function createStudio (emitter, assets, store) {
     store.subscribe(() => {
         const newState = store.getState()
         const { fogNear, fogFar, color, backgroundImgKey } = newState.app.sceneEnvironment
+
         if (fogNear !== oldFogNear || fogFar !== oldFogFar || color !== oldColor ) {
             let startData = {
                 color: scene.fog.color,
@@ -112,6 +113,7 @@ export function createStudio (emitter, assets, store) {
 
 
         if (backgroundImgKey !== oldBackgroundImgKey) {
+            oldBackgroundImgKey = backgroundImgKey
             scene.background = assets[backgroundImgKey] || null
         }
     })

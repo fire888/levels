@@ -360,10 +360,10 @@ const DIALOGS_DATA = [
 
 const appData = {
     sceneEnvironment: {
-        color: FLOORS_CONF['-1']['outer'].color,
-        fogNear: FLOORS_CONF['-1']['outer'].fogNear,
-        fogFar: FLOORS_CONF['-1']['outer'].fogFar,
-        backgroundImgKey: 'skyBox',
+        color: FLOORS_CONF['-1']['start'].color,
+        fogNear: FLOORS_CONF['-1']['start'].fogNear,
+        fogFar: FLOORS_CONF['-1']['start'].fogFar,
+        //backgroundImgKey: 'skyBox',
     },
 
     // sceneEnvironment: {
@@ -458,7 +458,7 @@ const app = function(state = appData, action) {
 
         if (!FLOORS_CONF[newQuadrant[1]]) return state;
 
-        const { fogNear, fogFar, color } = FLOORS_CONF[newQuadrant[1]][environmentMode]
+        const { fogNear, fogFar, color, backgroundImgKey } = FLOORS_CONF[newQuadrant[1]][environmentMode]
 
         return ({
             ...state,
@@ -466,6 +466,7 @@ const app = function(state = appData, action) {
                 fogNear,
                 fogFar,
                 color,
+                backgroundImgKey,
             }
         })
     }
