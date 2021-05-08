@@ -1,11 +1,13 @@
 import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
-import {
-    studioConfig,
-    //FLOORS_COLORS,
-    FLOORS_CONF,
-} from '../constants/constants_elements'
+import { studioConfig } from '../constants/constants_elements'
 import { FRAME_UPDATE } from '../constants/constants_elements'
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
+import { Saturate } from '../shaders/saturate'
+
+
 
 
 
@@ -39,10 +41,15 @@ export function createStudio (emitter, assets, store) {
     let camera = null
 
 
+    const composer = new EffectComposer(renderer)
+    //composer.addPass(new RenderPass(scene, camera))
+
+
 
     const resize = () => {
         const size = { width: window.innerWidth, height: window.innerHeight }
         renderer.setSize(size.width, size.height)
+        composer.setSize(size.width, size.height)
         if (camera) {
             camera.aspect = size.width/size.height
             camera.updateProjectionMatrix()
@@ -55,7 +62,8 @@ export function createStudio (emitter, assets, store) {
 
 
     const addToScene = scene.add.bind(scene)
-    const drawFrame = () => camera && renderer.render(scene, camera)
+    //const drawFrame = () => camera && renderer.render(scene, camera)
+    const drawFrame = () => camera && composer.render(scene, camera)
     emitter.subscribe(FRAME_UPDATE)(drawFrame)
 
 
@@ -111,7 +119,13 @@ export function createStudio (emitter, assets, store) {
 
 
     return {
-        setCamera: cam => camera = cam,
+        setCamera: cam => {
+
+            camera = cam
+            composer.addPass(new RenderPass(scene, cam))
+            composer.addPass(new ShaderPass(Saturate))
+
+        },
         addToScene,
     }
 }

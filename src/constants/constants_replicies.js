@@ -3,6 +3,7 @@ export const TRANSLATE_WORLDS = {
         'open dialog': 'начать диалог',
         'close dialog': 'закончить диалог',
         'The end.': 'Это конец.',
+        'chapter': 'глава',
 
 
 

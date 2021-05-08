@@ -126,8 +126,12 @@ function App(props) {
                             x
                         </button>
                         <p>
-                            {t('Previous part: ')}
-                            <a href="http://js.otrisovano.ru/bridge" target="blank">{ t('link') }</a>
+                            {`1 ${t('chapter')}: `}
+                            <a href="http://js.otrisovano.ru/factory/" target="blank">{ t('link') }</a>
+                        </p>
+                        <p>
+                            {`2 ${t('chapter')}: `}
+                            <a href="http://js.otrisovano.ru/bridge/" target="blank">{ t('link') }</a>
                         </p>
                         <p>
                             {t('Author: ')}
@@ -135,7 +139,7 @@ function App(props) {
                         </p>
                         <p>
                             {t('Github: ')}
-                            <a href="https://github.com/fire888/levels\" target="blank">{ t('link') }</a>
+                            <a href="https://github.com/fire888/levels/" target="blank">{ t('link') }</a>
                         </p>
                     </div>
                 </div>)}

@@ -278,14 +278,14 @@ const DIALOGS_DATA = [
     {
         phrases: [
             {
-                q: 'Как много путников попадало сюда.',
-                a: 'Много и они до сих пор здесь.',
+                q: 'Как много путников попадало сюда?',
+                a: 'Многие из них до сих пор тут.',
                 event: 'nextReply',
                 levelEvent: null,
             },
             {
                 q: 'Почему я их не встретил?',
-                a: 'У каждого своя система сегментов и свой наставник.',
+                a: 'У каждого своя система сегментов.',
                 event: 'close',
                 levelEvent: null,
             },
@@ -316,15 +316,15 @@ const DIALOGS_DATA = [
 {
     phrases: [
         {
-            q: 'Все повторяется.',
-            a: 'Все повторяется с небольшой разницей.',
+            q: 'Я вижу зарево?',
+            a: 'Это зарево просветления. Ты близок',
             event: 'nextReply',
             levelEvent: null,
         },
         {
-            q: 'Как много этажей еще ждет меня?',
-            a: 'Все зависит от тебя.',
-            event: 'close',
+            q: 'Все коридоры повторяются.',
+            a: 'Все повторяется с небольшой разницей.',
+            event: 'nextReply',
             levelEvent: null,
         },
     ]
@@ -365,6 +365,13 @@ const appData = {
         fogFar: FLOORS_CONF['-1']['outer'].fogFar,
         backgroundImgKey: 'skyBox',
     },
+
+    // sceneEnvironment: {
+    //     color: FLOORS_CONF['-1']['outer'].color,
+    //     fogNear: FLOORS_CONF['-1']['outer'].fogNear,
+    //     fogFar: FLOORS_CONF['-1']['outer'].fogFar,
+    //     backgroundImgKey: 'skyBox',
+    // },
 
     playerQuadrant: {
         oldQuadrant: [0, 0, 0],
