@@ -27,25 +27,12 @@ function App(props) {
 
     return (
         <div className="ui">
-            {props.isShowClickFullScreen && (
+            {props.isButtonDialog && (
                 <button
-                    className="butt-fullscreen control"
-                    onClick={() => {
-                        emitter.emit('mouseDown')('butt-fullscreen')
-                        clickFullScreen(props.dispatch).clickFullScreen()
-                    }}>
-                    &#10066;
+                    className="butt-toggleDialog"
+                    onClick={() => {toggleDialog(props.dispatch).toggleDialog(!props.isDialog)}}>
+                    {props.isDialog ? t('close dialog') : t('open dialog') }
                 </button>)}
-
-
-
-            {!props.isDialog && !props.isShowInfo && (
-                <button
-                    className="butt-info control"
-                    onClick={() => clickInfo(props.dispatch).clickInfo(true)}>
-                    i
-                </button>)}
-
 
 
             {!props.isDialog && (
@@ -84,12 +71,25 @@ function App(props) {
 
 
 
-            {props.isButtonDialog && (
+            {!props.isDialog && props.isShowClickFullScreen && (
                 <button
-                    className="butt-toggleDialog"
-                    onClick={() => {toggleDialog(props.dispatch).toggleDialog(!props.isDialog)}}>
-                    {props.isDialog ? t('close dialog') : t('open dialog') }
+                    className="butt-fullscreen control"
+                    onClick={() => {
+                        emitter.emit('mouseDown')('butt-fullscreen')
+                        clickFullScreen(props.dispatch).clickFullScreen()
+                    }}>
+                    &#10066;
                 </button>)}
+
+
+
+            {!props.isDialog && !props.isShowInfo && (
+                <button
+                    className="butt-info control"
+                    onClick={() => clickInfo(props.dispatch).clickInfo(true)}>
+                    i
+                </button>)}
+
 
 
 
