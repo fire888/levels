@@ -49,11 +49,11 @@ export function createDeviceResizer (emitter) {
 
 
 
-const checkTouch = () => 
-    navigator.maxTouchPoints || 'ontouchstart' in document.documentElement
-
-
-
-const checkIsCanOrientation = () => 
-    typeof window.orientation !== 'undefined'
+// const checkTouch = () =>
+//     navigator.maxTouchPoints || 'ontouchstart' in document.documentElement
+//
+//
+//
+// const checkIsCanOrientation = () =>
+//     typeof window.orientation !== 'undefined'
 

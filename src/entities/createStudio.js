@@ -12,7 +12,7 @@ import { Saturate } from '../shaders/saturate'
 
 
 export function createStudio (emitter, assets, store) {
-    const { canId, rendererCon, clearColor, fogData, amb } = studioConfig
+    const { canId, rendererCon, clearColor, amb } = studioConfig
 
     const canvas = document.getElementById(canId)
     rendererCon.canvas = canvas

@@ -37,8 +37,12 @@ export class Bot {
         this.model.children[1].material = Bot.botMaterial
         this._animations = Bot.botScene.animations
         this._mixer = new THREE.AnimationMixer(this.model.children[1])
-        this._walkAction = this._mixer.clipAction(this._animations[0])
+        this._walkAction = this._mixer.clipAction(this._animations[1])
         this._walkAction.play()
+        this._walkAction.timeScale = .7
+
+        this._speakAction = this._mixer.clipAction(this._animations[0])
+        this._speakAction.timeScale = .4
 
         this._modelGroup.add(this.model)
     }
@@ -70,7 +74,8 @@ export class Bot {
 
     prepareToSay (pos) {
         this._state = 'say'
-
+        this._walkAction.stop()
+        this._speakAction.play()
         this._modelGroup.lookAt(pos.x, this.container.position.y, pos.z)
     }
 
@@ -81,7 +86,7 @@ export class Bot {
         if (this._state === 'go') {
             const isNear = this._componentCollision.check()
             if (!isNear) {
-                this._modelGroup.translateZ(0.1)
+                this._modelGroup.translateZ(0.05)
             } else {
                 this._startRotate()
             }
@@ -99,6 +104,8 @@ export class Bot {
 
     _startGo () {
         this._state = 'go'
+        this._walkAction.play()
+        this._speakAction.stop()
     }
 
 

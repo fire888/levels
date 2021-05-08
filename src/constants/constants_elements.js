@@ -1,5 +1,3 @@
-import { DoubleSide } from 'three'
-
 import pxjpg from '../assets/skybox/px.jpg'
 import nxjpg from '../assets/skybox/nx.jpg'
 import pyjpg from '../assets/skybox/py.jpg'
@@ -14,12 +12,11 @@ import nyjpg2 from '../assets/matIronBox/negy.jpg'
 import pzjpg2 from '../assets/matIronBox/posz.jpg'
 import nzjpg2 from '../assets/matIronBox/negz.jpg'
 
-import mapBump from '../assets/map-walls-bump.png'
 import levelRoomsSrc from '../assets/level-rooms.obj'
 import mapFloorOuter from '../assets/floor_outer_map.jpg'
 
 import botMap from '../assets/botMap.png'
-import botSrc from '../assets/botAnim.glb'
+import botSrc from '../assets/botAnim2.glb'
 
 
 
@@ -44,10 +41,6 @@ export const ASSETS_TO_LOAD = [
         type: 'img',
         filename: botMap,
         key: 'botMap',
-    }, {
-        type: 'img',
-        filename: mapBump,
-        key: 'bumpWalls',
     }, {
         type: 'img',
         filename: mapFloorOuter,

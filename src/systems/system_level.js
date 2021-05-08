@@ -16,7 +16,6 @@ import { S, H } from '../constants/constants_elements'
 
 const STANDART_ROOMS = ['room_02', 'room_03', 'room_04', 'room_05']
 const START_ROOMS = ['outer_walls', 'outer_floor', 'outer_road']
-const EXIT_ROOMS = ['room_07']
 
 
 
@@ -27,7 +26,6 @@ export function createLevel (emitter, rooms, allMeshes, store) {
     const objRooms = {}
 
 
-    let isBotLevel = false
     //let isCanAddStairs = false
     let state = 'normal' // 'addBot' || 'addStairs' || 'addWell'
 
@@ -71,9 +69,6 @@ export function createLevel (emitter, rooms, allMeshes, store) {
         removeItemFromWallCollision(objRooms[objKey])
         delete objRooms[objKey]
 
-        if (instanceKey === 'room_01') {
-            isBotLevel = false
-        }
 
         emitter.emit('levelChanged')({
             typeLevelChange: 'destroyRoom',
@@ -138,7 +133,7 @@ export function createLevel (emitter, rooms, allMeshes, store) {
         }
 
 
-        const { type, levelState, oldQuadrant, newQuadrant, counter } = newState.app.playerQuadrant
+        const { type, oldQuadrant, newQuadrant, counter } = newState.app.playerQuadrant
 
 
         if ( type !== 'CHANGE_QUADRANT' ) return;

@@ -291,7 +291,7 @@ const DIALOGS_DATA = [
             {
                 q: 'Все коридоры повторяются.',
                 a: 'Все повторяется с небольшой разницей.',
-                event: 'nextReply',
+                event: 'close',
                 levelEvent: null,
             },
         ]

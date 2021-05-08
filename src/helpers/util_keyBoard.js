@@ -38,10 +38,8 @@ export function KeyBoard (emitter) {
 
 
 
-    document.addEventListener( 'keydown',
-      function (event) { keyUpdate( event.keyCode, true )}.bind(this) )
-    document.addEventListener( 'keyup',
-      function(event) { keyUpdate( event.keyCode, false )}.bind(this) )
+    document.addEventListener('keydown', event => keyUpdate(event.keyCode, true))
+    document.addEventListener('keyup', event => keyUpdate(event.keyCode, false))
 
 
 

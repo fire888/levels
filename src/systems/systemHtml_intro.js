@@ -15,7 +15,7 @@ const loaderTimeOut = () => {
 
       setTimeout(() => {
             offsetLoader ++;
-            offsetLoader == 0 && (offsetLoader = -100)
+            offsetLoader === 0 && (offsetLoader -= 100)
             loader.style.marginLeft = offsetLoader + '%'
             loaderTimeOut()
       }, 30)

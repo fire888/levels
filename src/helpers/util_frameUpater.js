@@ -23,7 +23,7 @@ export function createFrameUpdater (eventEmitter) {
 
     const updateDelta = data => { 
         data.delta = (data.time - data.oldTime) * 0.001
-        if (isNaN(data.delta) || data.delta > 1000 || data.delta == 0 ) {
+        if (isNaN(data.delta) || data.delta > 1000 || data.delta === 0 ) {
             data.delta = 1000/60 * 0.001;
         }
         return data
@@ -49,10 +49,10 @@ export function createFrameUpdater (eventEmitter) {
         return data
     }
 
-    const logger = data => {
-        console.log(data)
-        return data
-    } 
+    // const logger = data => {
+    //     console.log(data)
+    //     return data
+    // }
 
     const update = R.pipe(
         getDataFromGlobalVar,

@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 import { FRAME_UPDATE } from '../constants/constants_elements'
-import { MAT_IRON } from '../constants/constants_elements'
 import { Bot } from '../entities/Bot'
 import { pr } from '../componentsReact/App'
 import { toggleDialog } from '../store/actions'
@@ -8,7 +7,6 @@ import { toggleDialog } from '../store/actions'
 
 const S = 175.335
 const H = 70
-//const H_BOT = 14.193
 const H_BOT = 14
 
 

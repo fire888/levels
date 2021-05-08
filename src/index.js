@@ -16,7 +16,6 @@ import { createPlayer } from './entities/createPlayer'
 
 
 import { showStartButton } from './systems/systemHtml_intro'
-import { createInfo } from './systems/systemHtml_info'
 import { createLevel } from './systems/system_level'
 import { createSystemBots } from './systems/system_bots'
 
@@ -78,7 +77,6 @@ const init = assets => {
 
 
     /** UI */
-    createInfo(emitter)
     showStartButton(emitter)
     emitter.subscribe('setLanguage')(() => {
         setTimeout(startPlay(pr.dispatch).startPlay, 1000)

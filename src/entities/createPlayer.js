@@ -21,7 +21,6 @@ export function createPlayer (emitterLink) {
         cameraData,
         frontObjPos,
         lightDataOne,
-        lightDataTwo,
         speed,
         offsetFromFloor,
         offsetFromFloorFactor,

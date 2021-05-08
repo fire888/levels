@@ -2,7 +2,7 @@ export const TRANSLATE_WORLDS = {
     'ru': {
         'open dialog': 'начать диалог',
         'close dialog': 'закончить диалог',
-        'The end.': 'Это конец.',
+        'To be continued': 'Продолжение следует',
         'chapter': 'глава',
 
 

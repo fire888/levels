@@ -2,7 +2,7 @@ import { UserReplicies } from './UserReplicies'
 import { BotAnswers } from './BotAnswers'
 
 import { connect } from 'react-redux'
-import { toggleDialog, clickFullScreen, clickInfo, showMessages } from '../store/actions'
+import { toggleDialog, clickFullScreen, clickInfo } from '../store/actions'
 import { emitter } from '../helpers/util_emitter'
 import { t } from '../helpers/util_translate'
 
@@ -111,7 +111,7 @@ function App(props) {
                             {/*onClick={() => showMessages(props.dispatch).toggleFinalMessage(false)}>*/}
                             {/*x*/}
                         {/*</button>*/}
-                        <p>{t('The end')}</p>
+                        <p>{t('To be continued')}</p>
                     </div>
                 </div>)}
 
