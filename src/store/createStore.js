@@ -11,6 +11,10 @@ const BBBB = 0
 console.log(BBBB)
 
 
+const CCCC = 0
+console.log(CCCC)
+
+
 const DIALOGS_DATA = [
     {
      phrases: [
