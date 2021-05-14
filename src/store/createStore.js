@@ -4,15 +4,7 @@ import { combineReducers } from 'redux'
 import { FLOORS_CONF } from '../constants/constants_elements'
 
 
-const AAAA = 0
-console.log(AAAA)
 
-const BBBB = 0
-console.log(BBBB)
-
-
-const CCCC = 0
-console.log(CCCC)
 
 
 const DIALOGS_DATA = [
