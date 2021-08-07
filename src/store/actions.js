@@ -1,4 +1,8 @@
-import { emitter } from '../helpers/util_emitter'
+//import { emitter } from '../helpers/util_emitter'
+let emitter = null
+export const connectEmitterToActions = em => {
+    emitter = em
+}
 
 
 export const startPlay = dispatch => ({
@@ -69,7 +73,7 @@ export const toggleDialog = dispatch => ({
                 phrase: r,
             })
 
-            r.levelEvent && emitter.emit('changeLevelMode')(r.levelEvent)
+            r.levelEvent && emitter && emitter.emit('changeLevelMode')(r.levelEvent)
         }, 1000)
     },
 

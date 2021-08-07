@@ -3,7 +3,7 @@ import { BotAnswers } from './BotAnswers'
 
 import { connect } from 'react-redux'
 import { toggleDialog, clickFullScreen, clickInfo } from '../store/actions'
-import { emitter } from '../helpers/util_emitter'
+// import { emitter } from '../helpers/util_emitter'
 import { t } from '../helpers/util_translate'
 
 
@@ -21,7 +21,7 @@ const mapStateToProps = state => ({
 
 
 function App(props) {
-    !pr.dispatch && (pr.dispatch = props.dispatch)
+    !dispatcher.dispatch && (dispatcher.dispatch = props.dispatch)
 
 
 
@@ -38,10 +38,11 @@ function App(props) {
             {!props.isDialog && (
                 <button
                     className="butt-left control"
-                    onMouseDown={() => emitter.emit('mouseDown')('butt-left')}
-                    onTouchStart={() => emitter.emit('mouseDown')('butt-left')}
-                    onMouseUp={() => emitter.emit('mouseUp')('butt-left')}
-                    onTouchEnd={() => emitter.emit('mouseUp')('butt-left')}>
+                    onMouseDown={() => props.gameContext.emitter.emit('mouseDown')('butt-left')}
+                    onTouchStart={() => props.gameContext.emitter.emit('mouseDown')('butt-left')}
+                    onMouseUp={() => props.gameContext.emitter.emit('mouseUp')('butt-left')}
+                    onTouchEnd={() => props.gameContext.emitter.emit('mouseUp')('butt-left')}
+                    >
                     &#9668;
                 </button>)}
 
@@ -50,10 +51,11 @@ function App(props) {
             {!props.isDialog && (
                 <button
                     className="butt-right control"
-                    onMouseDown={() => emitter.emit('mouseDown')('butt-right')}
-                    onTouchStart={() => emitter.emit('mouseDown')('butt-right')}
-                    onMouseUp={() => emitter.emit('mouseUp')('butt-right')}
-                    onTouchEnd={() => emitter.emit('mouseUp')('butt-right')}>
+                    onMouseDown={() => props.gameContext.emitter.emit('mouseDown')('butt-right')}
+                    onTouchStart={() => props.gameContext.emitter.emit('mouseDown')('butt-right')}
+                    onMouseUp={() => props.gameContext.emitter.emit('mouseUp')('butt-right')}
+                    onTouchEnd={() => props.gameContext.emitter.emit('mouseUp')('butt-right')}
+                    >
                     &#9658;
                 </button>)}
 
@@ -62,10 +64,11 @@ function App(props) {
             {!props.isDialog && (
                 <button
                     className="butt-front control"
-                    onMouseDown={() => emitter.emit('mouseDown')('butt-front')}
-                    onTouchStart={() => emitter.emit('mouseDown')('butt-front')}
-                    onMouseUp={() => emitter.emit('mouseUp')('butt-front')}
-                    onTouchEnd={() => emitter.emit('mouseUp')('butt-front')}>
+                    onMouseDown={() => props.gameContext.emitter.emit('mouseDown')('butt-front')}
+                    onTouchStart={() => props.gameContext.emitter.emit('mouseDown')('butt-front')}
+                    onMouseUp={() => props.gameContext.emitter.emit('mouseUp')('butt-front')}
+                    onTouchEnd={() => props.gameContext.emitter.emit('mouseUp')('butt-front')}
+                    >
                     &#9650;
                 </button>)}
 
@@ -75,7 +78,7 @@ function App(props) {
                 <button
                     className="butt-fullscreen control"
                     onClick={() => {
-                        emitter.emit('mouseDown')('butt-fullscreen')
+                        props.gameContext.emitter.emit('mouseDown')('butt-fullscreen')
                         clickFullScreen(props.dispatch).clickFullScreen()
                     }}>
                     &#10066;
@@ -149,6 +152,6 @@ function App(props) {
 
 
 
-export const pr = { dispatch: null }
+export const dispatcher = { dispatch: null }
 
 export default connect(mapStateToProps)(App);

@@ -23,27 +23,27 @@ import botSrc from '../assets/botAnim2.glb'
 export const ASSETS_TO_LOAD = [
     {
         type: 'obj',
-        filename: levelRoomsSrc,
+        path: levelRoomsSrc,
         key: 'level-rooms'
     }, {
         type: 'glb',
-        filename: botSrc,
+        path: botSrc,
         key: 'bot'
     }, {
         type: 'cubeTextures',
-        filename: { px: pxjpg, nx: nxjpg, py: pyjpg, ny: nyjpg, pz: pzjpg, nz: nzjpg, },
+        path: [ pxjpg, nxjpg, pyjpg, nyjpg, pzjpg, nzjpg, ],
         key: 'skyBox'
     }, {
         type: 'cubeTextures',
-        filename: { px: pxjpg2, nx: nxjpg2, py: pyjpg2, ny: nyjpg2, pz: pzjpg2, nz: nzjpg2, },
+        path: [  pxjpg2, nxjpg2, pyjpg2, nyjpg2, pzjpg2, nzjpg2, ],
         key: 'ironEnv',
     }, {
         type: 'img',
-        filename: botMap,
+        path: botMap,
         key: 'botMap',
     }, {
         type: 'img',
-        filename: mapFloorOuter,
+        path: mapFloorOuter,
         key: 'mapFloorOuter',
         wrap: true,
 },]
@@ -187,7 +187,7 @@ export const playerConfig = {
     offsetWallCollision: 3.5,
     level: -13,
     startRot: [0, 0, 0],
-    startPos: [100, -60, 1000],
+    startPos: [100, -78, 1000],
     //startPos: [90, -10, 360.7140705920112], // beginPlay
     cameraData: {
         fov: 90,
@@ -198,14 +198,8 @@ export const playerConfig = {
     },
     frontObjPos: [0, 0, -1],
     lightDataOne: {
-        //color: 0xc2d4f3,
         color: 0xffffff,
         strength: 5000,
         pos: [0, 50, 5],
     },
-    // lightDataTwo: {
-    //     color: 0xff0000,
-    //     strength: 0.2,
-    //     pos: [0, -30, 40],
-    // },
 }

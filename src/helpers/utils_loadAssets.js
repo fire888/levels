@@ -4,74 +4,56 @@ import { GLTFLoader } from  'three/examples/jsm/loaders/GLTFLoader'
 
 
 
-let callback = null
-let dataToLoad = null
-const assets = {}
-let objLoader, textureLoader, gltfLoader, cubeTextureLoader
-let index = 0
 
+const createLoaders = () => {
+    let objLoader = null,
+        textureLoader = null,
+        gltfLoader = null,
+        cubeTextureLoader = null
 
-
-const loadAsset = function (data) {
-    if (data.type === 'obj') {
-        objLoader.load(data.filename, model => {
-            assets[data.key] = model
-            checkComplete()        
-        })
+    const getterLoader = type => {
+        if (type === 'obj')
+            return objLoader = (objLoader || new OBJLoader())
+        if (type === 'glb' || type === 'gltf')
+            return gltfLoader = (gltfLoader || new GLTFLoader())
+        if (type === 'img')
+            return textureLoader = (textureLoader || new THREE.TextureLoader())
+        if (type === 'cubeTextures')
+            return cubeTextureLoader = (cubeTextureLoader || new THREE.CubeTextureLoader())
     }
-    if (data.type === 'glb' || data.type === 'gltf') {
-        gltfLoader.load(data.filename, model => {
-            assets[data.key] = model
-            checkComplete()        
-        })
-    }        
-    if (data.type === 'img') {
-        textureLoader.load(data.filename, model => {
-            assets[data.key] = model
-            checkComplete()        
-        })
+
+    return (path, type) => new Promise(resolve => getterLoader(type).load(path, resolve))
+}
+
+
+
+
+export class LoaderAssets {
+
+    constructor() {
+        this.resources = {}
+        this._load = createLoaders()
     }
-    if (data.type === 'cubeTextures') {
-        cubeTextureLoader.load(
-            [
-                data.filename['px'],
-                data.filename['nx'],
-                data.filename['py'],
-                data.filename['ny'],
-                data.filename['pz'],
-                data.filename['nz'],
-            ],
-            result => {
-                assets[data.key] = result
-                checkComplete()
+
+    loadAssets (data) {
+        return new Promise(resolve => {
+
+            const load = this._load
+            const resources = this.resources
+
+            async function iterate (index) {
+                if (data[index]) {
+                    const { key, path, type } = data[index]
+                    resources[key] = await load(path, type)
+                }
+
+                ++index
+                !data[index]
+                    ? resolve(resources)
+                    : await iterate(index)
             }
-        )
+
+           void iterate(0)
+        })
     }
 }
-
-
-
-const checkComplete = () => {
-    index ++
-    index < dataToLoad.length 
-        ? loadAsset(dataToLoad[index])
-        : callback(assets)
-}
-
-
-
-export const loadAssets = data => {
-    return new Promise(resolve => {
-        dataToLoad = data
-        callback = resolve
-        index = 0
-
-        objLoader = objLoader || new OBJLoader()
-        textureLoader = textureLoader || new THREE.TextureLoader()
-        gltfLoader = gltfLoader || new GLTFLoader()
-        cubeTextureLoader = cubeTextureLoader || new THREE.CubeTextureLoader()
-
-        loadAsset(dataToLoad[index])
-    })
-}
-

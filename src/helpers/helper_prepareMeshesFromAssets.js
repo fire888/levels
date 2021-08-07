@@ -2,49 +2,46 @@ import { MATERIALS_CONFIG } from '../constants/constants_elements'
 import * as THREE from 'three'
 
 
+export class PrepareMeshes {
+    constructor (gameContext) {
+        const { assets } = gameContext
 
-export function prepareMeshesFromAssets (assets) {
-    const
-        materials = createMaterials(assets),
-        rooms = {},
-        allMeshes = {}
 
-    assets.collisionsBotsRooms = {}
+        this.materials = createMaterials(assets)
+        this.rooms = {}
+        this.allMeshes = {}
 
-    assets['level-rooms'].traverse(child => {
-        if (child.name.includes("room_")) {
-            const mesh = new THREE.Mesh(child.geometry, materials.wall)
-            rooms[child.name] = mesh
-            mesh.name = child.name
-            allMeshes[child.name] = mesh
-        }
-        if (child.name.includes("collision_")) {
-            const mesh = new THREE.Mesh(child.geometry)
-            assets.collisionsBotsRooms[child.name] = mesh
-            mesh.name = child.name
-            allMeshes[child.name] = mesh
-        }
-        if (child.name.includes("outer_walls")) {
-            const mesh = new THREE.Mesh(child.geometry, materials.wall)
-            mesh.name = child.name
-            allMeshes[child.name] = mesh
-        }
-        if (child.name.includes("outer_road")) {
-            const mesh = new THREE.Mesh(child.geometry, materials.green)
-            mesh.name = child.name
-            allMeshes[child.name] = mesh
-        }
-        if (child.name.includes("outer_floor")) {
-            const mesh = new THREE.Mesh(child.geometry, materials.road)
-            mesh.name = child.name
-            allMeshes[child.name] = mesh
-        }  
-    })
+        gameContext.assets.collisionsBotsRooms = {}
 
-    return {
-        rooms,
-        allMeshes,
-        materials,
+        assets['level-rooms'].traverse(child => {
+            if (child.name.includes("room_")) {
+                const mesh = new THREE.Mesh(child.geometry, this.materials.wall)
+                this.rooms[child.name] = mesh
+                mesh.name = child.name
+                this.allMeshes[child.name] = mesh
+            }
+            if (child.name.includes("collision_")) {
+                const mesh = new THREE.Mesh(child.geometry)
+                assets.collisionsBotsRooms[child.name] = mesh
+                mesh.name = child.name
+                this.allMeshes[child.name] = mesh
+            }
+            if (child.name.includes("outer_walls")) {
+                const mesh = new THREE.Mesh(child.geometry, this.materials.wall)
+                mesh.name = child.name
+                this.allMeshes[child.name] = mesh
+            }
+            if (child.name.includes("outer_road")) {
+                const mesh = new THREE.Mesh(child.geometry, this.materials.green)
+                mesh.name = child.name
+                this.allMeshes[child.name] = mesh
+            }
+            if (child.name.includes("outer_floor")) {
+                const mesh = new THREE.Mesh(child.geometry, this.materials.road)
+                mesh.name = child.name
+                this.allMeshes[child.name] = mesh
+            }
+        })
     }
 }
 

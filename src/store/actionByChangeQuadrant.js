@@ -1,6 +1,6 @@
-import { emitter } from '../helpers/util_emitter'
+//import { emitter } from '../helpers/util_emitter'
 import { S, H } from '../constants/constants_elements'
-import { pr } from '../componentsReact/App'
+//import { pr } from '../componentsReact/App'
 
 
 export const START_LAYER_STATE = 'outer'
@@ -191,29 +191,27 @@ export const CHANGE_LAYER_STATE = [
 
 
 
+export class ChangerQuadrant {
+    constructor(gameContext) {
+        const { pr, emitter } = gameContext
+        const checkerNewQuadrant = createCheckerNewQuadrant()
 
 
+        emitter.subscribe('playerMove')(pos => {
+            const data = checkerNewQuadrant.update(pos)
+            const { currentQuadrant, oldQuadrant, isChanged } = data
 
-export const createActionByChangedQuadrant = () => {
-    const checkerNewQuadrant = createCheckerNewQuadrant()
+            if (!isChanged) return;
 
+            const arrEmitData = getEmitsByChangeQuadrant(oldQuadrant, currentQuadrant)
 
-    emitter.subscribe('playerMove')(pos => {
-        const data = checkerNewQuadrant.update(pos)
-        const { currentQuadrant, oldQuadrant, isChanged } = data
-
-        if (!isChanged) return;
-
-        const arrEmitData = getEmitsByChangeQuadrant(oldQuadrant, currentQuadrant)
-
-        arrEmitData.length && arrEmitData.forEach(item => pr.dispatch({
-            ...item,
-            type: item.emitKey,
-        }))
-    })
+            arrEmitData.length && arrEmitData.forEach(item => pr.dispatch({
+                ...item,
+                type: item.emitKey,
+            }))
+        })
+    }
 }
-
-
 
 
 
